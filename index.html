@@ -169,6 +169,26 @@ dialog{border:0;border-radius:24px;max-width:480px;width:calc(100% - 32px);paddi
 .holiday-mini-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.holiday-mini-links a{font-size:.82rem;font-weight:800;color:#315c43;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:650px){.holiday-mini-wrap{padding:0 16px;margin-top:14px}.holiday-mini{grid-template-columns:auto minmax(0,1fr);gap:12px;padding:14px}.holiday-mini-icon{width:50px;height:50px;font-size:29px}.holiday-mini-action{grid-column:1/-1;text-align:center}.holiday-mini p{font-size:.84rem}}
 
+
+/* Clean, page-based navigation */
+header{align-items:flex-start;flex-wrap:wrap;padding-top:14px;padding-bottom:14px;gap:12px}
+.brand{flex-shrink:0;text-decoration:none;color:var(--ink)}
+nav{flex:1;justify-content:flex-end;gap:6px 8px;flex-wrap:wrap}
+nav a{display:inline-flex;align-items:center;padding:9px 12px;border-radius:999px;background:#fffdf8;border:1px solid var(--line);font-size:.84rem;white-space:nowrap}
+nav a:hover,nav a[aria-current="page"]{background:var(--green);border-color:var(--green);color:#fff}
+.hero{padding-top:38px;padding-bottom:28px;gap:24px}
+.hero-art{min-height:300px}
+main{padding-top:4px}
+body[data-page="home"] .hero{padding-top:34px;padding-bottom:22px}
+body[data-page="home"] .hero h1{max-width:700px}
+body[data-page="home"] .hero-art{min-height:280px}
+body[data-page="home"] main{max-width:1050px}
+body[data-page="home"] #daily-flavor{margin-top:8px}
+body[data-page]:not([data-page="home"]) .hero,body[data-page]:not([data-page="home"]) .holiday-mini-wrap{display:none!important}
+.page-intro{margin:26px 0 18px;padding:20px 24px;border-radius:22px;background:#e7efda;border:1px solid #d4e2c7}
+.page-intro h1{font-size:clamp(2rem,4vw,3.2rem);margin:0 0 7px;letter-spacing:-.06em}
+.page-intro p{margin:0;color:var(--muted);line-height:1.55}
+@media(max-width:760px){header{align-items:center}nav{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;width:100%;padding:2px 0 7px;scrollbar-width:thin}nav a{flex-shrink:0}.hero{padding-top:28px}.hero-art{min-height:240px}}
 </style>
 
 <style id="blend-buddy-compact-upgrades">
@@ -194,7 +214,7 @@ header nav a{flex-shrink:0}
 <body>
 <header>
   <div class="brand"><span class="logo">🥤</span> Blend Buddy</div>
-  <nav><a class="chef-quick-button" href="#chef-ai-chat">🤖 Chat with Chef AI</a><a id="chef-quick-button" class="chef-quick-button" href="#chef">👨‍🍳 Ask Chef</a><a href="#chef">Chef 👨‍🍳</a><a href="#mystery-machine">Mystery Machine 🎰</a><a href="#recipes">Recipes</a><a href="#pantry-snap">Pantry Snap 📸</a><a href="#flavor-passport">Flavor Passport</a><a href="#build-your-own">Build a blend</a><a href="#flavor-lab">Flavor Lab 🧪</a><a href="#holiday-boss-battles">Boss Battles 🏆</a><a href="#holiday-specials" data-season-link="any">Holiday specials</a><a href="#tips">Blend tips</a></nav>
+  <nav aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a><a href="?page=tips" data-page-link="tips">💡 Tips</a></nav>
 </header>
 <section class="hero">
   <div>
@@ -1324,6 +1344,41 @@ updateDailyFlavor();
 
   // Holiday links always point to the current active seasonal section when clicked.
   document.querySelectorAll('[data-season-link="any"]').forEach(link=>link.addEventListener('click',()=>{if(!link.getAttribute('href'))link.href='#holiday-specials';}));
+})();
+</script>
+
+<script>
+// Blend Buddy page navigation: each feature has its own shareable URL.
+(function(){
+  const pageNames={home:'Home',recipes:'Recipes',mystery:'Mystery Flavor Machine',create:'Create a Blend',pantry:'Pantry Snap',chef:'Chef',passport:'Flavor Passport',holidays:'Holiday Specials',tips:'Blend Tips'};
+  const pageGroups={
+    home:['#daily-flavor'],
+    recipes:['#recipes'],
+    mystery:['#mystery-machine'],
+    create:['#build-your-own','#flavor-lab','#saved-recipes'],
+    pantry:['#pantry-snap'],
+    chef:['#chef','#chef-ai-chat'],
+    passport:['#flavor-passport'],
+    holidays:['#holiday-boss-battles','#holiday-specials','#christmas-specials','#thanksgiving-specials','#valentines-specials','#easter-specials','#fourth-july-specials','#st-patricks-specials','#fall-specials'],
+    tips:['#tips']
+  };
+  const requested=new URLSearchParams(location.search).get('page')||'home';
+  const page=Object.prototype.hasOwnProperty.call(pageGroups,requested)?requested:'home';
+  document.body.dataset.page=page;
+  const allSections=Array.from(document.querySelectorAll('main > section'));
+  allSections.forEach(section=>{section.hidden=true;});
+  const hero=document.querySelector('.hero'); if(hero)hero.hidden=page!=='home';
+  const holidayMini=document.querySelector('.holiday-mini-wrap'); if(holidayMini)holidayMini.hidden=page!=='home';
+  (pageGroups[page]||[]).forEach(selector=>{document.querySelectorAll(selector).forEach(section=>{if(section.dataset.season!==undefined){/* Seasonal visibility is controlled by the calendar script. */}else if(section.id==='holiday-specials'||section.id==='christmas-specials'||section.id==='thanksgiving-specials'||section.id==='valentines-specials'||section.id==='easter-specials'||section.id==='fourth-july-specials'||section.id==='st-patricks-specials'||section.id==='fall-specials'){/* Keep their original seasonal hidden state. */}else{section.hidden=false;}});});
+  document.querySelectorAll('nav [data-page-link]').forEach(link=>{if(link.dataset.pageLink===page)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
+  document.title=(pageNames[page]==='Home'?'Blend Buddy':pageNames[page]+' | Blend Buddy')+' — Easy Protein Smoothies & Milkshakes';
+  document.querySelectorAll('.holiday-mini-wrap a').forEach(link=>link.setAttribute('href','?page=holidays'));
+  const dailyButton=document.getElementById('daily-button');if(dailyButton){dailyButton.textContent='Explore all recipes →';dailyButton.addEventListener('click',()=>{location.href='?page=recipes';});}
+  // A compact heading makes each destination feel like a dedicated page.
+  if(page!=='home'){
+    const main=document.querySelector('main');
+    if(main){const intro=document.createElement('section');intro.className='page-intro';intro.innerHTML='<h1>'+pageNames[page]+'</h1><p>'+({recipes:'Find your next favorite smoothie or milkshake, with measured ingredients and easy steps.',mystery:'Spin up a surprise recipe in the Blend Buddy lab.',create:'Mix, experiment, and save your own custom blends.',pantry:'Choose the ingredients you have and discover blends to try.',chef:'Get a flavor recommendation or ask Chef for a recipe idea.',passport:'Track the recipes you have tried and collect your stamps.',holidays:'Explore seasonal drinks and complete holiday flavor challenges.',tips:'Simple tips for smoother blends and easier measuring.'}[page]||'Welcome to Blend Buddy.')+'</p>';main.insertBefore(intro,main.firstChild);}
+  }
 })();
 </script>
 </body>
