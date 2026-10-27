@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blend Buddy — Easy Protein Smoothies & Milkshakes</title>
+<style>
+:root{--ink:#202820;--muted:#667267;--cream:#fbf8ef;--green:#315c43;--lime:#d9ed9b;--peach:#ffd8bd;--card:#fffdf8;--line:#e7e8dc;--shadow:0 12px 35px rgba(35,55,37,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif}
+header{padding:20px clamp(18px,5vw,72px);display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);background:rgba(251,248,239,.92);position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.2rem;letter-spacing:-.04em}.logo{display:grid;place-items:center;width:40px;height:40px;background:var(--lime);border-radius:14px;font-size:23px}
+nav{display:flex;gap:20px;align-items:center}nav a{color:var(--ink);text-decoration:none;font-weight:700;font-size:.9rem}nav a:hover{color:var(--green)}
+.hero{padding:60px clamp(18px,5vw,72px) 48px;display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center;max-width:1300px;margin:auto}
+.eyebrow{display:inline-block;background:#e9efdc;color:var(--green);padding:8px 12px;border-radius:99px;font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(2.6rem,6vw,5.4rem);line-height:.98;letter-spacing:-.075em;margin:20px 0}h1 span{color:var(--green)}.hero p{font-size:1.1rem;line-height:1.7;color:var(--muted);max-width:550px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.btn{border:0;border-radius:999px;padding:13px 20px;background:var(--green);color:white;font-weight:800;text-decoration:none;cursor:pointer;font-size:.95rem}.btn.secondary{background:white;color:var(--ink);border:1px solid var(--line)}.btn:hover{transform:translateY(-1px)}
+.hero-art{min-height:360px;border-radius:36px;background:var(--lime);position:relative;overflow:hidden;display:grid;place-items:center}
+.big-cup{width:190px;height:240px;background:linear-gradient(120deg,#fff9e9,#e9d4ad);border:5px solid #f9f4e5;border-radius:28px 28px 48px 48px;position:relative;transform:rotate(-7deg);box-shadow:0 25px 45px #4b5c3033}
+.big-cup:before{content:"";position:absolute;top:-14px;left:-8px;width:200px;height:24px;border-radius:15px;background:#f5efe0;border:4px solid white}
+.big-cup:after{content:"BLEND\\A BUDDY";white-space:pre;position:absolute;inset:90px 0 auto;text-align:center;font-weight:1000;font-size:23px;line-height:1.1;color:var(--green);letter-spacing:-.06em}
+.straw{position:absolute;width:16px;height:170px;background:#ee9d6a;top:35px;left:53%;transform:rotate(12deg);border-radius:10px}
+.fruit{position:absolute;font-size:66px;filter:drop-shadow(0 8px 5px #3b4d3022)}.f1{top:38px;left:35px;transform:rotate(-18deg)}.f2{right:28px;bottom:45px;transform:rotate(16deg)}.f3{right:37px;top:34px;font-size:43px}.spark{position:absolute;font-size:30px}.s1{left:38px;bottom:52px}.s2{right:35px;top:125px}
+main{max-width:1300px;margin:auto;padding:12px clamp(18px,5vw,72px) 70px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:30px 0 20px}.section-head h2{font-size:clamp(1.8rem,3vw,2.7rem);letter-spacing:-.06em;margin:0}.section-head p{color:var(--muted);margin:7px 0 0}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 24px}.search{flex:1;min-width:210px;border:1px solid var(--line);border-radius:999px;padding:13px 17px;font:inherit;background:white;outline-color:var(--green)}.filter{border:1px solid var(--line);background:white;border-radius:999px;padding:12px 17px;font-weight:800;cursor:pointer;color:var(--ink)}.filter.active{background:var(--green);color:white;border-color:var(--green)}
+.daily-feature{display:flex;align-items:center;gap:20px;padding:24px 28px;margin:8px 0 36px;border-radius:28px;background:linear-gradient(120deg,#e5efcf,#fff0dc);border:1px solid #dce6c8;box-shadow:var(--shadow)}.daily-icon{display:grid;place-items:center;flex-shrink:0;width:76px;height:76px;border-radius:24px;background:#fffdf8;font-size:42px}.daily-copy{flex:1;min-width:0}.daily-kicker{font-size:.72rem;font-weight:950;letter-spacing:.12em;color:var(--green)}.daily-copy h2{font-size:clamp(1.5rem,3vw,2.2rem);letter-spacing:-.06em;margin:5px 0}.daily-copy p{color:var(--muted);margin:0;line-height:1.5}.daily-meta{margin-top:8px;font-size:.82rem;font-weight:800;color:var(--green)}.daily-feature .btn{white-space:nowrap;flex-shrink:0}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.recipe{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;min-width:0}.recipe-top{padding:22px 22px 18px;min-height:150px;position:relative}.recipe-top .emoji{font-size:56px;display:block;margin-bottom:12px}.recipe-top h3{font-size:1.3rem;letter-spacing:-.04em;margin:0 0 7px}.recipe-top p{margin:0;color:#5d695d;line-height:1.5;font-size:.92rem}.tone-green{background:#e7efda}.tone-pink{background:#f9e3df}.tone-yellow{background:#f7edc9}.tone-purple{background:#e9e2f7}.tone-blue{background:#dcecf0}.tone-orange{background:#fae2ca}
+.recipe-body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}.tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.tag{font-size:.72rem;font-weight:800;padding:6px 9px;background:#f1f1e8;border-radius:99px;color:#566254}.recipe h4{margin:12px 0 8px;font-size:.88rem}.ingredients{padding-left:20px;margin:0;color:#505c51;line-height:1.75;font-size:.92rem}.steps{padding-left:22px;margin:0;color:#505c51;line-height:1.7;font-size:.92rem}.recipe .btn{margin-top:18px;width:100%;background:#edf1e5;color:var(--green)}.recipe .btn:hover{background:var(--lime)}
+.empty{display:none;padding:30px;text-align:center;color:var(--muted);background:white;border-radius:20px}
+.season{margin-top:54px;padding:28px;border-radius:30px;background:#f3e7d9;border:1px solid #ead8c7}.season.christmas{background:#e3eee2;border-color:#d1e1d0}.season-intro{display:flex;gap:18px;align-items:center;margin-bottom:22px}.season-icon{font-size:48px;flex-shrink:0}.season h2{font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-.06em;margin:0}.season-intro p{color:var(--muted);margin:7px 0 0;line-height:1.5}.season .grid{grid-template-columns:repeat(2,minmax(0,1fr))}.season .recipe{box-shadow:none}.season .recipe-top{min-height:135px}.season-label{display:inline-block;margin-bottom:10px;padding:6px 10px;border-radius:99px;background:#fff8ef;font-size:.72rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#774b2b}.christmas .season-label{color:#28573c;background:#f6fff4}
+@media(max-width:650px){.season{padding:18px}.season .grid{grid-template-columns:1fr}.season-intro{align-items:flex-start}}
+.daily-flavor{background:#f0e9fb;border-color:#ded1f4}.daily-flavor .season-label{background:#fff;color:#60428b}.daily-card{display:grid;grid-template-columns:150px 1fr;gap:24px;background:#fffdf8;border:1px solid #e7ddf3;border-radius:24px;padding:24px;align-items:start}.daily-emoji{display:grid;place-items:center;min-height:150px;border-radius:20px;background:#e9e2f7;font-size:76px}.daily-content h3{font-size:1.5rem;margin:0 0 7px}.daily-content p{color:var(--muted);line-height:1.5;margin:0}.daily-content h4{margin:18px 0 8px}.daily-content .ingredients,.daily-content .steps{margin-bottom:0}@media(max-width:650px){.daily-card{grid-template-columns:1fr}.daily-emoji{min-height:110px}}
+.tip{margin-top:38px;border-radius:28px;background:var(--green);color:white;padding:28px clamp(20px,4vw,40px);display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}.tip .bulb{font-size:35px}.tip h3{margin:0 0 8px;font-size:1.35rem}.tip p{margin:0;color:#e4ebdf;line-height:1.7}.tip strong{color:#fff}
+footer{border-top:1px solid var(--line);padding:25px clamp(18px,5vw,72px);color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.85rem}
+dialog{border:0;border-radius:24px;max-width:480px;width:calc(100% - 32px);padding:26px;box-shadow:0 20px 70px #17251c55;background:var(--card);color:var(--ink)}dialog::backdrop{background:#1b281f88;backdrop-filter:blur(3px)}dialog h3{font-size:1.5rem;margin:0 0 10px}dialog p{line-height:1.65;color:var(--muted)}.close-row{display:flex;justify-content:flex-end;margin-top:18px}
+@media(max-width:900px){.hero{grid-template-columns:1fr  .8fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-art{min-height:310px}}
+@media(max-width:650px){.daily-feature{align-items:flex-start;flex-wrap:wrap;padding:20px}.daily-icon{width:58px;height:58px;font-size:32px;border-radius:18px}.daily-copy{flex-basis:calc(100% - 80px)}.daily-feature .btn{width:100%}header{position:static}nav{gap:12px}nav a:first-child{display:none}.hero{grid-template-columns:1fr;padding-top:38px}.hero-art{min-height:280px}.big-cup{transform:scale(.85) rotate(-7deg)}.grid{grid-template-columns:1fr}.section-head{display:block}.section-head .btn{display:inline-block;margin-top:12px}.tip{grid-template-columns:1fr;gap:8px}}
+
+/* Holiday Boss Battles */
+.boss-battles{margin:42px 0;padding:clamp(20px,4vw,34px);border-radius:30px;background:linear-gradient(135deg,#f0e9fb,#fff0dc);border:1px solid #e4d8f0}
+.boss-head{display:flex;gap:16px;align-items:center;margin-bottom:20px}.boss-head .boss-icon{font-size:48px}.boss-head h2{margin:0;font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-.06em}.boss-head p{margin:7px 0 0;color:var(--muted);line-height:1.5}
+.boss-progress{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#fffdf8;border:1px solid #e8dff0;border-radius:18px;padding:16px 18px;margin:18px 0 22px}.boss-progress strong{color:#60428b}.boss-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.boss-card{background:#fffdf8;border:1px solid #e7dfeb;border-radius:22px;padding:18px;display:flex;flex-direction:column;min-width:0}.boss-card h3{margin:8px 0 6px;font-size:1.2rem}.boss-card p{color:var(--muted);line-height:1.5;margin:0 0 12px;font-size:.92rem}.boss-card .boss-season{font-size:.72rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#60428b}.boss-card .btn{margin-top:auto;width:100%}.boss-card.done{border:2px solid #7b9d62;background:#f5faef}.boss-card.done .boss-season{color:#315c43}
+.boss-detail{margin-top:18px;padding:22px;background:#fffdf8;border:1px solid #e7dfeb;border-radius:22px}.boss-detail h3{margin:0 0 6px}.boss-detail p{color:var(--muted);line-height:1.5}.boss-checklist{display:grid;gap:10px;margin:16px 0}.boss-checklist label{display:flex;align-items:flex-start;gap:10px;padding:12px;background:#f7f5ef;border-radius:12px;line-height:1.4}.boss-checklist input{margin-top:3px;accent-color:#60428b;flex-shrink:0}.boss-message{min-height:1.4em;font-weight:800;color:#315c43}.boss-detail .btn:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:800px){.boss-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.boss-grid{grid-template-columns:1fr}.boss-head{align-items:flex-start}}
+
+[hidden]{display:none !important}
+
+.builder{margin:20px 0 44px;padding:28px;border-radius:30px;background:#e7efda;border:1px solid #d4e2c7}.builder-head{display:flex;gap:16px;align-items:center;margin-bottom:22px}.builder-head .builder-icon{font-size:48px}.builder h2{margin:0;font-size:clamp(1.8rem,3vw,2.5rem);letter-spacing:-.06em}.builder-head p{margin:7px 0 0;color:var(--muted);line-height:1.5}.builder-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.builder-group{background:#fffdf8;border:1px solid #dce5d2;border-radius:18px;padding:18px;min-width:0}.builder-group label.group-label{display:block;font-weight:900;margin-bottom:10px}.builder select{width:100%;font:inherit;padding:12px;border:1px solid var(--line);border-radius:12px;background:white}.choice-list{display:flex;gap:9px;flex-wrap:wrap}.choice{display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--line);border-radius:99px;background:white;font-size:.9rem}.choice input{accent-color:var(--green)}.builder-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}.builder-result{display:none;margin-top:22px;background:#fffdf8;border:1px solid #dce5d2;border-radius:22px;padding:22px}.builder-result h3{margin:0 0 6px;font-size:1.5rem}.builder-result p{color:var(--muted);line-height:1.5}.builder-result h4{margin:18px 0 8px}.builder-result ul,.builder-result ol{line-height:1.8;color:#505c51;padding-left:22px}.builder-note{font-size:.86rem;color:var(--muted)}.saved-recipes{margin:0 0 42px;padding:24px;border:1px solid var(--line);border-radius:26px;background:#fffdf8}.saved-recipes h2{margin:0 0 6px;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.05em}.saved-intro{margin:0 0 18px;color:var(--muted);line-height:1.5}.saved-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.saved-item{padding:18px;border:1px solid var(--line);border-radius:18px;background:#fbf8ef;min-width:0}.saved-item h3{margin:0 0 7px}.saved-item p{color:var(--muted);line-height:1.5;margin:0 0 10px}.saved-item h4{margin:12px 0 6px}.saved-item ul,.saved-item ol{padding-left:21px;line-height:1.6;color:#505c51}.saved-item .btn{margin-top:8px}.saved-empty{color:var(--muted);padding:18px;border:1px dashed var(--line);border-radius:16px}@media(max-width:650px){.builder{padding:18px}.builder-form{grid-template-columns:1fr}.builder-head{align-items:flex-start}.saved-list{grid-template-columns:1fr}}
+
+
+.passport{margin:24px 0 46px;padding:clamp(20px,4vw,34px);border-radius:30px;background:linear-gradient(135deg,#f0e8fb,#e6f1d9 65%,#fff0dc);border:1px solid #ded9e8}
+.passport-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.passport-kicker{font-size:.72rem;font-weight:900;letter-spacing:.13em;color:#62517c}
+.passport h2{font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-.06em;margin:5px 0 8px}
+.passport-head p{color:var(--muted);line-height:1.5;margin:0;max-width:560px}
+.passport-progress{background:#fffdf8;border:1px solid #ded9e8;border-radius:18px;padding:13px 17px;min-width:130px;text-align:center}
+.passport-progress strong{display:block;font-size:1.5rem;color:var(--green)}
+.passport-progress span{font-size:.78rem;color:var(--muted)}
+.passport-progress-track{height:10px;background:#ffffffa8;border-radius:99px;overflow:hidden;margin:22px 0}
+#passport-progress-fill{height:100%;width:0;background:var(--green);border-radius:99px;transition:width .25s ease}
+.passport-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.passport-stamp{display:flex;align-items:center;gap:11px;padding:13px;background:#fffdf8;border:1px solid #e3dfd4;border-radius:16px;min-width:0}
+.passport-stamp .stamp-icon{width:42px;height:42px;display:grid;place-items:center;flex-shrink:0;border-radius:50%;background:#f0eee6;font-size:1.35rem;filter:grayscale(1);opacity:.55}
+.passport-stamp.collected{border-color:#a6c18d;background:#f8fff0}
+.passport-stamp.collected .stamp-icon{filter:none;opacity:1;background:#d9ed9b}
+.passport-stamp .stamp-name{font-weight:800;font-size:.9rem;line-height:1.25;overflow-wrap:anywhere}
+.passport-stamp .stamp-status{display:block;color:var(--muted);font-size:.74rem;margin-top:4px}
+.passport-stamp button{margin-left:auto;flex-shrink:0;border:0;border-radius:99px;padding:8px 10px;background:#edf1e5;color:var(--green);font:inherit;font-size:.76rem;font-weight:900;cursor:pointer}
+.passport-stamp.collected button{background:#315c43;color:white}
+.passport-note{color:var(--muted);font-size:.84rem;line-height:1.5;margin:17px 0 12px}
+@media(max-width:700px){.passport-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.passport-head{display:block}.passport-progress{display:inline-block;margin-top:16px}}
+@media(max-width:430px){.passport-grid{grid-template-columns:1fr}.passport-stamp{padding:11px}}
+
+
+/* Pantry Snap */
+.pantry-snap{margin:34px 0;padding:clamp(18px,3vw,30px);border:1px solid var(--line);border-radius:28px;background:#fffdf8;box-shadow:var(--shadow)}
+.pantry-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px;align-items:start}
+.pantry-upload{border:2px dashed #b8c9a8;border-radius:20px;padding:18px;background:#f7f9f0}
+.pantry-upload input[type=file]{max-width:100%;margin:12px 0}
+.pantry-preview{display:none;width:100%;max-height:260px;object-fit:contain;border-radius:14px;background:white;margin-top:10px}
+.ingredient-picks{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
+.ingredient-pick{display:flex;align-items:center;gap:7px;background:#f4f5ed;border:1px solid var(--line);padding:9px 11px;border-radius:999px;font-size:.9rem}
+.pantry-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+.pantry-result{padding:15px;border:1px solid var(--line);border-radius:17px;background:white}
+.pantry-result h3{margin:4px 0 8px;font-size:1.05rem}
+.pantry-result p{margin:5px 0;color:var(--muted);font-size:.92rem;line-height:1.5}
+.pantry-note{font-size:.88rem;color:var(--muted);line-height:1.55}
+@media(max-width:720px){.pantry-layout{grid-template-columns:1fr}}
+
+
+/* Chef AI helper */
+.chef-panel{margin:30px 0;padding:clamp(18px,3vw,30px);border-radius:26px;border:1px solid var(--line);background:linear-gradient(135deg,#fff8e8,#f4f8ee);box-shadow:var(--shadow)}
+.chef-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.chef-controls{display:grid;gap:13px}
+.chef-controls label{font-weight:700;display:grid;gap:6px}
+.chef-controls select,.chef-controls textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:white;color:inherit;font:inherit}
+.chef-reply{padding:18px;border-radius:18px;background:white;border:1px solid var(--line);min-height:180px}
+.chef-reply h3{margin:0 0 8px}
+.chef-reply p{line-height:1.55}
+.chef-small{font-size:.88rem;color:var(--muted);line-height:1.5}
+@media(max-width:700px){.chef-layout{grid-template-columns:1fr}}
+
+
+/* Dedicated Chef button and flavor-pick cards */
+.chef-quick-button{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 15px;border-radius:999px;background:#315c43;color:#fff!important;font-weight:800;text-decoration:none;white-space:nowrap}
+.chef-quick-button:hover{filter:brightness(1.08)}
+.chef-pick-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:14px}
+.chef-pick-card{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff}
+.chef-pick-card h4{margin:0 0 7px;font-size:1rem}
+.chef-pick-card p{margin:5px 0;font-size:.92rem;line-height:1.45}
+.chef-pick-card .chef-pick-tag{font-size:.78rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#315c43}
+.chef-picks-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+
+
+/* Live OpenAI Chef chat */
+.chef-ai-chat{margin:30px 0;padding:clamp(18px,3vw,28px);border:1px solid var(--line);border-radius:26px;background:#f6f8f0;box-shadow:var(--shadow)}
+.chef-ai-chat-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;max-width:900px}
+.chef-ai-log{height:320px;overflow:auto;padding:14px;border-radius:16px;border:1px solid var(--line);background:white;display:flex;flex-direction:column;gap:10px}
+.chef-ai-message{padding:11px 13px;border-radius:14px;max-width:92%;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
+.chef-ai-message.chef{align-self:flex-start;background:#eef3e8}
+.chef-ai-message.user{align-self:flex-end;background:#315c43;color:white}
+.chef-ai-form{display:flex;gap:10px;align-items:stretch}
+.chef-ai-form textarea{flex:1;min-width:0;resize:vertical;min-height:52px;padding:12px;border:1px solid var(--line);border-radius:13px;font:inherit;background:white;color:inherit}
+.chef-ai-status{min-height:1.4em;font-size:.9rem;color:var(--muted)}
+.chef-ai-disclaimer{font-size:.85rem;line-height:1.5;color:var(--muted)}
+@media(max-width:600px){.chef-ai-form{flex-direction:column}.chef-ai-form .btn{width:100%}.chef-ai-log{height:280px}}
+
+
+/* Mystery Flavor Machine — mad scientist lab */
+.mystery-lab{margin:26px 0 42px;padding:clamp(18px,4vw,34px);border:1px solid #c9c3e9;border-radius:30px;background:radial-gradient(circle at 85% 10%,#5c4a8a 0,transparent 34%),linear-gradient(135deg,#171d35,#272746 58%,#342b4c);color:#f8f4ff;box-shadow:0 18px 40px #29234324;position:relative;overflow:hidden}
+.mystery-lab:before{content:"✦   ·   ✧      ·   ✦";position:absolute;right:22px;top:16px;color:#c7b9ff;font-size:1.25rem;letter-spacing:.5em;opacity:.8;pointer-events:none}
+.mystery-lab .lab-kicker{display:inline-block;padding:7px 11px;border-radius:99px;background:#d8f7c2;color:#253a32;font-size:.73rem;font-weight:950;letter-spacing:.12em;text-transform:uppercase}
+.mystery-lab h2{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.06em;margin:12px 0 8px;color:#fff}
+.mystery-lab .lab-intro{max-width:700px;line-height:1.6;color:#e2dff5;margin:0 0 22px}
+.mystery-machine{display:grid;grid-template-columns:minmax(150px,.72fr) minmax(0,1.28fr);gap:22px;align-items:stretch}
+.machine-console{padding:20px;border:1px solid #8174b6;border-radius:24px;background:linear-gradient(160deg,#3c3a62,#242541);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:250px}
+.potion-bottle{display:grid;place-items:center;width:116px;height:116px;border-radius:36px 36px 28px 28px;background:radial-gradient(circle at 35% 25%,#d4ffdb,#8fe2d2 30%,#a18bff 70%,#6852b2);border:5px solid #d9d0ff;box-shadow:0 0 0 8px #ffffff0b,0 0 35px #9c8bff65;font-size:58px;margin-bottom:17px;transition:transform .35s ease,filter .35s ease}
+.potion-bottle.spinning{animation:lab-bubble .55s ease-in-out infinite alternate}
+@keyframes lab-bubble{from{transform:rotate(-8deg) scale(.96);filter:hue-rotate(0deg)}to{transform:rotate(8deg) scale(1.06);filter:hue-rotate(35deg)}}
+.machine-console .btn{width:100%;background:#d8f7c2;color:#23352c;margin-top:12px}.machine-console small{color:#d5d0ee;line-height:1.45;margin-top:10px}
+.mystery-reveal{padding:22px;border-radius:24px;border:1px solid #7770a7;background:#fdfaff;color:#26233a;min-width:0}
+.mystery-reveal .reveal-top{display:flex;align-items:center;gap:13px;margin-bottom:12px}
+.mystery-emoji{display:grid;place-items:center;width:64px;height:64px;flex-shrink:0;border-radius:20px;background:#e9e0ff;font-size:38px}
+.mystery-reveal h3{font-size:1.45rem;margin:0 0 5px;letter-spacing:-.04em}
+.mystery-reveal .reveal-sub{margin:0;color:#655d7b;line-height:1.45;font-size:.92rem}
+.mystery-reveal h4{margin:17px 0 7px;font-size:.9rem}
+.mystery-reveal ul,.mystery-reveal ol{padding-left:21px;margin:0;line-height:1.65;color:#4e4963}
+.mystery-reveal .recipe-placeholder{padding:22px 10px;text-align:center;color:#655d7b;line-height:1.6}
+.mystery-date{display:inline-block;margin-top:11px;background:#efe9ff;color:#59428a;border-radius:99px;padding:6px 10px;font-size:.75rem;font-weight:900}
+@media(max-width:700px){.mystery-machine{grid-template-columns:1fr}.machine-console{min-height:0}.potion-bottle{width:90px;height:90px;font-size:46px}.mystery-lab:before{display:none}}
+
+
+/* Flavor Lab custom recipe experiment */
+.flavor-lab{margin:34px 0 42px;padding:clamp(18px,4vw,34px);border:1px solid #c9c3e9;border-radius:30px;background:linear-gradient(135deg,#f4efff,#f7fbf0 58%,#fff1e7);box-shadow:var(--shadow)}
+.flavor-lab-head{display:flex;align-items:flex-start;gap:15px;margin-bottom:22px}.flavor-lab-icon{display:grid;place-items:center;flex:0 0 64px;height:64px;border-radius:21px;background:#30284b;color:white;font-size:34px;box-shadow:0 8px 20px #30284b22}
+.flavor-lab h2{margin:0;font-size:clamp(1.8rem,4vw,2.7rem);letter-spacing:-.06em}.flavor-lab-head p{color:var(--muted);line-height:1.55;margin:7px 0 0;max-width:720px}
+.flavor-lab-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.flavor-lab-group{background:#fffdfb;border:1px solid #e5dff3;border-radius:19px;padding:17px;min-width:0}.flavor-lab-group>label,.flavor-lab-group .group-label{display:block;font-weight:900;margin-bottom:10px}.flavor-lab-group select{width:100%;font:inherit;border:1px solid #d9d3e9;border-radius:12px;padding:12px;background:white;color:var(--ink)}
+.flavor-lab-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.flavor-lab-choice{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:12px;background:#f7f4fc;font-size:.9rem;font-weight:700}.flavor-lab-choice input{accent-color:#5a468b;width:17px;height:17px}.flavor-lab-range{width:100%;accent-color:#5a468b}.flavor-lab-range-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem;margin-top:5px}.flavor-lab-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}.flavor-lab .btn{background:#3f315f}.flavor-lab .btn.secondary{background:white;color:#3f315f;border-color:#d9d3e9}.flavor-lab-result{display:none;margin-top:20px;background:white;border:1px solid #e5dff3;border-radius:22px;padding:22px}.flavor-lab-result h3{font-size:1.45rem;margin:0 0 7px}.flavor-lab-result p{color:var(--muted);line-height:1.55}.flavor-lab-result h4{margin:18px 0 7px}.flavor-lab-result ul,.flavor-lab-result ol{padding-left:22px;line-height:1.75;color:#505c51}.flavor-lab-status{min-height:1.4em;color:#4d3c73;font-weight:800;margin-top:10px;font-size:.9rem}
+@media(max-width:650px){.flavor-lab-form{grid-template-columns:1fr}.flavor-lab-head{align-items:flex-start}.flavor-lab-icon{flex-basis:52px;height:52px;font-size:28px}.flavor-lab-choices{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* Compact holiday preview at the top of the page */
+.holiday-mini-wrap{max-width:1180px;margin:22px auto 0;padding:0 24px}
+.holiday-mini{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding:17px 20px;border-radius:22px;background:linear-gradient(110deg,#fff0e1,#fff8f1 55%,#f0e9fb);border:1px solid #ead8c7;box-shadow:0 8px 24px #51351a0b;cursor:pointer;color:inherit;text-decoration:none;transition:transform .18s ease,box-shadow .18s ease}
+.holiday-mini:hover{transform:translateY(-2px);box-shadow:0 12px 28px #51351a18}
+.holiday-mini-icon{display:grid;place-items:center;width:60px;height:60px;border-radius:18px;background:#fffaf5;font-size:34px}
+.holiday-mini-copy{min-width:0}.holiday-mini-kicker{font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#8b4b22}.holiday-mini h2{font-size:1.2rem;line-height:1.25;margin:4px 0}.holiday-mini p{font-size:.9rem;color:var(--muted);line-height:1.4;margin:0}
+.holiday-mini-action{white-space:nowrap;font-weight:900;color:#fff;background:#315c43;border-radius:99px;padding:11px 15px;font-size:.86rem}
+.holiday-mini-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.holiday-mini-links a{font-size:.82rem;font-weight:800;color:#315c43;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:650px){.holiday-mini-wrap{padding:0 16px;margin-top:14px}.holiday-mini{grid-template-columns:auto minmax(0,1fr);gap:12px;padding:14px}.holiday-mini-icon{width:50px;height:50px;font-size:29px}.holiday-mini-action{grid-column:1/-1;text-align:center}.holiday-mini p{font-size:.84rem}}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">🥤</span> Blend Buddy</div>
+  <nav><a class="chef-quick-button" href="#chef-ai-chat">🤖 Chat with Chef AI</a><a id="chef-quick-button" class="chef-quick-button" href="#chef">👨‍🍳 Ask Chef</a><a href="#chef">Chef 👨‍🍳</a><a href="#mystery-machine">Mystery Machine 🎰</a><a href="#recipes">Recipes</a><a href="#pantry-snap">Pantry Snap 📸</a><a href="#flavor-passport">Flavor Passport</a><a href="#build-your-own">Build a blend</a><a href="#flavor-lab">Flavor Lab 🧪</a><a href="#holiday-boss-battles">Boss Battles 🏆</a><a href="#holiday-specials" data-season-link="any">Holiday specials</a><a href="#tips">Blend tips</a></nav>
+</header>
+<section class="hero">
+  <div>
+    <span class="eyebrow">Simple ingredients. Big flavor.</span>
+    <h1>Your next favorite<br><span>blend starts here.</span></h1>
+    <p>Easy protein smoothies and creamy milkshakes you can make at home—with clear cup, spoon, and metric measurements. Pick a flavor, measure your ingredients, blend, and you're good to go.</p>
+    <div class="actions"><a class="btn" href="#recipes">Explore recipes ↓</a><a class="btn secondary" href="#tips">Blending tips</a></div>
+  </div>
+  <div class="hero-art" aria-label="Illustration of a smoothie cup and fruit">
+    <span class="fruit f1">🍌</span><span class="fruit f2">🥜</span><span class="fruit f3">🍓</span><span class="spark s1">✦</span><span class="spark s2">✧</span>
+    <div class="straw"></div><div class="big-cup"></div>
+  </div>
+</section>
+
+<section class="holiday-mini-wrap" aria-label="Holiday features">
+  <a class="holiday-mini" id="holiday-mini-card" href="#holiday-specials">
+    <span class="holiday-mini-icon" id="holiday-mini-icon" aria-hidden="true">🎃</span>
+    <span class="holiday-mini-copy">
+      <span class="holiday-mini-kicker" id="holiday-mini-kicker">Limited-time flavor drop</span>
+      <h2 id="holiday-mini-title">Halloween Specials are here!</h2>
+      <p id="holiday-mini-description">Tap to jump down to seasonal drinks, recipes, and holiday challenges.</p>
+      <span class="holiday-mini-links"><a href="#holiday-boss-battles" onclick="event.stopPropagation()">🏆 Holiday Boss Battles</a></span>
+    </span>
+    <span class="holiday-mini-action" id="holiday-mini-action">Explore holiday drinks ↓</span>
+  </a>
+</section>
+
+<main>
+  <section class="daily-feature" id="daily-flavor" aria-labelledby="daily-title">
+    <div class="daily-icon" aria-hidden="true">🌟</div>
+    <div class="daily-copy"><span class="daily-kicker">TODAY'S PICK</span><h2 id="daily-title">Today's Daily Flavor</h2><p id="daily-description">A fresh Blend Buddy favorite, picked for today.</p><div class="daily-meta" id="daily-meta">A new flavor every day</div></div>
+    <button class="btn" id="daily-button" type="button">See today's recipe ↓</button>
+  </section>
+
+  <section class="mystery-lab" id="mystery-machine" aria-labelledby="mystery-title">
+    <span class="lab-kicker">🧪 Secret recipe laboratory</span>
+    <h2 id="mystery-title">Mystery Flavor Machine</h2>
+    <p class="lab-intro">Step into the lab and spin up today's secret blend! The daily mystery stays the same all day, so everyone gets the same featured recipe. Each reveal includes exact measurements and simple steps.</p>
+    <div class="mystery-machine">
+      <div class="machine-console">
+        <div class="potion-bottle" id="mystery-potion" aria-hidden="true">🧪</div>
+        <strong>THE BLEND-O-MATIC 3000</strong>
+        <button class="btn" id="mystery-spin" type="button">⚡ Spin the machine!</button>
+        <small id="mystery-status" aria-live="polite">Ready for today's experiment?</small>
+      </div>
+      <div class="mystery-reveal" id="mystery-result" aria-live="polite">
+        <div class="recipe-placeholder"><div style="font-size:2.8rem">🔒</div><strong>Secret formula locked!</strong><p>Tap “Spin the machine” to reveal today's mystery flavor, ingredients, and instructions.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="build-your-own" class="builder" aria-labelledby="builder-title">
+    <div class="builder-head"><div class="builder-icon" aria-hidden="true">🧪🥤</div><div><span class="eyebrow">Your kitchen, your rules</span><h2 id="builder-title">Build Your Own Blend</h2><p>Choose a style, a base, fruit, and extras. Blend Buddy will make a custom ingredient list and easy steps just for your combo.</p></div></div>
+    <div class="builder-form">
+      <div class="builder-group"><label class="group-label" for="blendType">1. Pick your blend style</label><select id="blendType"><option value="smoothie">Fruit smoothie</option><option value="milkshake">Creamy milkshake</option></select></div>
+      <div class="builder-group"><label class="group-label" for="blendBase">2. Pick a liquid base</label><select id="blendBase"><option value="dairy">Milk (1 cup / 240 mL)</option><option value="oat">Oat milk (1 cup / 240 mL)</option><option value="almond">Almond milk (1 cup / 240 mL)</option><option value="juice">Orange or apple juice (¾ cup / 180 mL)</option><option value="yogurt">Yogurt thinned with ½ cup water</option></select></div>
+      <div class="builder-group"><span class="group-label">3. Choose fruit (pick 1–3)</span><div class="choice-list"><label class="choice"><input type="checkbox" name="blendFruit" value="banana" checked> 🍌 Banana</label><label class="choice"><input type="checkbox" name="blendFruit" value="strawberry"> 🍓 Strawberry</label><label class="choice"><input type="checkbox" name="blendFruit" value="blueberry"> 🫐 Blueberry</label><label class="choice"><input type="checkbox" name="blendFruit" value="mango"> 🥭 Mango</label><label class="choice"><input type="checkbox" name="blendFruit" value="pineapple"> 🍍 Pineapple</label><label class="choice"><input type="checkbox" name="blendFruit" value="peach"> 🍑 Peach</label><label class="choice"><input type="checkbox" name="blendFruit" value="raspberry"> ❤️ Raspberry</label><label class="choice"><input type="checkbox" name="blendFruit" value="cherry"> 🍒 Cherry</label></div></div>
+      <div class="builder-group"><span class="group-label">4. Add something extra (optional)</span><div class="choice-list"><label class="choice"><input type="checkbox" name="blendExtra" value="yogurt"> Yogurt</label><label class="choice"><input type="checkbox" name="blendExtra" value="peanut"> Peanut butter</label><label class="choice"><input type="checkbox" name="blendExtra" value="cocoa"> Cocoa powder</label><label class="choice"><input type="checkbox" name="blendExtra" value="oats"> Oats</label><label class="choice"><input type="checkbox" name="blendExtra" value="honey"> Honey</label><label class="choice"><input type="checkbox" name="blendExtra" value="ice" checked> Ice</label><label class="choice"><input type="checkbox" name="blendExtra" value="vanilla"> Vanilla</label></div></div>
+    </div>
+    <div class="builder-actions"><button class="btn" id="makeBlend" type="button">Create my recipe ✨</button><button class="btn secondary" id="resetBlend" type="button">Start over</button></div>
+    <div class="builder-result" id="blendResult" aria-live="polite"><h3 id="blendResultTitle">Your custom blend</h3><p id="blendResultDesc"></p><h4>Ingredients &amp; amounts</h4><ul id="blendIngredients"></ul><h4>How to make it</h4><ol id="blendSteps"></ol><div class="builder-actions"><button class="btn" id="saveBlend" type="button">♡ Save my recipe</button></div><p class="builder-note">Check ingredient labels for allergens. If you have a food allergy, leave that ingredient out and avoid cross-contact. Ask a trusted adult for help with the blender if needed.</p></div>
+  </section>
+  <section class="flavor-lab" id="flavor-lab" aria-labelledby="flavor-lab-title">
+    <div class="flavor-lab-head"><div class="flavor-lab-icon" aria-hidden="true">🧪</div><div><span class="eyebrow">Experiment with flavor</span><h2 id="flavor-lab-title">Flavor Lab</h2><p>Invent a one-of-a-kind drink! Choose a style, base, fruit, and add-ins, then tune sweetness and thickness. The lab builds a measured recipe with steps you can follow.</p></div></div>
+    <div class="flavor-lab-form">
+      <div class="flavor-lab-group"><label for="lab-type">1. Choose your experiment</label><select id="lab-type"><option value="smoothie">Fruit smoothie</option><option value="milkshake">Creamy milkshake</option><option value="protein">Protein smoothie</option></select></div>
+      <div class="flavor-lab-group"><label for="lab-base">2. Choose a base</label><select id="lab-base"><option value="milk">Milk — 1 cup (240 mL)</option><option value="oat">Oat milk — 1 cup (240 mL)</option><option value="almond">Almond milk — 1 cup (240 mL)</option><option value="juice">Orange juice — ¾ cup (180 mL)</option><option value="yogurt">Yogurt + water — ½ cup each</option></select></div>
+      <div class="flavor-lab-group"><span class="group-label">3. Pick 1–3 fruits</span><div class="flavor-lab-choices">
+        <label class="flavor-lab-choice"><input type="checkbox" name="lab-fruit" value="banana" checked> 🍌 Banana</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-fruit" value="strawberry"> 🍓 Strawberry</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-fruit" value="blueberry"> 🫐 Blueberry</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-fruit" value="mango"> 🥭 Mango</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-fruit" value="pineapple"> 🍍 Pineapple</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-fruit" value="peach"> 🍑 Peach</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-fruit" value="raspberry"> ❤️ Raspberry</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-fruit" value="cherry"> 🍒 Cherry</label>
+      </div></div>
+      <div class="flavor-lab-group"><span class="group-label">4. Add extras (optional)</span><div class="flavor-lab-choices">
+        <label class="flavor-lab-choice"><input type="checkbox" name="lab-extra" value="yogurt"> 🥣 Yogurt</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-extra" value="peanut"> 🥜 Peanut butter</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-extra" value="cocoa"> 🍫 Cocoa</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-extra" value="oats"> 🌾 Oats</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-extra" value="honey"> 🍯 Honey</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-extra" value="vanilla"> 🍦 Vanilla</label><label class="flavor-lab-choice"><input type="checkbox" name="lab-extra" value="ice" checked> 🧊 Ice</label>
+      </div></div>
+      <div class="flavor-lab-group"><label for="lab-sweetness">5. Sweetness</label><input class="flavor-lab-range" id="lab-sweetness" type="range" min="0" max="2" step="1" value="1"><div class="flavor-lab-range-labels"><span>Less sweet</span><span>Balanced</span><span>Extra sweet</span></div><p id="lab-sweetness-value" class="flavor-lab-status">Balanced sweetness</p></div>
+      <div class="flavor-lab-group"><label for="lab-thickness">6. Texture</label><select id="lab-thickness"><option value="regular">Regular and sippable</option><option value="thick">Thick and spoonable</option><option value="light">Light and extra sippable</option></select><p style="color:var(--muted);line-height:1.5;margin-bottom:0">Texture adjusts the liquid and ice amounts in your recipe.</p></div>
+    </div>
+    <div class="flavor-lab-actions"><button class="btn" type="button" id="lab-create">⚗️ Create my experiment</button><button class="btn secondary" type="button" id="lab-reset">Reset lab</button></div>
+    <div id="lab-status" class="flavor-lab-status" role="status" aria-live="polite"></div>
+    <div class="flavor-lab-result" id="lab-result" aria-live="polite"><h3 id="lab-result-title">Your lab creation</h3><p id="lab-result-description"></p><h4>Ingredients &amp; measurements</h4><ul id="lab-result-ingredients"></ul><h4>Step-by-step instructions</h4><ol id="lab-result-steps"></ol><div class="flavor-lab-actions"><button class="btn" type="button" id="lab-save">♡ Save to My Saved Recipes</button></div><p style="font-size:.85rem">Check ingredient labels for allergens. This recipe makes about one serving. Ask a trusted adult for help with the blender.</p></div>
+  </section>
+
+  <section class="saved-recipes" id="saved-recipes" aria-labelledby="saved-title"><h2 id="saved-title">❤️ My Saved Recipes</h2><p class="saved-intro">Keep your favorite custom blends here on this device. Saved recipes stay in this browser unless its site data is cleared.</p><div id="savedList" class="saved-list" aria-live="polite"></div></section>
+
+  <section class="passport" id="flavor-passport" aria-labelledby="passport-title">
+    <div class="passport-head">
+      <div>
+        <span class="passport-kicker">YOUR BLEND ADVENTURE</span>
+        <h2 id="passport-title">🌈 Flavor Passport</h2>
+        <p>Try a recipe and collect its stamp! Your progress is saved in this browser on this device.</p>
+      </div>
+      <div class="passport-progress" aria-live="polite">
+        <strong id="passport-count">0 / 0</strong>
+        <span>stamps collected</span>
+      </div>
+    </div>
+    <div class="passport-progress-track" aria-hidden="true"><div id="passport-progress-fill"></div></div>
+    <div class="passport-grid" id="passport-grid"></div>
+    <p class="passport-note">Your passport is stored locally on this device. Clearing browser site data may erase your stamps.</p>
+    <button class="btn secondary" id="passport-reset" type="button">Reset my stamps</button>
+  </section>
+
+
+  <section id="pantry-snap" class="pantry-snap">
+    <div class="section-head">
+      <div><span class="eyebrow">📸 Pantry Snap</span><h2>What can I blend?</h2>
+      <p>Take a picture of your ingredients, confirm what you have, and find recipes that match.</p></div>
+    </div>
+    <div class="pantry-layout">
+      <div class="pantry-upload">
+        <h3>1. Snap or choose a photo</h3>
+        <p class="pantry-note">Take a picture of your counter, fridge, or ingredients. Your photo stays in this page; it isn't uploaded anywhere by this feature.</p>
+        <label for="pantry-photo"><strong>Choose photo or open camera</strong></label><br>
+        <input id="pantry-photo" type="file" accept="image/*" capture="environment">
+        <img id="pantry-preview" class="pantry-preview" alt="Preview of your ingredient photo">
+        <p class="pantry-note">2. Check the ingredients you can see in your photo.</p>
+      </div>
+      <div>
+        <h3>Ingredients I have</h3>
+        <div id="pantry-ingredients" class="ingredient-picks">
+          <label class="ingredient-pick"><input type="checkbox" value="banana"> 🍌 Banana</label>
+          <label class="ingredient-pick"><input type="checkbox" value="strawberry"> 🍓 Strawberries</label>
+          <label class="ingredient-pick"><input type="checkbox" value="blueberry"> 🫐 Blueberries</label>
+          <label class="ingredient-pick"><input type="checkbox" value="mango"> 🥭 Mango</label>
+          <label class="ingredient-pick"><input type="checkbox" value="peach"> 🍑 Peach</label>
+          <label class="ingredient-pick"><input type="checkbox" value="watermelon"> 🍉 Watermelon</label>
+          <label class="ingredient-pick"><input type="checkbox" value="milk"> 🥛 Milk</label>
+          <label class="ingredient-pick"><input type="checkbox" value="yogurt"> Yogurt</label>
+          <label class="ingredient-pick"><input type="checkbox" value="peanut butter"> 🥜 Peanut butter</label>
+          <label class="ingredient-pick"><input type="checkbox" value="protein powder"> 💪 Protein powder</label>
+          <label class="ingredient-pick"><input type="checkbox" value="chocolate"> 🍫 Chocolate</label>
+          <label class="ingredient-pick"><input type="checkbox" value="vanilla ice cream"> 🍦 Vanilla ice cream</label>
+          <label class="ingredient-pick"><input type="checkbox" value="oats"> 🌾 Oats</label>
+          <label class="ingredient-pick"><input type="checkbox" value="honey"> 🍯 Honey</label>
+          <label class="ingredient-pick"><input type="checkbox" value="orange juice"> 🍊 Orange juice</label>
+          <label class="ingredient-pick"><input type="checkbox" value="spinach"> 🥬 Spinach</label>
+        </div>
+        <button class="btn" id="pantry-find" type="button">Find my blends</button>
+        <div id="pantry-results" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="chef" class="chef-panel">
+    <div class="section-head">
+      <div><span class="eyebrow">🤖 Your Blend Buddy helper</span><h2>Ask Chef</h2>
+      <p>Not sure what to make? Chef helps you pick a blend that fits your mood and ingredients.</p></div>
+    </div>
+    <div class="chef-layout">
+      <div class="chef-controls">
+        <label for="chef-type">What sounds good?
+          <select id="chef-type">
+            <option value="surprise">Surprise me</option>
+            <option value="smoothie">A smoothie</option>
+            <option value="milkshake">A milkshake</option>
+          </select>
+        </label>
+        <label for="chef-mood">Choose a flavor mood
+          <select id="chef-mood">
+            <option value="fruity">Fruity and refreshing</option>
+            <option value="creamy">Creamy and sweet</option>
+            <option value="chocolate">Chocolatey</option>
+            <option value="protein">Protein boost</option>
+            <option value="adventurous">Something unusual</option>
+          </select>
+        </label>
+        <label for="chef-ingredients">What ingredients do you have? (optional)
+          <textarea id="chef-ingredients" rows="3" placeholder="Example: banana, milk, peanut butter"></textarea>
+        </label>
+        <button class="btn" id="chef-recommend" type="button">Chef, pick my blend!</button>
+        <p class="chef-small">This version uses built-in recipe-matching rules. A live generative AI Chef can be connected later through a secure AI service.</p>
+      </div>
+      <div id="chef-answer" class="chef-reply" aria-live="polite">
+        <h3>👨‍🍳 Chef says…</h3>
+        <p>Tell me what you're craving and I'll pick a blend to try!</p>
+      </div>
+    </div>
+  
+    <div id="chef-picks" class="chef-reply" style="margin-top:18px">
+      <h3>🍓 Chef's flavor picks</h3>
+      <p>Tap the button below and Chef will choose flavors for you.</p>
+      <div class="chef-picks-actions">
+        <button class="btn" id="chef-pick-flavors" type="button">Show me flavors to pick!</button>
+      </div>
+      <div id="chef-pick-results" aria-live="polite"></div>
+    </div>
+</section>
+
+  <section id="chef-ai-chat" class="chef-ai-chat">
+    <div class="section-head">
+      <div><span class="eyebrow">🤖 OpenAI-powered helper</span><h2>Chat with Chef AI</h2>
+      <p>Tell Chef what ingredients you have or what kind of drink you want. Chef can suggest flavors, measurements, and steps.</p></div>
+    </div>
+    <div class="chef-ai-chat-layout">
+      <div id="chef-ai-log" class="chef-ai-log" role="log" aria-live="polite">
+        <div class="chef-ai-message chef">👨‍🍳 Hi! I'm Chef. Tell me what ingredients you have, or what kind of smoothie or milkshake sounds good.</div>
+      </div>
+      <form id="chef-ai-form" class="chef-ai-form">
+        <textarea id="chef-ai-input" maxlength="2000" required aria-label="Message Chef" placeholder="Example: I have bananas, milk, and peanut butter."></textarea>
+        <button class="btn" id="chef-ai-send" type="submit">Ask Chef</button>
+      </form>
+      <div id="chef-ai-status" class="chef-ai-status" role="status"></div>
+      <p class="chef-ai-disclaimer">Live AI requires the included backend to be configured with an OpenAI API key. Never put an API key in this HTML file. Check ingredient labels for allergies.</p>
+    </div>
+  </section>
+
+
+
+  <section id="recipes">
+    <div class="section-head"><div><h2>Pick your blend</h2><p>Beginner-friendly recipes with everyday ingredients. Every recipe includes measured ingredients and step-by-step instructions.</p></div></div>
+    <div class="controls">
+      <input id="search" class="search" type="search" placeholder="Search banana, chocolate, peanut butter…" aria-label="Search recipes">
+      <button class="filter active" data-filter="all">🥤 All 60 recipes</button>
+      <button class="filter" data-filter="smoothie">🍓 Smoothies · 30</button>
+      <button class="filter" data-filter="milkshake">🥛 Milkshakes · 30</button>
+    </div>
+    <p id="recipe-menu-status" class="saved-intro" aria-live="polite">Showing all 60 core recipes — use the Smoothies or Milkshakes button to browse each menu separately.</p>
+    <div class="grid" id="recipeGrid">
+      <article class="recipe" data-kind="smoothie" data-search="banana peanut butter vanilla protein smoothie">
+        <div class="recipe-top tone-green"><span class="emoji">🍌</span><h3>Banana Peanut Butter</h3><p>Our classic creamy, nutty everyday blend.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Beginner</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium ripe banana</li><li><strong>1 cup (240 mL)</strong> milk of your choice</li><li><strong>1 tablespoon (16 g)</strong> peanut butter</li><li><strong>½ cup (120 g)</strong> plain or vanilla yogurt (optional)</li><li>Protein powder, optional — use the serving size on its label</li><li><strong>4–6</strong> ice cubes, if you like</li></ul><h4>How to make it</h4><ol class="steps"><li>Add the milk and banana to the blender.</li><li>Add peanut butter, yogurt, and optional protein powder.</li><li>Blend until smooth. Add ice or a splash more milk to adjust.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="chocolate peanut butter banana milkshake cocoa">
+        <div class="recipe-top tone-orange"><span class="emoji">🍫</span><h3>Chocolate PB Shake</h3><p>Chocolatey, peanut-buttery, and extra creamy.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Chocolate</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana (fresh or frozen)</li><li><strong>¾–1 cup (180–240 mL)</strong> milk</li><li><strong>1 tablespoon (16 g)</strong> peanut butter</li><li><strong>1 teaspoon (2.5 g)</strong> unsweetened cocoa powder</li><li><strong>½ cup (120 g)</strong> vanilla yogurt or about <strong>½ cup</strong> ice cream</li><li>Optional protein powder, following the label</li></ul><h4>How to make it</h4><ol class="steps"><li>Put all ingredients in the blender.</li><li>Blend until thick and smooth.</li><li>Add a little milk if it is too thick, then pour and enjoy.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="strawberry banana smoothie yogurt vanilla">
+        <div class="recipe-top tone-pink"><span class="emoji">🍓</span><h3>Strawberry Banana</h3><p>Sweet, fruity, and a great first smoothie.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li><strong>¾ cup (about 110 g)</strong> strawberries, fresh or frozen</li><li><strong>1 cup (240 mL)</strong> milk</li><li><strong>½ cup (120 g)</strong> Greek or regular yogurt</li><li>Optional protein powder, following the label</li></ul><h4>How to make it</h4><ol class="steps"><li>Wash fresh strawberries and remove the leafy tops.</li><li>Add everything to the blender.</li><li>Blend until creamy. Frozen fruit makes it thicker.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="vanilla banana milkshake cinnamon">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍦</span><h3>Vanilla Banana Shake</h3><p>A smooth, mellow vanilla treat.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">4 min</span><span class="tag">Vanilla</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li><strong>1 cup (240 mL)</strong> milk</li><li><strong>½ cup (120 g)</strong> vanilla yogurt or about <strong>½ cup</strong> vanilla ice cream</li><li><strong>¼ teaspoon (1 mL)</strong> vanilla extract (optional)</li><li><strong>⅛ teaspoon</strong> cinnamon (optional)</li></ul><h4>How to make it</h4><ol class="steps"><li>Add the banana, milk, yogurt or ice cream, and vanilla.</li><li>Blend until silky and creamy.</li><li>Sprinkle with cinnamon if you want.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="blueberry banana smoothie berry yogurt">
+        <div class="recipe-top tone-purple"><span class="emoji">🫐</span><h3>Blueberry Banana</h3><p>A berry-packed blend with a creamy finish.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Berry</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li><strong>¾ cup (about 110 g)</strong> blueberries, fresh or frozen</li><li><strong>1 cup (240 mL)</strong> milk</li><li><strong>½ cup (120 g)</strong> plain yogurt</li><li>Optional protein powder, following the label</li></ul><h4>How to make it</h4><ol class="steps"><li>Add the milk, banana, blueberries, and yogurt.</li><li>Blend until there are no big fruit pieces.</li><li>Taste, then add a little honey if you want it sweeter.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="banana cinnamon peanut butter milkshake oats">
+        <div class="recipe-top tone-blue"><span class="emoji">🥜</span><h3>Banana Oat Shake</h3><p>Cozy banana flavor with a gentle cinnamon note.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Oaty</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li><strong>1 cup (240 mL)</strong> milk</li><li><strong>2 tablespoons (10 g)</strong> quick oats</li><li><strong>1 tablespoon (16 g)</strong> peanut butter</li><li><strong>⅛ teaspoon</strong> cinnamon</li><li><strong>½ cup (120 g)</strong> yogurt, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Put all ingredients into the blender.</li><li>Blend for 30–45 seconds until smooth.</li><li>Let it sit for a minute to thicken, or add ice for a colder shake.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="mango pineapple tropical sunshine smoothie fruit dairy free coconut">
+        <div class="recipe-top tone-yellow"><span class="emoji">🥭</span><h3>Tropical Sunshine</h3><p>Mango and pineapple for a bright, beachy blend.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Tropical</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li><strong>¾ cup (125 g)</strong> mango chunks, fresh or frozen</li><li><strong>½ cup (80 g)</strong> pineapple chunks</li><li><strong>¾ cup (180 mL)</strong> orange juice</li><li><strong>¼ cup (60 g)</strong> plain yogurt, optional</li><li>3–4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add mango, pineapple, and orange juice to the blender.</li><li>Add yogurt and ice if using.</li><li>Blend until smooth. Add a splash of juice if needed.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="raspberry peach pink smoothie berries peach vanilla yogurt">
+        <div class="recipe-top tone-pink"><span class="emoji">🍑</span><h3>Peachy Raspberry</h3><p>Sweet peach with a little berry tang.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li><strong>1 cup (150 g)</strong> sliced peaches</li><li><strong>½ cup (60 g)</strong> raspberries</li><li><strong>¾ cup (180 mL)</strong> milk or oat milk</li><li><strong>½ cup (120 g)</strong> vanilla yogurt</li><li>Ice, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add the fruit, milk, and yogurt to the blender.</li><li>Blend until smooth.</li><li>Add ice or a little extra milk to get the texture you like.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="cookies cream cookie chocolate vanilla milkshake cookies and cream">
+        <div class="recipe-top tone-purple"><span class="emoji">🍪</span><h3>Cookies & Cream</h3><p>A creamy vanilla shake with chocolate cookie pieces.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Cookie</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li><strong>1 cup (240 mL)</strong> milk</li><li><strong>¾ cup (about 180 g)</strong> vanilla ice cream or thick vanilla yogurt</li><li>2 chocolate sandwich cookies</li><li><strong>¼ teaspoon</strong> vanilla extract, optional</li><li>Ice, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk, ice cream or yogurt, and vanilla to the blender.</li><li>Blend briefly, then add the cookies.</li><li>Pulse until the cookie pieces are as small as you like.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="caramel banana milkshake butterscotch vanilla caramel sauce">
+        <div class="recipe-top tone-orange"><span class="emoji">🍮</span><h3>Caramel Banana</h3><p>Banana, vanilla, and a swirl of caramel flavor.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li><strong>¾ cup (180 mL)</strong> milk</li><li><strong>½ cup (120 g)</strong> vanilla ice cream or yogurt</li><li><strong>1 tablespoon (15 mL)</strong> caramel sauce</li><li>A pinch of cinnamon, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add banana, milk, ice cream or yogurt, and caramel sauce.</li><li>Blend until creamy and smooth.</li><li>Pour into a cup and add a small caramel drizzle if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="chocolate strawberry smoothie cocoa strawberry chocolate berry">
+        <div class="recipe-top tone-pink"><span class="emoji">🍫</span><h3>Chocolate Strawberry</h3><p>Strawberry sweetness with a chocolate twist.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Chocolate</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li><strong>1 cup (150 g)</strong> strawberries, fresh or frozen</li><li><strong>¾ cup (180 mL)</strong> milk</li><li><strong>½ cup (120 g)</strong> plain or vanilla yogurt</li><li><strong>1 teaspoon (2.5 g)</strong> unsweetened cocoa powder</li><li>½ banana, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Wash and remove the tops from fresh strawberries.</li><li>Add all ingredients to the blender.</li><li>Blend until smooth and creamy. Add a splash of milk if needed.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="mint chocolate chip milkshake mint vanilla chocolate chips">
+        <div class="recipe-top tone-blue"><span class="emoji">🍃</span><h3>Mint Chip Shake</h3><p>Cool mint flavor with little chocolate chips.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Mint</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li><strong>1 cup (240 mL)</strong> milk</li><li><strong>¾ cup (about 180 g)</strong> vanilla ice cream or thick vanilla yogurt</li><li><strong>⅛ teaspoon</strong> peppermint extract (optional; strong flavor)</li><li><strong>1 tablespoon (10 g)</strong> mini chocolate chips</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream or yogurt to the blender.</li><li>Add only a tiny amount of peppermint extract and blend.</li><li>Stir in chocolate chips or pulse once or twice so they stay in small pieces.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="pineapple coconut tropical fruit smoothie">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍍</span><h3>Pineapple Coconut</h3><p>Pineapple and coconut make a sunny, creamy tropical blend.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (125 g) pineapple chunks</li><li>½ cup (120 mL) coconut milk beverage</li><li>½ cup (120 g) vanilla yogurt</li><li>½ small banana</li><li>3–4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add coconut milk and yogurt to the blender.</li><li>Add pineapple and banana.</li><li>Blend until smooth; add ice if you want it colder.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="mango peach fruit smoothie">
+        <div class="recipe-top tone-orange"><span class="emoji">🥭</span><h3>Mango Peach</h3><p>Sweet mango and peach in a mellow fruit smoothie.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (80 g) mango chunks</li><li>½ cup (75 g) peach slices</li><li>¾ cup (180 mL) milk or oat milk</li><li>½ cup (120 g) vanilla yogurt</li><li>Ice, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and yogurt to the blender.</li><li>Add mango and peaches.</li><li>Blend until creamy and smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="raspberry banana berry smoothie">
+        <div class="recipe-top tone-pink"><span class="emoji">🍇</span><h3>Raspberry Banana</h3><p>A bright berry smoothie balanced with banana.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (60 g) raspberries</li><li>1 medium banana</li><li>¾ cup (180 mL) milk</li><li>½ cup (120 g) plain yogurt</li><li>1 teaspoon honey, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and yogurt first.</li><li>Add raspberries and banana.</li><li>Blend until smooth; sweeten lightly if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="watermelon strawberry smoothie">
+        <div class="recipe-top tone-pink"><span class="emoji">🍉</span><h3>Watermelon Strawberry</h3><p>A refreshing pink fruit blend.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 cup (150 g) seedless watermelon cubes</li><li>½ cup (75 g) strawberries</li><li>½ cup (120 mL) plain yogurt</li><li>½ cup (120 mL) cold water</li><li>Ice, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Remove any seeds from the watermelon.</li><li>Add all ingredients to the blender.</li><li>Blend until smooth and serve cold.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="green apple kiwi smoothie">
+        <div class="recipe-top tone-green"><span class="emoji">🥝</span><h3>Green Apple Kiwi</h3><p>Tart green apple and kiwi with creamy yogurt.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ green apple, cored and chopped</li><li>1 kiwi, peeled</li><li>¾ cup (180 mL) apple juice</li><li>¼ cup (60 g) vanilla yogurt</li><li>Ice, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Core and chop the apple; peel the kiwi.</li><li>Add juice, yogurt, apple, and kiwi.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="orange creamsicle vanilla milkshake">
+        <div class="recipe-top tone-orange"><span class="emoji">🍊</span><h3>Orange Creamsicle</h3><p>A creamy orange-and-vanilla classic.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (180 mL) orange juice</li><li>½ cup (120 g) vanilla ice cream or yogurt</li><li>½ cup (120 mL) milk</li><li>¼ teaspoon vanilla extract, optional</li><li>3 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Pour orange juice and milk into the blender.</li><li>Add vanilla ice cream or yogurt.</li><li>Blend until creamy and frothy.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="double chocolate cocoa milkshake">
+        <div class="recipe-top tone-purple"><span class="emoji">🍫</span><h3>Double Chocolate Shake</h3><p>A rich cocoa shake for chocolate fans.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 cup (240 mL) milk</li><li>¾ cup (180 g) vanilla or chocolate ice cream</li><li>1 tablespoon (5 g) unsweetened cocoa powder</li><li>1 teaspoon chocolate syrup, optional</li><li>3 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream to the blender.</li><li>Add cocoa and optional chocolate syrup.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="strawberry cheesecake milkshake">
+        <div class="recipe-top tone-pink"><span class="emoji">🍓</span><h3>Strawberry Cheesecake</h3><p>Strawberries and vanilla yogurt inspired by cheesecake.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (110 g) strawberries</li><li>¾ cup (180 mL) milk</li><li>½ cup (120 g) vanilla Greek yogurt</li><li>1 plain graham cracker, crumbled</li><li>½ teaspoon vanilla extract, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk, strawberries, and yogurt.</li><li>Add graham cracker crumbs and vanilla.</li><li>Blend until smooth; save a few crumbs for topping if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="banana caramel crunch milkshake">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍌</span><h3>Banana Caramel Crunch</h3><p>Banana and caramel with a little oat crunch.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li>¾ cup (180 mL) milk</li><li>½ cup (120 g) vanilla yogurt or ice cream</li><li>1 tablespoon (15 mL) caramel sauce</li><li>1 tablespoon (5 g) rolled oats, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk, banana, yogurt or ice cream.</li><li>Add caramel and optional oats.</li><li>Blend until creamy.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="mocha chocolate milkshake decaf coffee">
+        <div class="recipe-top tone-orange"><span class="emoji">☕</span><h3>Mocha Morning</h3><p>Chocolate and coffee flavor without brewing coffee.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 cup (240 mL) milk</li><li>½ cup (120 g) chocolate yogurt or vanilla yogurt</li><li>1 teaspoon (2.5 g) cocoa powder</li><li>½ teaspoon instant decaf coffee granules, optional</li><li>½ banana, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and yogurt to the blender.</li><li>Add cocoa and optional decaf coffee granules.</li><li>Blend with banana if you want a thicker texture.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="cherry vanilla smoothie">
+        <div class="recipe-top tone-pink"><span class="emoji">🍒</span><h3>Cherry Vanilla</h3><p>Sweet cherries with a smooth vanilla finish.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (110 g) pitted cherries, fresh or frozen</li><li>¾ cup (180 mL) milk</li><li>½ cup (120 g) vanilla yogurt</li><li>¼ teaspoon vanilla extract, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Make sure cherries are pitted.</li><li>Add milk and yogurt, then cherries.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="blackberry banana smoothie">
+        <div class="recipe-top tone-purple"><span class="emoji">🫐</span><h3>Blackberry Bliss</h3><p>Deep berry flavor with a creamy finish.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (100 g) blackberries</li><li>1 small banana</li><li>¾ cup (180 mL) milk</li><li>¼ cup (60 g) yogurt</li><li>1 teaspoon honey, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and yogurt to the blender.</li><li>Add blackberries and banana.</li><li>Blend thoroughly until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="peanut butter cup chocolate milkshake">
+        <div class="recipe-top tone-orange"><span class="emoji">🥜</span><h3>Peanut Butter Cup</h3><p>Peanut butter and cocoa in a dessert-style shake.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 cup (240 mL) milk</li><li>½ cup (120 g) vanilla or chocolate ice cream</li><li>1 tablespoon (16 g) peanut butter</li><li>1 teaspoon (2.5 g) cocoa powder</li><li>½ banana, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream to the blender.</li><li>Add peanut butter and cocoa.</li><li>Blend until creamy. Check for peanut allergy before making.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="cinnamon roll banana vanilla milkshake">
+        <div class="recipe-top tone-yellow"><span class="emoji">🥨</span><h3>Cinnamon Roll</h3><p>Vanilla, banana, and cinnamon for a bakery-inspired flavor.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li>¾ cup (180 mL) milk</li><li>½ cup (120 g) vanilla yogurt or ice cream</li><li>¼ teaspoon ground cinnamon</li><li>1 tablespoon (5 g) rolled oats, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and banana to the blender.</li><li>Add yogurt or ice cream, cinnamon, and optional oats.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="blueberry muffin oats smoothie">
+        <div class="recipe-top tone-purple"><span class="emoji">🫐</span><h3>Blueberry Muffin</h3><p>Blueberries and oats inspired by a fresh muffin.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (110 g) blueberries</li><li>1 small banana</li><li>¾ cup (180 mL) milk</li><li>2 tablespoons (10 g) rolled oats</li><li>¼ cup (60 g) plain yogurt</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and oats and let sit for 2 minutes.</li><li>Add blueberries, banana, and yogurt.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="lemon berry strawberry blueberry smoothie">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍋</span><h3>Lemon Berry Splash</h3><p>A zesty berry blend with a gentle lemon twist.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (75 g) strawberries</li><li>¼ cup (35 g) blueberries</li><li>¾ cup (180 mL) water or apple juice</li><li>1 tablespoon (15 mL) lemon juice</li><li>½ banana, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add water or juice and lemon juice.</li><li>Add berries and optional banana.</li><li>Blend until smooth and taste before adding more lemon.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="vanilla sprinkle birthday cake milkshake">
+        <div class="recipe-top tone-pink"><span class="emoji">🎉</span><h3>Vanilla Sprinkle Shake</h3><p>A fun vanilla shake with colorful sprinkles.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 cup (240 mL) milk</li><li>¾ cup (180 g) vanilla ice cream or thick vanilla yogurt</li><li>¼ teaspoon vanilla extract, optional</li><li>1 teaspoon rainbow sprinkles</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream or yogurt to the blender.</li><li>Add vanilla and blend until creamy.</li><li>Pour into a cup and add sprinkles on top.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="chocolate banana oat smoothie">
+        <div class="recipe-top tone-orange"><span class="emoji">🍌</span><h3>Chocolate Banana Oat</h3><p>Chocolate, banana, and oats make a filling-tasting blend.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li>¾ cup (180 mL) milk</li><li>1 tablespoon (5 g) cocoa powder</li><li>2 tablespoons (10 g) rolled oats</li><li>¼ cup (60 g) plain yogurt</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and oats and wait 2 minutes.</li><li>Add banana, cocoa, and yogurt.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="smoothie" data-search="mango banana yogurt tropical">
+        <div class="recipe-top tone-yellow"><span class="emoji">🥭</span><h3>Mango Banana Cream</h3><p>Mango, banana, and yogurt make a sunny, creamy blend.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (125 g) mango chunks</li><li>1 small banana</li><li>¾ cup (180 mL) milk or oat milk</li><li>¼ cup (60 g) plain yogurt</li><li>3 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add the milk and yogurt to the blender.</li><li>Add mango and banana.</li><li>Blend until smooth; add ice if you want it colder.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="strawberry oat breakfast">
+        <div class="recipe-top tone-pink"><span class="emoji">🍓</span><h3>Strawberry Oat</h3><p>A berry smoothie with a little oat goodness.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (110 g) strawberries</li><li>1 cup (240 mL) milk</li><li>2 tablespoons (10 g) rolled oats</li><li>¼ cup (60 g) vanilla yogurt</li><li>½ banana, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and oats and let them sit for 2 minutes.</li><li>Add strawberries and yogurt.</li><li>Blend until creamy and smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="pineapple mango tropical citrus">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍍</span><h3>Pineapple Mango Splash</h3><p>Bright tropical fruit with a citrus base.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (80 g) pineapple chunks</li><li>½ cup (80 g) mango chunks</li><li>¾ cup (180 mL) orange juice</li><li>¼ cup (60 g) yogurt, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Pour orange juice into the blender.</li><li>Add pineapple, mango, and optional yogurt.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="peach banana smoothie">
+        <div class="recipe-top tone-pink"><span class="emoji">🍑</span><h3>Peach Banana Smoothie</h3><p>Soft peach flavor with a banana base.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li>¾ cup (115 g) sliced peaches</li><li>¾ cup (180 mL) milk</li><li>¼ cup (60 g) plain yogurt</li><li>Pinch of cinnamon, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and yogurt first.</li><li>Add banana and peaches.</li><li>Blend until smooth and add cinnamon if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="raspberry vanilla berry smoothie">
+        <div class="recipe-top tone-purple"><span class="emoji">❤️</span><h3>Raspberry Vanilla</h3><p>Tart raspberries balanced with creamy vanilla.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (90 g) raspberries</li><li>1 cup (240 mL) milk</li><li>½ cup (120 g) vanilla yogurt</li><li>1 teaspoon honey, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and yogurt to the blender.</li><li>Add raspberries.</li><li>Blend until smooth; taste before adding optional honey.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="cherry blueberry berry smoothie">
+        <div class="recipe-top tone-purple"><span class="emoji">🍒</span><h3>Cherry Berry Blend</h3><p>Cherries and blueberries make a deep berry smoothie.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (75 g) pitted cherries</li><li>½ cup (75 g) blueberries</li><li>¾ cup (180 mL) milk</li><li>¼ cup (60 g) plain yogurt</li></ul><h4>How to make it</h4><ol class="steps"><li>Make sure all cherries are pitted.</li><li>Add milk, yogurt, and fruit to the blender.</li><li>Blend until completely smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="kiwi pineapple green smoothie">
+        <div class="recipe-top tone-green"><span class="emoji">🥝</span><h3>Kiwi Pineapple Green</h3><p>A tangy green blend with kiwi and pineapple.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 peeled kiwi, sliced</li><li>½ cup (80 g) pineapple chunks</li><li>¾ cup (180 mL) apple juice</li><li>½ banana, optional</li><li>3 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add apple juice to the blender.</li><li>Add kiwi, pineapple, and optional banana.</li><li>Blend until smooth; add ice if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="apple cinnamon smoothie">
+        <div class="recipe-top tone-green"><span class="emoji">🍏</span><h3>Apple Cinnamon</h3><p>Apple, yogurt, and cinnamon in a simple smoothie.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (75 g) peeled apple pieces</li><li>1 small banana</li><li>¾ cup (180 mL) milk</li><li>¼ cup (60 g) vanilla yogurt</li><li>¼ teaspoon cinnamon</li></ul><h4>How to make it</h4><ol class="steps"><li>Ask an adult to help cut the apple into small pieces.</li><li>Add milk, fruit, yogurt, and cinnamon.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="chocolate cherry cocoa smoothie">
+        <div class="recipe-top tone-orange"><span class="emoji">🍫</span><h3>Chocolate Cherry</h3><p>Chocolate and cherry create a rich fruit blend.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (75 g) pitted cherries</li><li>1 small banana</li><li>¾ cup (180 mL) milk</li><li>1 teaspoon (2.5 g) cocoa powder</li><li>¼ cup (60 g) yogurt</li></ul><h4>How to make it</h4><ol class="steps"><li>Make sure the cherries are pitted.</li><li>Add milk, banana, cherries, cocoa, and yogurt.</li><li>Blend until smooth and creamy.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="blueberry peach smoothie">
+        <div class="recipe-top tone-purple"><span class="emoji">🫐</span><h3>Blueberry Peach</h3><p>Sweet peach and blueberry with a creamy finish.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (75 g) blueberries</li><li>½ cup (75 g) sliced peaches</li><li>¾ cup (180 mL) milk</li><li>½ cup (120 g) vanilla yogurt</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and yogurt to the blender.</li><li>Add blueberries and peaches.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="orange carrot sunrise smoothie">
+        <div class="recipe-top tone-orange"><span class="emoji">🍊</span><h3>Orange Carrot Sunrise</h3><p>A sunny fruit smoothie with a little carrot.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (180 mL) orange juice</li><li>½ cup (60 g) finely grated carrot</li><li>½ banana</li><li>¼ cup (60 g) vanilla yogurt</li><li>3 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add orange juice and yogurt to the blender.</li><li>Add grated carrot and banana.</li><li>Blend thoroughly until smooth; add ice if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="coconut berry smoothie">
+        <div class="recipe-top tone-pink"><span class="emoji">🥥</span><h3>Coconut Berry</h3><p>Berries and coconut milk make a mellow tropical blend.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (75 g) strawberries</li><li>¼ cup (35 g) blueberries</li><li>¾ cup (180 mL) coconut milk beverage</li><li>¼ cup (60 g) vanilla yogurt</li></ul><h4>How to make it</h4><ol class="steps"><li>Pour coconut milk beverage into the blender.</li><li>Add berries and yogurt.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="pear vanilla smoothie">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍐</span><h3>Pear Vanilla</h3><p>A gentle, sweet smoothie with ripe pear.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 small ripe pear, cored and chopped</li><li>¾ cup (180 mL) milk</li><li>½ cup (120 g) vanilla yogurt</li><li>⅛ teaspoon cinnamon, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Ask an adult to help core and chop the pear.</li><li>Add milk, pear, and yogurt to the blender.</li><li>Blend until smooth; add cinnamon if you like.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="smoothie" data-search="watermelon lime cooler smoothie">
+        <div class="recipe-top tone-pink"><span class="emoji">🍉</span><h3>Watermelon Lime Cooler</h3><p>A refreshing watermelon smoothie with a little lime.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Smoothie</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Fruity</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1½ cups (225 g) seedless watermelon cubes</li><li>½ cup (120 g) strawberries</li><li>1 teaspoon (5 mL) lime juice</li><li>¼ cup (60 g) vanilla yogurt, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add watermelon and strawberries to the blender.</li><li>Add lime juice and optional yogurt.</li><li>Blend until smooth and serve cold.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="chocolate cookie milkshake">
+        <div class="recipe-top tone-purple"><span class="emoji">🍪</span><h3>Chocolate Cookie Shake</h3><p>A chocolate cookie-style milkshake.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 cup (240 mL) milk</li><li>¾ cup (180 g) vanilla ice cream or thick yogurt</li><li>2 chocolate sandwich cookies</li><li>1 teaspoon (2.5 g) cocoa powder, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream or yogurt to the blender.</li><li>Add cookies and optional cocoa.</li><li>Blend until creamy; ask an adult to help with the blender.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="strawberry cream milkshake">
+        <div class="recipe-top tone-pink"><span class="emoji">🍓</span><h3>Strawberry Cream Shake</h3><p>A classic strawberry milkshake with a creamy finish.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (110 g) strawberries</li><li>¾ cup (180 mL) milk</li><li>¾ cup (180 g) vanilla ice cream or thick yogurt</li><li>¼ teaspoon vanilla extract, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream or yogurt.</li><li>Add strawberries and optional vanilla.</li><li>Blend until creamy and pour into a glass.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="salted caramel milkshake">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍯</span><h3>Salted Caramel Shake</h3><p>Caramel flavor with a tiny pinch of salt.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 cup (240 mL) milk</li><li>¾ cup (180 g) vanilla ice cream</li><li>1 tablespoon (15 mL) caramel sauce</li><li>Tiny pinch of salt</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream to the blender.</li><li>Add caramel sauce and a tiny pinch of salt.</li><li>Blend until smooth and drizzle a little caramel on top if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="chocolate banana malt milkshake">
+        <div class="recipe-top tone-orange"><span class="emoji">🍌</span><h3>Chocolate Banana Malt</h3><p>Chocolate and banana in a thick shake.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li>¾ cup (180 mL) milk</li><li>¾ cup (180 g) chocolate ice cream</li><li>1 teaspoon (5 g) malted milk powder, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and banana to the blender.</li><li>Add chocolate ice cream and optional malted milk powder.</li><li>Blend until thick and smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="blueberry cheesecake milkshake">
+        <div class="recipe-top tone-purple"><span class="emoji">🫐</span><h3>Blueberry Cheesecake Shake</h3><p>Blueberry flavor with a cheesecake-inspired creaminess.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (75 g) blueberries</li><li>¾ cup (180 mL) milk</li><li>¾ cup (180 g) vanilla ice cream or thick yogurt</li><li>1 tablespoon (15 g) cream cheese, softened</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and softened cream cheese to the blender.</li><li>Add blueberries and ice cream or yogurt.</li><li>Blend until smooth and creamy.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="peanut butter banana milkshake">
+        <div class="recipe-top tone-yellow"><span class="emoji">🥜</span><h3>Peanut Butter Banana Shake</h3><p>A nutty banana shake with measured ingredients.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li>1 cup (240 mL) milk</li><li>¾ cup (180 g) vanilla ice cream or thick yogurt</li><li>1 tablespoon (16 g) peanut butter</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and banana to the blender.</li><li>Add ice cream or yogurt and peanut butter.</li><li>Blend until smooth. Check for peanut allergies before making.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="vanilla bean milkshake">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍦</span><h3>Vanilla Bean Shake</h3><p>A simple vanilla shake with a bakery-style aroma.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 cup (240 mL) milk</li><li>¾ cup (180 g) vanilla ice cream</li><li>¼ teaspoon vanilla extract</li><li>Tiny pinch of cinnamon, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream to the blender.</li><li>Add vanilla extract and optional cinnamon.</li><li>Blend until creamy.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="mocha cookie milkshake cocoa">
+        <div class="recipe-top tone-orange"><span class="emoji">☕</span><h3>Mocha Cookie Shake</h3><p>Coffee-inspired chocolate flavor without brewed coffee.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 cup (240 mL) milk</li><li>¾ cup (180 g) chocolate ice cream</li><li>1 teaspoon (2.5 g) cocoa powder</li><li>2 chocolate cookies</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and chocolate ice cream.</li><li>Add cocoa and cookies.</li><li>Blend until smooth and cookie pieces are broken down.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="mint chocolate chip milkshake">
+        <div class="recipe-top tone-green"><span class="emoji">🌿</span><h3>Mint Chocolate Shake</h3><p>Cool mint flavor with chocolate chips.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 cup (240 mL) milk</li><li>¾ cup (180 g) vanilla ice cream</li><li>⅛ teaspoon mint extract</li><li>1 tablespoon (10 g) mini chocolate chips</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream to the blender.</li><li>Add only ⅛ teaspoon mint extract and chocolate chips.</li><li>Blend briefly until smooth; mint extract is strong.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="peach cobbler milkshake">
+        <div class="recipe-top tone-pink"><span class="emoji">🍑</span><h3>Peach Cobbler Shake</h3><p>Peach, vanilla, and cinnamon in a dessert-style shake.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (115 g) sliced peaches</li><li>¾ cup (180 mL) milk</li><li>¾ cup (180 g) vanilla ice cream</li><li>⅛ teaspoon cinnamon</li><li>1 tablespoon (5 g) rolled oats, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream to the blender.</li><li>Add peaches, cinnamon, and optional oats.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="orange vanilla creamsicle milkshake">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍊</span><h3>Orange Vanilla Cream</h3><p>A creamy orange-and-vanilla classic.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (180 mL) orange juice</li><li>½ cup (120 mL) milk</li><li>¾ cup (180 g) vanilla ice cream</li><li>¼ teaspoon vanilla extract, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add orange juice and milk to the blender.</li><li>Add ice cream and optional vanilla.</li><li>Blend until creamy and serve right away.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="coconut chocolate milkshake">
+        <div class="recipe-top tone-orange"><span class="emoji">🥥</span><h3>Coconut Chocolate Shake</h3><p>Chocolate with a subtle coconut flavor.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (180 mL) milk</li><li>¾ cup (180 g) chocolate ice cream</li><li>2 tablespoons (15 g) shredded coconut</li><li>1 teaspoon (2.5 g) cocoa powder, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and chocolate ice cream.</li><li>Add coconut and optional cocoa.</li><li>Blend until smooth; sprinkle with a little coconut if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="raspberry white chocolate milkshake">
+        <div class="recipe-top tone-pink"><span class="emoji">❤️</span><h3>Raspberry White Chocolate</h3><p>Raspberry and white chocolate-inspired flavor.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (60 g) raspberries</li><li>¾ cup (180 mL) milk</li><li>¾ cup (180 g) vanilla ice cream</li><li>1 tablespoon (15 g) white chocolate chips</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream to the blender.</li><li>Add raspberries and white chocolate chips.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="cinnamon toast milkshake">
+        <div class="recipe-top tone-yellow"><span class="emoji">🥨</span><h3>Cinnamon Toast Shake</h3><p>A cinnamon-and-vanilla shake inspired by toast.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 cup (240 mL) milk</li><li>¾ cup (180 g) vanilla ice cream</li><li>¼ teaspoon cinnamon</li><li>2 plain graham cracker squares, crushed</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream to the blender.</li><li>Add cinnamon and crushed graham crackers.</li><li>Blend until smooth and sprinkle a pinch of cinnamon on top.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="banana pudding milkshake vanilla cookie">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍌</span><h3>Banana Pudding Shake</h3><p>Banana and vanilla with a cookie finish.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li>¾ cup (180 mL) milk</li><li>¾ cup (180 g) vanilla ice cream</li><li>2 vanilla wafer cookies</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and banana to the blender.</li><li>Add ice cream and vanilla wafer cookies.</li><li>Blend until creamy.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="chocolate strawberry milkshake">
+        <div class="recipe-top tone-pink"><span class="emoji">🍓</span><h3>Chocolate Strawberry Shake</h3><p>A chocolate-covered-strawberry-inspired shake.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Milkshake</span><span class="tag">5 min</span><span class="tag">Blend Buddy</span><span class="tag">Creamy</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (75 g) strawberries</li><li>¾ cup (180 mL) milk</li><li>¾ cup (180 g) chocolate ice cream</li><li>1 teaspoon (2.5 g) cocoa powder, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and chocolate ice cream.</li><li>Add strawberries and optional cocoa.</li><li>Blend until smooth.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+    </div>
+    <div class="empty" id="empty">No recipes match that search. Try “banana,” “mango,” or “chocolate.”</div>
+  </section>
+
+  <section id="holiday-boss-battles" class="boss-battles" aria-labelledby="boss-battles-title">
+    <div class="boss-head"><div class="boss-icon">🏆</div><div><span class="season-label">Limited-time flavor quests</span><h2 id="boss-battles-title">Holiday Boss Battles</h2><p>Choose a holiday challenge, make a themed drink, complete the mission checklist, and collect a badge. Your progress saves on this device.</p></div></div>
+    <div class="boss-progress"><div><strong id="boss-score">0 / 6 badges earned</strong><div id="boss-progress-copy">Pick a boss to begin your first challenge!</div></div><button class="btn secondary" type="button" onclick="resetHolidayBossProgress()">Reset battle progress</button></div>
+    <div class="boss-grid" id="boss-grid">
+      <article class="boss-card" data-boss="halloween"><div class="boss-season">Oct 1 – Nov 2</div><div style="font-size:36px">🎃</div><h3>Halloween Haunt</h3><p>Make a spooky sip and conquer the pumpkin patch.</p><button class="btn" type="button" onclick="startHolidayBoss('halloween')">Choose this boss</button></article>
+      <article class="boss-card" data-boss="christmas"><div class="boss-season">Dec 1 – Dec 25</div><div style="font-size:36px">🎄</div><h3>Christmas Chill</h3><p>Blend a cozy winter drink and earn a festive badge.</p><button class="btn" type="button" onclick="startHolidayBoss('christmas')">Choose this boss</button></article>
+      <article class="boss-card" data-boss="valentines"><div class="boss-season">Feb 1 – Feb 14</div><div style="font-size:36px">💗</div><h3>Berry Sweetheart</h3><p>Build a berry-pink blend with careful measurements.</p><button class="btn" type="button" onclick="startHolidayBoss('valentines')">Choose this boss</button></article>
+      <article class="boss-card" data-boss="easter"><div class="boss-season">Easter week</div><div style="font-size:36px">🐣</div><h3>Springtime Surprise</h3><p>Mix a bright, fruity spring recipe.</p><button class="btn" type="button" onclick="startHolidayBoss('easter')">Choose this boss</button></article>
+      <article class="boss-card" data-boss="stpatricks"><div class="boss-season">Mar 10 – Mar 17</div><div style="font-size:36px">🍀</div><h3>Lucky Green Machine</h3><p>Take on a green blend and win a lucky badge.</p><button class="btn" type="button" onclick="startHolidayBoss('stpatricks')">Choose this boss</button></article>
+      <article class="boss-card" data-boss="summer"><div class="boss-season">Jul 1 – Jul 7</div><div style="font-size:36px">☀️</div><h3>Summer Splash</h3><p>Beat the heat with a refreshing tropical drink.</p><button class="btn" type="button" onclick="startHolidayBoss('summer')">Choose this boss</button></article>
+    </div>
+    <div class="boss-detail" id="boss-detail" hidden aria-live="polite">
+      <h3 id="boss-detail-title">Choose your challenge</h3><p id="boss-detail-desc"></p>
+      <div><strong>Mission checklist</strong></div><div class="boss-checklist" id="boss-checklist"></div>
+      <p class="boss-message" id="boss-message">Check off each mission to unlock your badge.</p>
+      <button class="btn" id="boss-claim-button" type="button" onclick="completeHolidayBoss()" disabled>Complete battle &amp; earn badge</button>
+    </div>
+  </section>
+
+  <section id="holiday-specials" class="season" data-season="halloween" aria-labelledby="halloween-title" hidden>
+    <div class="season-intro"><div class="season-icon">🎃</div><div><span class="season-label">Limited-time spooky sips · Oct 1–Nov 2</span><h2 id="halloween-title">Halloween Specials</h2><p>Fun, fall-inspired blends with easy measurements and simple steps.</p></div></div>
+    <div class="grid">
+      <article class="recipe" data-kind="smoothie" data-search="halloween pumpkin pie smoothie pumpkin banana cinnamon fall seasonal">
+        <div class="recipe-top tone-orange"><span class="emoji">🎃</span><h3>Pumpkin Patch Smoothie</h3><p>A creamy pumpkin-pie-inspired autumn smoothie.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Halloween</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li><strong>½ cup (120 g)</strong> plain pumpkin purée (not pumpkin pie filling)</li><li>1 small banana</li><li><strong>¾ cup (180 mL)</strong> milk</li><li><strong>¼ cup (60 g)</strong> vanilla yogurt</li><li><strong>¼ teaspoon</strong> cinnamon</li><li><strong>1 teaspoon</strong> maple syrup, optional</li><li>3–4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add pumpkin purée, banana, milk, yogurt, and cinnamon to the blender.</li><li>Blend until smooth and creamy.</li><li>Taste and add maple syrup if you want it sweeter. Add ice to thicken.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="halloween monster green vanilla banana milkshake spinach spooky">
+        <div class="recipe-top tone-green"><span class="emoji">👻</span><h3>Friendly Monster Shake</h3><p>A bright green vanilla-banana shake with a spooky name.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Halloween</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li><strong>¾ cup (180 mL)</strong> milk</li><li><strong>½ cup (120 g)</strong> vanilla yogurt or vanilla ice cream</li><li><strong>½ cup</strong> baby spinach, washed (for green color; optional)</li><li><strong>¼ teaspoon</strong> vanilla extract, optional</li><li>3 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add the milk and banana first, then yogurt or ice cream and optional spinach.</li><li>Blend until completely smooth and green.</li><li>Add ice and blend again for a thicker shake.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+    </div>
+  </section>
+  <section id="christmas-specials" class="season christmas" data-season="christmas" aria-labelledby="christmas-title" hidden>
+    <div class="season-intro"><div class="season-icon">🎄</div><div><span class="season-label">Holiday cheer in a cup · Dec 1–25</span><h2 id="christmas-title">Christmas Specials</h2><p>Cozy winter flavors for festive mornings and family movie nights.</p></div></div>
+    <div class="grid">
+      <article class="recipe" data-kind="smoothie" data-search="christmas gingerbread banana smoothie cinnamon ginger vanilla">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍪</span><h3>Gingerbread Banana Smoothie</h3><p>Banana, warm spices, and a gingerbread-cookie vibe.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Christmas</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 medium banana</li><li><strong>1 cup (240 mL)</strong> milk</li><li><strong>½ cup (120 g)</strong> vanilla yogurt</li><li><strong>¼ teaspoon</strong> ground cinnamon</li><li><strong>⅛ teaspoon</strong> ground ginger</li><li><strong>1 teaspoon</strong> maple syrup, optional</li><li>3–4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk, banana, yogurt, cinnamon, and ginger to the blender.</li><li>Blend until creamy and smooth.</li><li>Taste and add maple syrup if desired. Blend with ice for a colder drink.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="christmas peppermint chocolate milkshake cocoa mint candy cane">
+        <div class="recipe-top tone-pink"><span class="emoji">🍫</span><h3>Peppermint Cocoa Shake</h3><p>A chocolate-mint holiday treat.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Christmas</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li><strong>1 cup (240 mL)</strong> milk</li><li><strong>½ cup (120 g)</strong> vanilla ice cream or vanilla yogurt</li><li><strong>1 tablespoon (5 g)</strong> unsweetened cocoa powder</li><li><strong>⅛ teaspoon</strong> peppermint extract (use a tiny amount; it is strong)</li><li>½ banana, optional for extra creaminess</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk, ice cream or yogurt, cocoa, and just ⅛ teaspoon peppermint extract.</li><li>Blend until smooth. Add the optional banana if you want it thicker.</li><li>Taste before adding anything more—the peppermint flavor can be strong.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="thanksgiving-specials" class="season" data-season="thanksgiving" aria-labelledby="thanksgiving-title" hidden>
+    <div class="season-intro"><div class="season-icon">🦃</div><div><span class="season-label">Cozy harvest flavors · Nov 20–30</span><h2 id="thanksgiving-title">Thanksgiving Specials</h2><p>Sweet, cozy flavors for the Thanksgiving season.</p></div></div>
+    <div class="grid">
+      <article class="recipe" data-kind="smoothie" data-search="thanksgiving pumpkin pie party smoothie pumpkin banana cinnamon yogurt">
+        <div class="recipe-top tone-orange"><span class="emoji">🥧</span><h3>Pumpkin Pie Party</h3><p>A creamy pumpkin and banana smoothie with cozy cinnamon.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Thanksgiving</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (120 g) plain pumpkin purée</li><li>1 small banana</li><li>¾ cup (180 mL) milk</li><li>¼ cup (60 g) vanilla yogurt</li><li>¼ teaspoon cinnamon</li><li>1 teaspoon maple syrup, optional</li><li>3–4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add all ingredients to a blender.</li><li>Blend until creamy and smooth.</li><li>Taste, add optional maple syrup if desired, and blend briefly again.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="thanksgiving caramel apple crunch milkshake vanilla apple caramel cinnamon">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍎</span><h3>Caramel Apple Crunch</h3><p>An apple-caramel shake with a hint of cinnamon.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Thanksgiving</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (about 75 g) peeled apple pieces</li><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) vanilla ice cream</li><li>1 tablespoon caramel sauce</li><li>A small pinch of cinnamon</li></ul><h4>How to make it</h4><ol class="steps"><li>Ask an adult to help cut the apple into small pieces.</li><li>Blend apple, milk, ice cream, caramel, and cinnamon until smooth.</li><li>Pour into a cup and drizzle with a little extra caramel if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="smoothie" data-search="thanksgiving sweet potato pie smoothie banana milk cinnamon">
+        <div class="recipe-top tone-orange"><span class="emoji">🍠</span><h3>Sweet Potato Pie Smoothie</h3><p>A cozy sweet potato and banana blend with cinnamon.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Thanksgiving</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (about 100 g) cooked, cooled sweet potato</li><li>1 small banana</li><li>¾ cup (180 mL) milk</li><li>¼ cup (60 g) vanilla yogurt</li><li>¼ teaspoon cinnamon</li><li>1 teaspoon maple syrup, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add the cooled sweet potato, banana, milk, yogurt, and cinnamon to a blender.</li><li>Blend until smooth and creamy.</li><li>Taste and add optional maple syrup, then blend briefly.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="milkshake" data-search="thanksgiving pecan cookie milkshake vanilla ice cream pecan butter cookie crumbs">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍪</span><h3>Pecan Cookie Milkshake</h3><p>A vanilla cookie shake with a nutty pecan flavor.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Thanksgiving</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) vanilla ice cream</li><li>1 tablespoon pecan butter or finely ground pecans</li><li>2 vanilla cookies, crumbled</li><li>¼ teaspoon vanilla extract, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk, ice cream, and pecan butter or ground pecans to a blender.</li><li>Blend until creamy, then pulse in the cookie crumbs.</li><li>Pour into a glass and sprinkle with a few extra crumbs if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+    </div>
+  </section>
+  <section id="valentines-specials" class="season" data-season="valentines" aria-labelledby="valentines-title" hidden>
+    <div class="season-intro"><div class="season-icon">💘</div><div><span class="season-label">Sweetheart sips · Feb 1–14</span><h2 id="valentines-title">Valentine’s Day Specials</h2><p>Pink, fruity, and chocolatey drinks to share with people you care about.</p></div></div>
+    <div class="grid">
+      <article class="recipe" data-kind="smoothie" data-search="valentines strawberry sweetheart smoothie strawberry banana yogurt pink">
+        <div class="recipe-top tone-pink"><span class="emoji">💗</span><h3>Strawberry Sweetheart</h3><p>A bright pink strawberry-banana smoothie.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Valentine’s Day</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (about 110 g) strawberries</li><li>½ banana</li><li>¾ cup (180 mL) milk</li><li>¼ cup (60 g) vanilla yogurt</li><li>3–4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add everything to the blender.</li><li>Blend until smooth and pink.</li><li>Pour into a glass and enjoy.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="valentines cupids chocolate dream milkshake chocolate strawberry ice cream">
+        <div class="recipe-top tone-purple"><span class="emoji">🍫</span><h3>Cupid’s Chocolate Dream</h3><p>A chocolate and strawberry milkshake.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Valentine’s Day</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (about 75 g) strawberries</li><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) chocolate ice cream</li><li>1 teaspoon chocolate sauce, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add strawberries, milk, and chocolate ice cream to the blender.</li><li>Blend until creamy.</li><li>Add optional chocolate sauce and blend briefly.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="smoothie" data-search="valentines raspberry love smoothie raspberries strawberries banana apple juice">
+        <div class="recipe-top tone-pink"><span class="emoji">❤️</span><h3>Raspberry Love Smoothie</h3><p>A bright berry smoothie with a sweet raspberry tang.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Valentine’s Day</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (about 60 g) raspberries</li><li>½ cup (about 75 g) strawberries</li><li>½ banana</li><li>¾ cup (180 mL) apple juice</li><li>¼ cup (60 g) vanilla yogurt, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add the raspberries, strawberries, banana, and apple juice to a blender.</li><li>Blend until smooth.</li><li>Add optional yogurt and blend again for a creamier texture.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="milkshake" data-search="valentines cherry romance milkshake cherries vanilla ice cream milk vanilla">
+        <div class="recipe-top tone-purple"><span class="emoji">🍒</span><h3>Cherry Romance Milkshake</h3><p>A cherry-vanilla milkshake for a sweet Valentine treat.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Valentine’s Day</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (about 75 g) pitted cherries, fresh or frozen</li><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) vanilla ice cream</li><li>¼ teaspoon vanilla extract</li></ul><h4>How to make it</h4><ol class="steps"><li>Make sure the cherries are pitted, then add all ingredients to a blender.</li><li>Blend until smooth and creamy.</li><li>Pour into a glass and enjoy chilled.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+    </div>
+  </section>
+  <section id="easter-specials" class="season" data-season="easter" aria-labelledby="easter-title" hidden>
+    <div class="season-intro"><div class="season-icon">🐣</div><div><span class="season-label">Springtime sips · Easter week</span><h2 id="easter-title">Easter Specials</h2><p>Berry-bright blends and a colorful cookie shake for spring.</p></div></div>
+    <div class="grid">
+      <article class="recipe" data-kind="smoothie" data-search="easter bunny berry swirl smoothie strawberries blueberries banana yogurt">
+        <div class="recipe-top tone-purple"><span class="emoji">🐰</span><h3>Bunny Berry Swirl</h3><p>A berry-packed spring smoothie with a pretty purple-pink color.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Easter</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (about 75 g) blueberries</li><li>½ cup (about 75 g) strawberries</li><li>½ banana</li><li>¾ cup (180 mL) milk</li><li>¼ cup (60 g) yogurt</li></ul><h4>How to make it</h4><ol class="steps"><li>Add all ingredients to a blender.</li><li>Blend until smooth.</li><li>Add a splash of milk if you want it thinner.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="easter egg cookie shake milkshake vanilla ice cream chocolate cookies sprinkles">
+        <div class="recipe-top tone-pink"><span class="emoji">🥚</span><h3>Easter Egg Cookie Shake</h3><p>A vanilla cookie shake topped with colorful sprinkles.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Easter</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) vanilla ice cream</li><li>2 chocolate sandwich cookies</li><li>1 teaspoon colorful sprinkles</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk, ice cream, and cookies to the blender.</li><li>Blend until creamy, leaving tiny cookie pieces if you like.</li><li>Pour into a cup and add sprinkles on top.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="smoothie" data-search="easter rainbow fruit smoothie mango strawberries blueberries orange juice">
+        <div class="recipe-top tone-yellow"><span class="emoji">🌈</span><h3>Rainbow Fruit Smoothie</h3><p>A sunny mix of mango, berries, and orange juice.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Easter</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (about 80 g) mango chunks</li><li>½ cup (about 75 g) strawberries</li><li>¼ cup (about 35 g) blueberries</li><li>¾ cup (180 mL) orange juice</li><li>3–4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add mango, strawberries, blueberries, and orange juice to a blender.</li><li>Blend until smooth.</li><li>Add optional ice and blend again for a colder drink.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="milkshake" data-search="easter chocolate egg milkshake chocolate ice cream milk chocolate chips">
+        <div class="recipe-top tone-purple"><span class="emoji">🍫</span><h3>Chocolate Egg Milkshake</h3><p>A chocolatey Easter shake with chocolate chips.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Easter</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) chocolate ice cream</li><li>1 tablespoon (about 10 g) chocolate chips</li><li>1 teaspoon chocolate syrup, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and chocolate ice cream to a blender.</li><li>Blend until creamy, then pulse in the chocolate chips.</li><li>Pour into a glass and drizzle with optional chocolate syrup.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+    </div>
+  </section>
+  <section id="fourth-july-specials" class="season" data-season="fourthjuly" aria-labelledby="fourthjuly-title" hidden>
+    <div class="season-intro"><div class="season-icon">🇺🇸</div><div><span class="season-label">Summer celebration · Jul 1–7</span><h2 id="fourthjuly-title">Fourth of July Specials</h2><p>Red, white, and blue-inspired blends for a summer celebration.</p></div></div>
+    <div class="grid">
+      <article class="recipe" data-kind="smoothie" data-search="fourth july firework berry blast smoothie strawberry blueberry banana juice">
+        <div class="recipe-top tone-blue"><span class="emoji">🎆</span><h3>Firework Berry Blast</h3><p>A refreshing strawberry-blueberry smoothie.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Fourth of July</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (about 75 g) strawberries</li><li>½ cup (about 75 g) blueberries</li><li>½ banana</li><li>¾ cup (180 mL) apple juice</li><li>4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add fruit and juice to the blender.</li><li>Blend until smooth; add ice for a colder drink.</li><li>Pour and serve right away.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="fourth july stars stripes vanilla shake milkshake strawberry blueberry vanilla ice cream">
+        <div class="recipe-top tone-pink"><span class="emoji">⭐</span><h3>Stars &amp; Stripes Vanilla Shake</h3><p>A creamy vanilla shake with berry swirls.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Fourth of July</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) vanilla ice cream</li><li>¼ cup (about 40 g) strawberries</li><li>¼ cup (about 40 g) blueberries</li></ul><h4>How to make it</h4><ol class="steps"><li>Blend milk and vanilla ice cream until creamy.</li><li>Gently swirl in mashed strawberries and blueberries, or blend them in for a berry shake.</li><li>Serve immediately.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="smoothie" data-search="fourth july watermelon blast smoothie watermelon strawberries lime juice">
+        <div class="recipe-top tone-red"><span class="emoji">🍉</span><h3>Watermelon Blast Smoothie</h3><p>A refreshing watermelon and strawberry summer blend.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Fourth of July</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1½ cups (about 225 g) seedless watermelon cubes</li><li>½ cup (about 75 g) strawberries</li><li>1 teaspoon lime juice</li><li>4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Ask an adult to help cut the watermelon and check for seeds.</li><li>Add watermelon, strawberries, and lime juice to a blender.</li><li>Blend until smooth; add ice and blend again if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="milkshake" data-search="fourth july blueberry cheesecake milkshake blueberries vanilla ice cream milk cream cheese">
+        <div class="recipe-top tone-blue"><span class="emoji">🫐</span><h3>Blueberry Cheesecake Milkshake</h3><p>A creamy blueberry shake inspired by cheesecake.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Fourth of July</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (about 75 g) blueberries</li><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) vanilla ice cream</li><li>1 tablespoon (15 g) cream cheese, softened</li><li>1 vanilla cookie, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add blueberries, milk, ice cream, and softened cream cheese to a blender.</li><li>Blend until smooth and creamy.</li><li>Crumble the optional vanilla cookie on top before serving.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+    </div>
+  </section>
+  <section id="st-patricks-specials" class="season christmas" data-season="stpatricks" aria-labelledby="stpatricks-title" hidden>
+    <div class="season-intro"><div class="season-icon">☘️</div><div><span class="season-label">Lucky green blends · Mar 10–17</span><h2 id="stpatricks-title">St. Patrick’s Day Specials</h2><p>Festive green drinks with fruity and minty options.</p></div></div>
+    <div class="grid">
+      <article class="recipe" data-kind="smoothie" data-search="st patricks day lucky leprechaun smoothie banana pineapple spinach apple juice green">
+        <div class="recipe-top tone-green"><span class="emoji">🍀</span><h3>Lucky Leprechaun</h3><p>A tropical green smoothie with banana and pineapple.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">St. Patrick’s Day</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 small banana</li><li>½ cup (about 80 g) pineapple chunks</li><li>½ cup baby spinach, washed</li><li>¾ cup (180 mL) apple juice</li><li>4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Wash the spinach and add all ingredients to a blender.</li><li>Blend until smooth and evenly green.</li><li>Add a little more juice if needed.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="st patricks day shamrock cookie shake mint chocolate milkshake vanilla ice cream cookies">
+        <div class="recipe-top tone-green"><span class="emoji">🌈</span><h3>Shamrock Cookie Shake</h3><p>A minty vanilla shake with chocolate cookie pieces.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">St. Patrick’s Day</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) vanilla ice cream</li><li>1 chocolate sandwich cookie</li><li>1–2 drops mint extract (optional; use sparingly)</li><li>A tiny drop of green food coloring, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk, ice cream, cookie, and one tiny drop of mint extract to the blender.</li><li>Blend until smooth. Taste before adding any more mint.</li><li>Add optional food coloring and blend briefly.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="smoothie" data-search="st patricks day kiwi gold smoothie kiwi mango banana apple juice">
+        <div class="recipe-top tone-green"><span class="emoji">🥝</span><h3>Kiwi Gold Smoothie</h3><p>A tropical green smoothie with kiwi and mango.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">St. Patrick’s Day</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 peeled kiwi</li><li>½ cup (about 80 g) mango chunks</li><li>½ banana</li><li>¾ cup (180 mL) apple juice</li><li>3–4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add kiwi, mango, banana, and apple juice to a blender.</li><li>Blend until smooth.</li><li>Add optional ice and blend again for a colder drink.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="milkshake" data-search="st patricks day mint chocolate chip milkshake vanilla ice cream milk mint chocolate chips">
+        <div class="recipe-top tone-green"><span class="emoji">🍫</span><h3>Mint Chocolate Chip Milkshake</h3><p>A cool mint shake with chocolate chips.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">St. Patrick’s Day</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) vanilla ice cream</li><li>1 tablespoon (about 10 g) chocolate chips</li><li>1 tiny drop of mint extract, optional</li><li>1 tiny drop of green food coloring, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk and ice cream to a blender.</li><li>Add chocolate chips and just one tiny drop of mint extract, if using, then blend.</li><li>Taste before adding any more mint; add optional food coloring and blend briefly.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="milkshake" data-search="st patricks day lucky charms rainbow shake cereal marshmallows vanilla ice cream milk vanilla">
+        <div class="recipe-top tone-green"><span class="emoji">🌈</span><h3>Lucky Charms Rainbow Shake</h3><p>A magical cereal milkshake with colorful marshmallows.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">St. Patrick’s Day</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) vanilla ice cream</li><li>1 cup Lucky Charms cereal</li><li>¼ teaspoon vanilla extract</li><li>Whipped cream, optional</li><li>Extra Lucky Charms marshmallows, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk, vanilla ice cream, cereal, and vanilla to a blender.</li><li>Blend until creamy and smooth.</li><li>Pour into a glass and top with optional whipped cream and extra cereal marshmallows.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+    </div>
+  </section>
+  <section id="fall-specials" class="season" data-season="fall" aria-labelledby="fall-title" hidden>
+    <div class="season-intro"><div class="season-icon">🍂</div><div><span class="season-label">Autumn favorites · Sep 1–Nov 30</span><h2 id="fall-title">Fall Specials</h2><p>Apple, cinnamon, maple, and pumpkin flavors for cozy autumn days.</p></div></div>
+    <div class="grid">
+      <article class="recipe" data-kind="smoothie" data-search="fall apple orchard swirl smoothie apple banana cinnamon vanilla yogurt">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍎</span><h3>Apple Orchard Swirl</h3><p>An apple-cinnamon smoothie with creamy vanilla yogurt.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Fall</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (about 75 g) chopped apple</li><li>½ banana</li><li>¾ cup (180 mL) milk</li><li>¼ cup (60 g) vanilla yogurt</li><li>¼ teaspoon cinnamon</li><li>3–4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Ask an adult to help cut the apple into small pieces.</li><li>Add all ingredients to the blender and blend until smooth.</li><li>Add a splash of milk if you prefer a thinner smoothie.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+      <article class="recipe" data-kind="milkshake" data-search="fall maple pumpkin cloud milkshake pumpkin vanilla ice cream maple cinnamon">
+        <div class="recipe-top tone-orange"><span class="emoji">🎃</span><h3>Maple Pumpkin Cloud</h3><p>A creamy pumpkin shake with maple and cinnamon.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Fall</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>½ cup (120 g) plain pumpkin purée</li><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) vanilla ice cream</li><li>1 teaspoon maple syrup</li><li>¼ teaspoon cinnamon</li></ul><h4>How to make it</h4><ol class="steps"><li>Add all ingredients to the blender.</li><li>Blend until smooth and creamy.</li><li>Taste and add a little more maple syrup if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="smoothie" data-search="fall pear cinnamon smoothie pear banana oat milk cinnamon">
+        <div class="recipe-top tone-yellow"><span class="emoji">🍐</span><h3>Pear Cinnamon Smoothie</h3><p>A mellow pear and banana smoothie with cinnamon.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Fall</span><span class="tag">Smoothie</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>1 ripe pear, cored and chopped</li><li>½ banana</li><li>¾ cup (180 mL) oat milk</li><li>¼ teaspoon cinnamon</li><li>¼ cup (60 g) vanilla yogurt, optional</li><li>3–4 ice cubes, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Ask an adult to help cut and core the pear.</li><li>Add pear, banana, oat milk, cinnamon, and optional yogurt to a blender.</li><li>Blend until smooth; add optional ice and blend again.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+
+      <article class="recipe" data-kind="milkshake" data-search="fall cinnamon roll milkshake vanilla ice cream milk cinnamon cookie crumbs">
+        <div class="recipe-top tone-orange"><span class="emoji">🍥</span><h3>Cinnamon Roll Milkshake</h3><p>A creamy vanilla shake with cinnamon-cookie flavor.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Fall</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>¾ cup (180 mL) milk</li><li>½ cup (about 120 g) vanilla ice cream</li><li>¼ teaspoon cinnamon</li><li>2 vanilla cookies or cinnamon cookies, crumbled</li><li>¼ teaspoon vanilla extract, optional</li></ul><h4>How to make it</h4><ol class="steps"><li>Add milk, ice cream, and cinnamon to a blender.</li><li>Blend until creamy, then pulse in the cookie crumbs.</li><li>Pour into a glass and sprinkle a few extra crumbs on top if desired.</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+    </div>
+  </section>
+  <section id="tips" class="tip"><div class="bulb">💡</div><div><h3>Blend Buddy tips</h3><p><strong>Measurements:</strong> 1 US cup = about 240 mL. Grams are approximate and can vary by ingredient. <strong>Make it thicker:</strong> use frozen banana or berries. <strong>Make it thinner:</strong> add milk a splash at a time. <strong>Make it creamier:</strong> add yogurt. Protein powder is optional—use it according to its package directions, and ask a trusted adult or healthcare professional if you’re unsure whether it’s right for you. Check labels for milk, peanut, and other allergies; never use an ingredient you’re allergic to.</p></div></section>
+</main>
+<footer><span>🥤 Blend Buddy — easy blends, happy sips.</span><span>Recipes are flexible; adjust ingredients to your taste.</span></footer>
+<dialog id="quickDialog"><h3 id="dialogTitle">Quick instructions</h3><p id="dialogText"></p><div class="close-row"><button class="btn" onclick="document.getElementById('quickDialog').close()">Got it</button></div></dialog>
+<script>
+
+
+// Build a custom smoothie or milkshake from the visitor's selections.
+const fruitData = {
+ banana:{name:'banana',amount:'1 medium banana',emoji:'🍌'}, strawberry:{name:'strawberries',amount:'¾ cup (about 110 g) strawberries',emoji:'🍓'}, blueberry:{name:'blueberries',amount:'½ cup (about 75 g) blueberries',emoji:'🫐'}, mango:{name:'mango',amount:'½ cup (about 80 g) mango chunks',emoji:'🥭'}, pineapple:{name:'pineapple',amount:'½ cup (about 80 g) pineapple chunks',emoji:'🍍'}, peach:{name:'peach',amount:'½ cup (about 80 g) sliced peach',emoji:'🍑'}, raspberry:{name:'raspberries',amount:'½ cup (about 60 g) raspberries',emoji:'❤️'}, cherry:{name:'cherries',amount:'½ cup (about 75 g) pitted cherries',emoji:'🍒'}
+};
+const extraData = {
+ yogurt:{amount:'¼ cup (60 g) plain or vanilla yogurt',step:'Add yogurt for a creamier texture.'}, peanut:{amount:'1 tablespoon (16 g) peanut butter',step:'Add peanut butter and blend thoroughly.'}, cocoa:{amount:'1 teaspoon (2.5 g) unsweetened cocoa powder',step:'Add cocoa powder for a chocolate note.'}, oats:{amount:'1 tablespoon (5 g) rolled oats',step:'Add oats; blend a little longer for a smoother texture.'}, honey:{amount:'1 teaspoon honey, optional',step:'Taste first, then add honey if you want extra sweetness.'}, ice:{amount:'4–6 ice cubes',step:'Add ice and blend again until smooth.'}, vanilla:{amount:'¼ teaspoon vanilla extract',step:'Add vanilla and blend briefly.'}
+};
+const baseData = {dairy:{amount:'1 cup (240 mL) milk',name:'milk'},oat:{amount:'1 cup (240 mL) oat milk',name:'oat milk'},almond:{amount:'1 cup (240 mL) almond milk',name:'almond milk'},juice:{amount:'¾ cup (180 mL) orange or apple juice',name:'juice'},yogurt:{amount:'½ cup (120 mL) water plus ½ cup (120 g) yogurt',name:'water and yogurt'}};
+
+const SAVED_BLEND_KEY = 'blendBuddySavedRecipesV1';
+let currentCustomRecipe = null;
+function readSavedRecipes(){
+  try { const data = JSON.parse(localStorage.getItem(SAVED_BLEND_KEY) || '[]'); return Array.isArray(data) ? data : []; }
+  catch (error) { return []; }
+}
+function writeSavedRecipes(recipes){
+  try { localStorage.setItem(SAVED_BLEND_KEY, JSON.stringify(recipes)); return true; }
+  catch (error) { alert('Blend Buddy could not save recipes in this browser. Check browser storage settings and try again.'); return false; }
+}
+function renderSavedRecipes(){
+  const list = document.getElementById('savedList');
+  if (!list) return;
+  list.replaceChildren();
+  const saved = readSavedRecipes();
+  if (!saved.length) {
+    const empty = document.createElement('div'); empty.className = 'saved-empty';
+    empty.textContent = 'No saved blends yet. Create a custom recipe and tap “Save my recipe” to keep it here.';
+    list.appendChild(empty); return;
+  }
+  saved.forEach((recipe, index) => {
+    const card = document.createElement('article'); card.className = 'saved-item';
+    const title = document.createElement('h3'); title.textContent = recipe.title || 'My custom blend'; card.appendChild(title);
+    const desc = document.createElement('p'); desc.textContent = recipe.description || 'A custom Blend Buddy recipe.'; card.appendChild(desc);
+    const ih = document.createElement('h4'); ih.textContent = 'Ingredients'; card.appendChild(ih);
+    const ingredients = document.createElement('ul'); (recipe.ingredients || []).forEach(item => { const li = document.createElement('li'); li.textContent = item; ingredients.appendChild(li); }); card.appendChild(ingredients);
+    const sh = document.createElement('h4'); sh.textContent = 'Instructions'; card.appendChild(sh);
+    const steps = document.createElement('ol'); (recipe.steps || []).forEach(item => { const li = document.createElement('li'); li.textContent = item; steps.appendChild(li); }); card.appendChild(steps);
+    const remove = document.createElement('button'); remove.className = 'btn secondary'; remove.type = 'button'; remove.textContent = 'Remove saved recipe';
+    remove.addEventListener('click', () => { const latest = readSavedRecipes(); latest.splice(index, 1); if (writeSavedRecipes(latest)) renderSavedRecipes(); });
+    card.appendChild(remove); list.appendChild(card);
+  });
+}
+document.getElementById('makeBlend').addEventListener('click',()=>{
+ const type=document.getElementById('blendType').value;
+ const base=baseData[document.getElementById('blendBase').value];
+ const fruits=[...document.querySelectorAll('input[name="blendFruit"]:checked')].map(el=>fruitData[el.value]);
+ const extras=[...document.querySelectorAll('input[name="blendExtra"]:checked')].map(el=>extraData[el.value]);
+ const result=document.getElementById('blendResult');
+ if(!fruits.length){alert('Choose at least one fruit to create your blend.');return;}
+ if(fruits.length>3){alert('Choose up to 3 fruits so your blend stays balanced.');return;}
+ const ingredients=[base.amount,...fruits.map(f=>f.amount),...extras.map(e=>e.amount)];
+ if(type==='milkshake') ingredients.push('½ cup (about 120 g) vanilla ice cream or thick vanilla yogurt');
+ const titleFruits=fruits.map(f=>f.name.charAt(0).toUpperCase()+f.name.slice(1));
+ document.getElementById('blendResultTitle').textContent=titleFruits.join(' + ')+' '+(type==='milkshake'?'Milkshake':'Smoothie');
+ document.getElementById('blendResultDesc').textContent='Your custom '+type+' is ready to make. This makes about 1 large serving; adjust to your taste.';
+ const ul=document.getElementById('blendIngredients');ul.replaceChildren();ingredients.forEach(item=>{const li=document.createElement('li');li.textContent=item;ul.appendChild(li);});
+ const steps=['Pour the liquid base into the blender first.',...fruits.map(f=>'Add the '+f.name+'.')];
+ if(type==='milkshake') steps.push('Add vanilla ice cream or thick vanilla yogurt.');
+ extras.forEach(e=>steps.push(e.step));steps.push('Secure the lid and blend until smooth.');steps.push('If it is too thick, add a small splash of liquid; if it is too thin, add a few more fruit pieces or ice.');steps.push('Pour into a cup and enjoy.');
+ const ol=document.getElementById('blendSteps');ol.replaceChildren();steps.forEach(item=>{const li=document.createElement('li');li.textContent=item;ol.appendChild(li);});
+ currentCustomRecipe={title:document.getElementById('blendResultTitle').textContent,description:document.getElementById('blendResultDesc').textContent,ingredients,steps,type,createdAt:new Date().toISOString()};
+ document.getElementById('saveBlend').textContent='♡ Save my recipe';
+ result.style.display='block';result.scrollIntoView({behavior:'smooth',block:'nearest'});
+});
+document.getElementById('saveBlend').addEventListener('click',()=>{
+ if(!currentCustomRecipe){alert('Create a blend first, then save it.');return;}
+ const saved=readSavedRecipes();
+ if(saved.some(recipe=>recipe.title===currentCustomRecipe.title && JSON.stringify(recipe.ingredients)===JSON.stringify(currentCustomRecipe.ingredients))){document.getElementById('saveBlend').textContent='✓ Already saved';return;}
+ saved.unshift(currentCustomRecipe);
+ if(writeSavedRecipes(saved)){renderSavedRecipes();document.getElementById('saveBlend').textContent='✓ Recipe saved!';}
+});
+renderSavedRecipes();
+document.getElementById('resetBlend').addEventListener('click',()=>{
+ document.getElementById('blendType').value='smoothie';document.getElementById('blendBase').value='dairy';
+ document.querySelectorAll('input[name="blendFruit"]').forEach(el=>el.checked=el.value==='banana');
+ document.querySelectorAll('input[name="blendExtra"]').forEach(el=>el.checked=el.value==='ice');
+ document.getElementById('blendResult').style.display='none';
+});
+
+// Feature one of the regular menu recipes each local calendar day.
+function updateDailyFlavor(){
+  const grid = document.getElementById('recipeGrid');
+  if (!grid) return;
+  const regularCards = [...grid.querySelectorAll('.recipe')];
+  if (!regularCards.length) return;
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const dayOfYear = Math.floor((new Date(now.getFullYear(), now.getMonth(), now.getDate()) - start) / 86400000);
+  const card = regularCards[(dayOfYear - 1) % regularCards.length];
+  const title = card.querySelector('h3')?.textContent || 'Blend Buddy Favorite';
+  const description = card.querySelector('.recipe-top p')?.textContent || 'A delicious pick from the Blend Buddy menu.';
+  const kind = card.dataset.kind === 'milkshake' ? 'Milkshake' : 'Smoothie';
+  const titleEl = document.getElementById('daily-title');
+  const descEl = document.getElementById('daily-description');
+  const metaEl = document.getElementById('daily-meta');
+  const button = document.getElementById('daily-button');
+  if (titleEl) titleEl.textContent = title;
+  if (descEl) descEl.textContent = description;
+  if (metaEl) metaEl.textContent = `${kind} · Changes daily`;
+  if (button) button.onclick = () => {
+    search.value = '';
+    active = 'all';
+    filters.forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+    updateRecipes();
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    card.style.outline = '3px solid #315c43';
+    setTimeout(() => { card.style.outline = ''; }, 1800);
+  };
+}
+
+// Show seasonal recipe sections only during their calendar windows, using the visitor's local date.
+function updateSeasonalSpecials(){
+  const now = new Date();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  // Gregorian Easter Sunday, calculated locally so Easter changes year to year.
+  const year = now.getFullYear();
+  const a = year % 19, b = Math.floor(year / 100), c = year % 100;
+  const d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const easterMonth = Math.floor((h + l - 7 * m + 114) / 31);
+  const easterDay = ((h + l - 7 * m + 114) % 31) + 1;
+  const easterSunday = new Date(year, easterMonth - 1, easterDay);
+  const easterStart = new Date(year, easterMonth - 1, easterDay - 6);
+  const today = new Date(year, month - 1, day);
+  const easterActive = today >= easterStart && today <= easterSunday;
+  const activeSeasons = {
+    halloween: month === 10 || (month === 11 && day <= 2),
+    christmas: month === 12 && day <= 25,
+    valentines: month === 2 && day >= 1 && day <= 14,
+    easter: easterActive,
+    fourthjuly: month === 7 && day >= 1 && day <= 7,
+    stpatricks: month === 3 && day >= 10 && day <= 17,
+    fall: month >= 9 && month <= 11,
+    thanksgiving: month === 11 && day >= 20 && day <= 30
+  };
+  document.querySelectorAll('[data-season]').forEach(section => {
+    section.hidden = !activeSeasons[section.dataset.season];
+  });
+  const anySeasonActive = Object.values(activeSeasons).some(Boolean);
+  // Update the compact holiday preview near the top and point it to the active seasonal section.
+  const miniCard = document.getElementById('holiday-mini-card');
+  if (miniCard) {
+    const seasonalCards = [
+      {key:'halloween', active:activeSeasons.halloween, icon:'🎃', title:'Halloween Specials are here!', kicker:'Limited-time spooky sips', desc:'Pumpkin-inspired drinks, spooky flavors, and a Halloween challenge.', target:'#holiday-specials', action:'Explore Halloween ↓'},
+      {key:'christmas', active:activeSeasons.christmas, icon:'🎄', title:'Christmas Specials are here!', kicker:'Festive flavor drop', desc:'Cozy holiday drinks and the Christmas Chill boss battle.', target:'#christmas-specials', action:'Explore Christmas ↓'},
+      {key:'thanksgiving', active:activeSeasons.thanksgiving, icon:'🦃', title:'Thanksgiving Specials are here!', kicker:'Limited-time harvest flavors', desc:'Cozy seasonal blends and the Thanksgiving flavor collection.', target:'#thanksgiving-specials', action:'Explore Thanksgiving ↓'},
+      {key:'valentines', active:activeSeasons.valentines, icon:'💗', title:'Valentine’s Specials are here!', kicker:'Berry-sweet flavor drop', desc:'Pink, fruity drinks and the Berry Sweetheart challenge.', target:'#valentines-specials', action:'Explore Valentine’s ↓'},
+      {key:'easter', active:activeSeasons.easter, icon:'🐣', title:'Spring Specials are here!', kicker:'Seasonal spring blends', desc:'Bright fruity recipes and a springtime challenge.', target:'#easter-specials', action:'Explore spring ↓'},
+      {key:'stpatricks', active:activeSeasons.stpatricks, icon:'🍀', title:'Lucky Green Specials are here!', kicker:'Limited-time green blends', desc:'Festive green drinks and the Lucky Green Machine challenge.', target:'#st-patricks-specials', action:'Explore green blends ↓'},
+      {key:'fourthjuly', active:activeSeasons.fourthjuly, icon:'🇺🇸', title:'Summer Celebration Specials!', kicker:'Red, white & blue flavors', desc:'Summer celebration drinks and a refreshing seasonal challenge.', target:'#fourth-july-specials', action:'Explore summer ↓'},
+      {key:'fall', active:activeSeasons.fall, icon:'🍂', title:'Fall Flavor Specials are here!', kicker:'Cozy autumn blends', desc:'Apple, cinnamon, maple, and pumpkin-inspired recipes.', target:'#fall-specials', action:'Explore fall flavors ↓'}
+    ];
+    const activeMini = seasonalCards.find(item => item.active);
+    const icon = document.getElementById('holiday-mini-icon');
+    const kicker = document.getElementById('holiday-mini-kicker');
+    const title = document.getElementById('holiday-mini-title');
+    const description = document.getElementById('holiday-mini-description');
+    const action = document.getElementById('holiday-mini-action');
+    if (activeMini) {
+      miniCard.hidden = false;
+      miniCard.href = activeMini.target;
