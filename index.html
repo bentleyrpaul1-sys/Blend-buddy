@@ -189,6 +189,11 @@ body[data-page]:not([data-page="home"]) .hero,body[data-page]:not([data-page="ho
 .page-intro h1{font-size:clamp(2rem,4vw,3.2rem);margin:0 0 7px;letter-spacing:-.06em}
 .page-intro p{margin:0;color:var(--muted);line-height:1.55}
 @media(max-width:760px){header{align-items:center}nav{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;width:100%;padding:2px 0 7px;scrollbar-width:thin}nav a{flex-shrink:0}.hero{padding-top:28px}.hero-art{min-height:240px}}
+
+/* Keep the holiday CTA legible even with later compact-card styles. */
+.holiday-mini .holiday-mini-action{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:11px 16px;background:#315c43;color:#fff!important;border-radius:999px;font-weight:900;white-space:nowrap;position:relative;z-index:1}
+.holiday-mini{cursor:pointer}
+@media(max-width:650px){.holiday-mini .holiday-mini-action{width:100%;box-sizing:border-box;white-space:normal}}
 </style>
 
 <style id="blend-buddy-compact-upgrades">
@@ -1382,14 +1387,19 @@ updateDailyFlavor();
   if(page==='recipes'&&new URLSearchParams(location.search).get('daily')==='1'){
     const revealDaily=()=>{
       const grid=document.getElementById('recipeGrid');
+      const searchInput=document.getElementById('search');
       if(!grid)return;
-      const cards=[...grid.querySelectorAll('.recipe')];
+      const cards=[...grid.querySelectorAll('.recipe[data-kind]')];
       if(!cards.length)return;
       const now=new Date(),start=new Date(now.getFullYear(),0,0);
       const dayOfYear=Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate())-start)/86400000);
       const card=cards[(dayOfYear-1)%cards.length];
+      if(searchInput)searchInput.value='';
       if(window.expandAllRecipes)window.expandAllRecipes();
-      const allFilter=document.querySelector('[data-filter="all"]');if(allFilter)allFilter.click();
+      window.active='all';
+      document.querySelectorAll('[data-filter]').forEach(btn=>btn.classList.toggle('active',btn.dataset.filter==='all'));
+      if(window.updateRecipes)window.updateRecipes();
+      card.hidden=false;
       card.scrollIntoView({behavior:'smooth',block:'center'});
       card.style.outline='3px solid #315c43';card.style.outlineOffset='4px';
       setTimeout(()=>{card.style.outline='';card.style.outlineOffset='';},2200);
