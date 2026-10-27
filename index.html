@@ -347,7 +347,7 @@ header nav a{flex-shrink:0}
 <header>
   <div class="brand"><span class="logo">🥤</span> Blend Buddy</div>
   <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open navigation menu"><span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span><span class="mobile-menu-label">Menu</span></button>
-  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><span class="chef-nav-status" id="chef-nav-status" hidden><span class="chef-ai-connection-label">AI Status</span> <span id="chef-ai-connection" class="chef-ai-connection checking" role="status" aria-live="polite"><span class="chef-ai-status-dot" aria-hidden="true"></span><span id="chef-ai-connection-text">Checking…</span></span></span><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=rewards" data-page-link="rewards">🏆 Rewards</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a></nav>
+  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><span class="chef-nav-status" id="chef-nav-status"><span class="chef-ai-connection-label">AI Status</span> <span id="chef-ai-connection" class="chef-ai-connection checking" role="status" aria-live="polite"><span class="chef-ai-status-dot" aria-hidden="true"></span><span id="chef-ai-connection-text">Checking…</span></span></span><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=rewards" data-page-link="rewards">🏆 Rewards</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a></nav>
 </header>
 <section class="hero">
   <div>
@@ -1572,7 +1572,7 @@ updateDailyFlavor();
       window.setChefAIConnection('connected');
     }).catch(()=>window.setChefAIConnection('disconnected'));
   }
-  const chefNavStatus=document.getElementById('chef-nav-status');if(chefNavStatus)chefNavStatus.hidden=page!=='chef';
+  const chefNavStatus=document.getElementById('chef-nav-status');if(chefNavStatus)chefNavStatus.hidden=false;
   document.body.dataset.page=page;
   const allSections=Array.from(document.querySelectorAll('main > section'));
   allSections.forEach(section=>{section.hidden=true;});
