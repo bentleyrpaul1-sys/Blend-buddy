@@ -1468,11 +1468,23 @@ updateDailyFlavor();
       menuToggle.setAttribute('aria-label',isOpen?'Open navigation menu':'Close navigation menu');
       mainNav.classList.toggle('is-open',!isOpen);
     });
-    mainNav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+    const closeMainNav=()=>{
       menuToggle.setAttribute('aria-expanded','false');
       menuToggle.setAttribute('aria-label','Open navigation menu');
       mainNav.classList.remove('is-open');
-    }));
+    };
+    mainNav.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMainNav));
+    document.addEventListener('keydown',event=>{
+      if(event.key==='Escape'&&mainNav.classList.contains('is-open')){
+        closeMainNav();
+        menuToggle.focus();
+      }
+    });
+    document.addEventListener('click',event=>{
+      if(mainNav.classList.contains('is-open')&&!mainNav.contains(event.target)&&!menuToggle.contains(event.target)){
+        closeMainNav();
+      }
+    });
   }
   document.title=(pageNames[page]==='Home'?'Blend Buddy':pageNames[page]+' | Blend Buddy')+' — Easy Protein Smoothies & Milkshakes';
   const holidayCard=document.querySelector('.holiday-mini');if(holidayCard)holidayCard.setAttribute('href','?page=holidays');
