@@ -1,0 +1,30 @@
+{
+  "id": "/",
+  "name": "Blend Buddy",
+  "short_name": "Blend Buddy",
+  "description": "Easy protein smoothies, milkshakes, seasonal flavors, and Chef AI.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fbf8ef",
+  "theme_color": "#315c43",
+  "categories": [
+    "food",
+    "lifestyle"
+  ],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
