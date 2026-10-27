@@ -1018,3 +1018,308 @@ function updateSeasonalSpecials(){
     if (activeMini) {
       miniCard.hidden = false;
       miniCard.href = activeMini.target;
+      if (icon) icon.textContent = activeMini.icon;
+      if (kicker) kicker.textContent = activeMini.kicker;
+      if (title) title.textContent = activeMini.title;
+      if (description) description.textContent = activeMini.desc;
+      if (action) action.textContent = activeMini.action;
+    } else {
+      miniCard.hidden = false;
+      miniCard.href = '#holiday-specials';
+      if (icon) icon.textContent = '🎉';
+      if (kicker) kicker.textContent = 'Seasonal flavor calendar';
+      if (title) title.textContent = 'Explore holiday specials';
+      if (description) description.textContent = 'Holiday recipes appear during their seasonal dates. Tap to jump to the holiday collection.';
+      if (action) action.textContent = 'See holiday calendar ↓';
+    }
+  }
+  document.querySelectorAll('[data-season-link="any"]').forEach(link => {
+    link.href = activeSeasons.halloween ? '#holiday-specials'
+      : activeSeasons.christmas ? '#christmas-specials'
+      : activeSeasons.thanksgiving ? '#thanksgiving-specials'
+      : activeSeasons.valentines ? '#valentines-specials'
+      : activeSeasons.easter ? '#easter-specials'
+      : activeSeasons.stpatricks ? '#st-patricks-specials'
+      : activeSeasons.fourthjuly ? '#fourth-july-specials'
+      : activeSeasons.fall ? '#fall-specials' : '#holiday-specials';
+  });
+}
+updateSeasonalSpecials();
+updateDailyFlavor();
+</script>
+<script id="blend-buddy-interactions">
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const safeStore = {
+    get(key, fallback) { try { const v = localStorage.getItem(key); return v === null ? fallback : JSON.parse(v); } catch(e) { return fallback; } },
+    set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch(e) { return false; } }
+  };
+
+  // Main recipe menu: 60 core recipes, separated by type and initially compact.
+  const grid = $('recipeGrid');
+  const searchInput = $('search');
+  const status = $('recipe-menu-status');
+  const filterButtons = Array.from(document.querySelectorAll('[data-filter]'));
+  const cards = grid ? Array.from(grid.querySelectorAll('.recipe[data-kind]')) : [];
+  let expanded = false;
+  const pageSize = 12;
+  const browseActions = document.createElement('div');
+  browseActions.className = 'recipe-browse-actions';
+  const moreButton = document.createElement('button');
+  moreButton.className = 'btn secondary';
+  moreButton.type = 'button';
+  moreButton.id = 'recipe-show-more';
+  browseActions.appendChild(moreButton);
+  const browseNote = document.createElement('p');
+  browseNote.className = 'recipe-browse-note';
+  browseNote.textContent = 'The menu starts compact to keep the page shorter. Search or choose a category to find a flavor.';
+  browseActions.appendChild(browseNote);
+  if (grid) grid.insertAdjacentElement('afterend', browseActions);
+
+  window.search = searchInput;
+  window.filters = filterButtons;
+  window.active = 'all';
+  window.expandAllRecipes = function(){ expanded = true; };
+  window.updateRecipes = function(){
+    if (!grid || !searchInput) return;
+    const query = searchInput.value.trim().toLowerCase();
+    const matching = cards.filter(card => {
+      const kindMatch = window.active === 'all' || card.dataset.kind === window.active;
+      return kindMatch && (!query || ((card.dataset.search || '') + ' ' + card.textContent).toLowerCase().includes(query));
+    });
+    const limited = !expanded && !query;
+    cards.forEach(card => { card.hidden = true; });
+    matching.forEach((card, index) => { card.hidden = limited && index >= pageSize; });
+    const shown = matching.filter(card => !card.hidden).length;
+    const label = window.active === 'smoothie' ? 'smoothies' : window.active === 'milkshake' ? 'milkshakes' : 'core recipes';
+    if (status) status.textContent = query
+      ? 'Found ' + matching.length + ' ' + (matching.length === 1 ? 'match' : 'matches') + ' for “' + searchInput.value.trim() + '”.'
+      : 'Showing ' + shown + ' of ' + matching.length + ' ' + label + '. Choose a category or show all to browse the full menu.';
+    moreButton.hidden = matching.length <= pageSize || !!query;
+    moreButton.textContent = expanded ? 'Show fewer recipes ↑' : 'Show all ' + matching.length + ' ' + label + ' ↓';
+    filterButtons.forEach(button => {
+      const selected = button.dataset.filter === window.active;
+      button.classList.toggle('active', selected);
+      button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    });
+    const empty = $('empty');
+    if (empty) empty.style.display = matching.length ? 'none' : 'block';
+  };
+  filterButtons.forEach(button => button.addEventListener('click', () => {
+    window.active = button.dataset.filter || 'all';
+    expanded = false;
+    window.updateRecipes();
+  }));
+  if (searchInput) searchInput.addEventListener('input', () => { expanded = false; window.updateRecipes(); });
+  moreButton.addEventListener('click', () => { expanded = !expanded; window.updateRecipes(); });
+  window.updateRecipes();
+
+  // Quick recipe dialog.
+  window.showRecipe = function(button){
+    const card = button.closest('.recipe');
+    if (!card) return;
+    const title = card.querySelector('h3')?.textContent || 'Quick instructions';
+    const steps = Array.from(card.querySelectorAll('.steps li')).map(li => li.textContent);
+    $('dialogTitle').textContent = title;
+    $('dialogText').textContent = steps.join(' ');
+    const dialog = $('quickDialog');
+    if (dialog && typeof dialog.showModal === 'function') dialog.showModal();
+    else alert(title + '\n\n' + steps.join('\n'));
+  };
+
+  // Daily mystery: stable for the local calendar day, with measured ingredients.
+  const mysteryRecipes = [
+    {emoji:'🧪',title:'Midnight Cookie Lab',kind:'Milkshake',desc:'A chocolate-cookie treat with a creamy finish.',ingredients:['¾ cup (180 mL) milk','½ cup (about 120 g) vanilla ice cream','1 teaspoon cocoa powder','2 chocolate sandwich cookies'],steps:['Add milk, ice cream, and cocoa to a blender.','Blend until creamy.','Pulse in the cookies briefly and serve.']},
+    {emoji:'🍀',title:'Lucky Cereal Swirl',kind:'Milkshake',desc:'A playful marshmallow-cereal milkshake.',ingredients:['¾ cup (180 mL) milk','½ cup (about 120 g) vanilla ice cream','¼ cup marshmallow cereal'],steps:['Add milk and ice cream to a blender.','Blend until smooth.','Sprinkle cereal on top or pulse it in briefly.']},
+    {emoji:'🍓',title:'Berry Lab Spark',kind:'Smoothie',desc:'A bright berry blend with yogurt.',ingredients:['¾ cup (180 mL) milk','½ cup (75 g) strawberries','¼ cup (60 g) vanilla yogurt','½ banana'],steps:['Add milk, fruit, and yogurt to a blender.','Blend until smooth.','Add a splash of milk if needed.']},
+    {emoji:'🥜',title:'Peanut Butter Comet',kind:'Smoothie',desc:'A classic banana and peanut butter combo.',ingredients:['1 medium banana','1 cup (240 mL) milk','1 tablespoon (16 g) peanut butter','4 ice cubes, optional'],steps:['Add milk and banana first.','Add peanut butter and optional ice.','Blend until smooth. Check peanut allergy labels before using.']},
+    {emoji:'🥭',title:'Tropical Test Tube',kind:'Smoothie',desc:'A sunny mango-pineapple blend.',ingredients:['½ cup (80 g) mango','½ cup (80 g) pineapple','¾ cup (180 mL) orange juice','4 ice cubes, optional'],steps:['Add juice and fruit to the blender.','Blend until smooth.','Add ice and blend again if desired.']}
+  ];
+  function todayIndex(length){
+    const d = new Date();
+    const start = new Date(d.getFullYear(),0,0);
+    return Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate()) - start) / 86400000) % length;
+  }
+  function revealMystery(){
+    const recipe = mysteryRecipes[todayIndex(mysteryRecipes.length)];
+    $('mystery-potion').textContent = recipe.emoji;
+    $('mystery-status').textContent = 'Experiment complete — today’s recipe revealed!';
+    const target = $('mystery-result');
+    target.replaceChildren();
+    const title = document.createElement('h3'); title.textContent = recipe.emoji + ' ' + recipe.title; target.appendChild(title);
+    const desc = document.createElement('p'); desc.textContent = recipe.kind + ' · ' + recipe.desc; target.appendChild(desc);
+    const ih = document.createElement('h4'); ih.textContent = 'Ingredients & amounts'; target.appendChild(ih);
+    const ul = document.createElement('ul'); recipe.ingredients.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.appendChild(li);}); target.appendChild(ul);
+    const sh = document.createElement('h4'); sh.textContent = 'How to make it'; target.appendChild(sh);
+    const ol = document.createElement('ol'); recipe.steps.forEach(x=>{const li=document.createElement('li');li.textContent=x;ol.appendChild(li);}); target.appendChild(ol);
+  }
+  if ($('mystery-spin')) $('mystery-spin').addEventListener('click', revealMystery);
+
+  // Flavor Lab: create a measured recipe from checked fruit and add-ins.
+  const labBases = {milk:'1 cup (240 mL) milk',oat:'1 cup (240 mL) oat milk',almond:'1 cup (240 mL) almond milk',juice:'¾ cup (180 mL) orange juice',yogurt:'½ cup (120 g) yogurt + ½ cup (120 mL) water'};
+  if ($('lab-sweetness')) $('lab-sweetness').addEventListener('input',()=>{ if($('lab-sweetness-value')) $('lab-sweetness-value').textContent=$('lab-sweetness').value; });
+  if ($('lab-create')) $('lab-create').addEventListener('click',()=>{
+    const type=$('lab-type').value, base=$('lab-base').value;
+    const fruits=Array.from(document.querySelectorAll('input[name="lab-fruit"]:checked'));
+    const extras=Array.from(document.querySelectorAll('input[name="lab-extra"]:checked'));
+    if(!fruits.length || fruits.length>3){$('lab-status').textContent='Choose 1–3 fruits to continue.';return;}
+    const names={banana:'banana',strawberry:'strawberries',blueberry:'blueberries',mango:'mango',pineapple:'pineapple',peach:'peach',raspberry:'raspberries',cherry:'cherries'};
+    const ingredients=[labBases[base]||labBases.milk,...fruits.map(x=>'½ cup ('+({banana:'60 g',strawberry:'75 g',blueberry:'75 g',mango:'80 g',pineapple:'80 g',peach:'80 g',raspberry:'60 g',cherry:'75 g'}[x.value]||'75 g')+') '+(names[x.value]||x.value))];
+    const extraAmounts={yogurt:'¼ cup (60 g) yogurt',peanut:'1 tablespoon (16 g) peanut butter',cocoa:'1 teaspoon cocoa powder',oats:'1 tablespoon (5 g) oats',honey:'1 teaspoon honey, optional',ice:'4–6 ice cubes',vanilla:'¼ teaspoon vanilla extract'};
+    extras.forEach(x=>ingredients.push(extraAmounts[x.value]||x.value));
+    if(type==='milkshake') ingredients.push('½ cup (about 120 g) vanilla ice cream');
+    if(type==='protein') ingredients.push('Protein powder, optional — follow the package serving directions');
+    const title=fruits.map(x=>names[x.value]||x.value).join(' + ').replace(/^./,c=>c.toUpperCase())+' '+(type==='milkshake'?'Milkshake':type==='protein'?'Protein Smoothie':'Smoothie');
+    $('lab-result-title').textContent=title;
+    $('lab-result-description').textContent='Your custom experiment makes about one serving. Adjust the flavor to your taste.';
+    const ul=$('lab-result-ingredients');ul.replaceChildren();ingredients.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.appendChild(li);});
+    const steps=['Add the liquid base to the blender first.','Add the selected fruit and extras.'];
+    if(type==='milkshake') steps.push('Add vanilla ice cream.');
+    steps.push('Blend until smooth. Add a splash of liquid if it is too thick.','Taste and adjust to your preference.');
+    const ol=$('lab-result-steps');ol.replaceChildren();steps.forEach(x=>{const li=document.createElement('li');li.textContent=x;ol.appendChild(li);});
+    $('lab-result').hidden=false;$('lab-status').textContent='Experiment ready!';$('lab-result').scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+  if ($('lab-reset')) $('lab-reset').addEventListener('click',()=>{
+    $('lab-type').value='smoothie';$('lab-base').value='milk';
+    document.querySelectorAll('input[name="lab-fruit"]').forEach(x=>x.checked=x.value==='banana');
+    document.querySelectorAll('input[name="lab-extra"]').forEach(x=>x.checked=false);
+    if($('lab-result')) $('lab-result').hidden=true;
+    if($('lab-status')) $('lab-status').textContent='Lab reset. Ready for another experiment.';
+  });
+  if ($('lab-save')) $('lab-save').addEventListener('click',()=>{
+    if(!$('lab-result-title').textContent.trim()){ $('lab-status').textContent='Create a recipe before saving it.';return; }
+    const saved=safeStore.get('blendBuddySavedLabRecipesV1',[]);
+    const ingredients=Array.from($('lab-result-ingredients').querySelectorAll('li')).map(x=>x.textContent);
+    const steps=Array.from($('lab-result-steps').querySelectorAll('li')).map(x=>x.textContent);
+    saved.unshift({title:$('lab-result-title').textContent,description:$('lab-result-description').textContent,ingredients,steps});
+    safeStore.set('blendBuddySavedLabRecipesV1',saved);
+    $('lab-status').textContent='Saved in this browser!';
+  });
+
+  // Flavor Passport: collect stamps for core menu recipes.
+  const passportKey='blendBuddyPassportV1';
+  const stampData=cards.slice(0,60);
+  function renderPassport(){
+    const root=$('passport-grid'); if(!root) return;
+    const earned=safeStore.get(passportKey,[]);
+    root.replaceChildren();
+    stampData.forEach((card,index)=>{
+      const name=card.querySelector('h3')?.textContent||'Blend '+(index+1);
+      const item=document.createElement('div');item.className='passport-stamp'+(earned.includes(name)?' collected':'');
+      const icon=document.createElement('span');icon.className='stamp-icon';icon.textContent=card.querySelector('.emoji')?.textContent||'🥤';item.appendChild(icon);
+      const copy=document.createElement('div');const nm=document.createElement('span');nm.className='stamp-name';nm.textContent=name;copy.appendChild(nm);
+      const st=document.createElement('span');st.className='stamp-status';st.textContent=earned.includes(name)?'Stamp collected':'Stamp waiting';copy.appendChild(st);item.appendChild(copy);
+      const btn=document.createElement('button');btn.type='button';btn.textContent=earned.includes(name)?'Collected':'Collect';btn.setAttribute('aria-label',(earned.includes(name)?'Remove stamp for ':'Collect stamp for ')+name);
+      btn.addEventListener('click',()=>{let current=safeStore.get(passportKey,[]);current=Array.isArray(current)?current:[];current=current.includes(name)?current.filter(x=>x!==name):[...current,name];safeStore.set(passportKey,current);renderPassport();});
+      item.appendChild(btn);root.appendChild(item);
+    });
+    const count=$('passport-count');if(count)count.textContent=earned.length+' / '+stampData.length;
+    const fill=$('passport-progress-fill');if(fill)fill.style.width=(earned.length/stampData.length*100)+'%';
+  }
+  if($('passport-reset')) $('passport-reset').addEventListener('click',()=>{safeStore.set(passportKey,[]);renderPassport();});
+  renderPassport();
+
+  // Holiday Boss Battles with saved checklist progress.
+  const bossDefs={
+    halloween:{name:'Halloween Haunt',desc:'Make a spooky sip and conquer the pumpkin patch.',tasks:['Choose a Halloween recipe.','Gather and measure each ingredient.','Blend carefully with the lid secured.','Try your seasonal drink and mark the mission complete.']},
+    christmas:{name:'Christmas Chill',desc:'Blend a cozy winter drink and earn a festive badge.',tasks:['Choose a winter-inspired recipe.','Measure the ingredients.','Blend until smooth.','Enjoy your festive creation.']},
+    valentines:{name:'Berry Sweetheart',desc:'Build a berry-pink blend with careful measurements.',tasks:['Choose a berry recipe.','Measure the fruit and liquid.','Blend until smooth.','Complete your berry-themed drink.']},
+    easter:{name:'Springtime Surprise',desc:'Create a bright spring blend.',tasks:['Choose a spring fruit.','Measure ingredients.','Blend until smooth.','Finish your spring recipe.']},
+    stpatricks:{name:'Lucky Green Machine',desc:'Make a lucky green or marshmallow-cereal-inspired drink.',tasks:['Choose a green or cereal-inspired recipe.','Measure ingredients.','Blend until smooth.','Finish the lucky flavor mission.']},
+    summer:{name:'Summer Celebration',desc:'Create a refreshing red, white, and blue summer drink.',tasks:['Choose a summer fruit.','Measure ingredients.','Blend until smooth.','Complete your summer blend.']}
+  };
+  let currentBoss=null;
+  function getBossProgress(){const v=safeStore.get('blendBuddyBossProgressV1',{});return v&&typeof v==='object'?v:{};}
+  function renderBossProgress(){
+    const progress=getBossProgress(), earned=Object.values(progress).filter(x=>x&&x.done).length;
+    if($('boss-score')) $('boss-score').textContent=earned+' / 6 badges earned';
+    if($('boss-progress-copy')) $('boss-progress-copy').textContent=earned===6?'All badges earned — amazing blending!':'Complete a mission checklist to collect your next badge.';
+    document.querySelectorAll('.boss-card[data-boss]').forEach(card=>{const done=!!progress[card.dataset.boss]?.done;card.classList.toggle('done',done);const btn=card.querySelector('button');if(btn)btn.textContent=done?'✓ Badge earned':'Choose this boss';});
+  }
+  window.startHolidayBoss=function(key){
+    currentBoss=key;const def=bossDefs[key];if(!def)return;
+    $('boss-detail').hidden=false;$('boss-detail-title').textContent=def.name;$('boss-detail-desc').textContent=def.desc;
+    const checks=$('boss-checklist');checks.replaceChildren();
+    const existing=getBossProgress()[key]?.checks||[];
+    def.tasks.forEach((task,index)=>{const label=document.createElement('label');const input=document.createElement('input');input.type='checkbox';input.checked=!!existing[index];input.addEventListener('change',()=>{const p=getBossProgress();p[key]={...(p[key]||{}),checks:def.tasks.map((_,i)=>checks.querySelectorAll('input')[i].checked),done:false};safeStore.set('blendBuddyBossProgressV1',p);updateBossClaim();});label.append(input,document.createTextNode(task));checks.appendChild(label);});
+    $('boss-message').textContent='Check off each mission to unlock your badge.';updateBossClaim();$('boss-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
+  };
+  function updateBossClaim(){const inputs=Array.from(document.querySelectorAll('#boss-checklist input'));if($('boss-claim-button'))$('boss-claim-button').disabled=!inputs.length||!inputs.every(x=>x.checked);}
+  window.completeHolidayBoss=function(){
+    if(!currentBoss)return;const checks=Array.from(document.querySelectorAll('#boss-checklist input'));
+    if(!checks.length||!checks.every(x=>x.checked))return;
+    const p=getBossProgress();p[currentBoss]={checks:checks.map(x=>x.checked),done:true};safeStore.set('blendBuddyBossProgressV1',p);
+    $('boss-message').textContent='🏆 Badge earned! Your progress is saved on this device.';$('boss-claim-button').disabled=true;renderBossProgress();
+  };
+  window.resetHolidayBossProgress=function(){safeStore.set('blendBuddyBossProgressV1',{});renderBossProgress();if($('boss-detail'))$('boss-detail').hidden=true;};
+  renderBossProgress();
+
+  // Pantry Snap: photo preview is local; visitors identify ingredients manually.
+  if($('pantry-photo')) $('pantry-photo').addEventListener('change',event=>{
+    const file=event.target.files&&event.target.files[0];if(!file)return;
+    const preview=$('pantry-preview');const reader=new FileReader();
+    reader.onload=()=>{preview.src=reader.result;preview.style.display='block';};
+    reader.readAsDataURL(file);
+  });
+  if($('pantry-find')) $('pantry-find').addEventListener('click',()=>{
+    const chosen=Array.from(document.querySelectorAll('#pantry-ingredients input:checked')).map(x=>x.value.toLowerCase());
+    const results=$('pantry-results');results.replaceChildren();
+    if(!chosen.length){results.textContent='Check the ingredients you have first, then tap Find my blends.';return;}
+    const suggestions=[
+      {name:'Banana Peanut Butter',kind:'Smoothie',needs:['banana','milk','peanut butter'],desc:'Creamy, classic, and easy to customize.'},
+      {name:'Strawberry Banana',kind:'Smoothie',needs:['strawberry','banana','milk'],desc:'A fruity blend with a smooth finish.'},
+      {name:'Chocolate PB Shake',kind:'Milkshake',needs:['milk','chocolate','peanut butter','vanilla ice cream'],desc:'A rich chocolate-and-peanut-butter shake.'},
+      {name:'Blueberry Banana',kind:'Smoothie',needs:['blueberry','banana','milk','yogurt'],desc:'A berry blend with creamy yogurt.'},
+      {name:'Tropical Sunshine',kind:'Smoothie',needs:['mango','orange juice'],desc:'A sunny tropical fruit blend.'}
+    ];
+    const matched=suggestions.map(x=>({...x,score:x.needs.filter(n=>chosen.includes(n)).length})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,4);
+    if(!matched.length){results.textContent='No close matches yet. Try selecting fruit plus a liquid base, or add yogurt or ice cream.';return;}
+    const root=document.createElement('div');root.className='pantry-results';
+    matched.forEach(x=>{const card=document.createElement('article');card.className='pantry-result';const h=document.createElement('h3');h.textContent=x.name;const p=document.createElement('p');p.textContent=x.kind+' · '+x.desc;const match=document.createElement('p');match.textContent='Matches '+x.score+' of '+x.needs.length+' suggested ingredients.';card.append(h,p,match);root.appendChild(card);});
+    results.appendChild(root);
+  });
+
+  // Chef's built-in recommendations.
+  const chefRecipes=[
+    {name:'Banana Peanut Butter',kind:'smoothie',moods:['creamy','protein'],keys:['banana','milk','peanut butter'],desc:'Banana, milk, peanut butter, and optional yogurt.'},
+    {name:'Strawberry Banana',kind:'smoothie',moods:['fruity'],keys:['strawberry','banana','milk'],desc:'Strawberries, banana, milk, and optional yogurt.'},
+    {name:'Chocolate PB Shake',kind:'milkshake',moods:['chocolate','creamy'],keys:['chocolate','peanut butter','milk'],desc:'Milk, vanilla ice cream, cocoa, and peanut butter.'},
+    {name:'Tropical Sunshine',kind:'smoothie',moods:['fruity','adventurous'],keys:['mango','pineapple','juice'],desc:'Mango, pineapple, and orange juice.'},
+    {name:'Blueberry Banana',kind:'smoothie',moods:['fruity','protein'],keys:['blueberry','banana','yogurt'],desc:'Blueberries, banana, milk, and yogurt.'}
+  ];
+  function chefPick(){
+    const type=$('chef-type')?.value||'surprise',mood=$('chef-mood')?.value||'fruity';
+    const words=($('chef-ingredients')?.value||'').toLowerCase();
+    const matches=chefRecipes.filter(r=>(type==='surprise'||r.kind===type)&&r.moods.includes(mood));
+    const ranked=(matches.length?matches:chefRecipes).map(r=>({...r,score:r.keys.filter(k=>words.includes(k)).length})).sort((a,b)=>b.score-a.score);
+    return ranked[0];
+  }
+  if($('chef-recommend')) $('chef-recommend').addEventListener('click',()=>{
+    const r=chefPick();$('chef-answer').replaceChildren();
+    const h=document.createElement('h3');h.textContent='👨‍🍳 Chef recommends: '+r.name;
+    const p=document.createElement('p');p.textContent=r.desc+' Pick this if it sounds good to you; swap ingredients to match your preferences and check allergy labels.';
+    $('chef-answer').append(h,p);
+  });
+  if($('chef-pick-flavors')) $('chef-pick-flavors').addEventListener('click',()=>{
+    const root=$('chef-pick-results');root.replaceChildren();
+    chefRecipes.slice(0,3).forEach(r=>{const card=document.createElement('article');card.className='chef-pick-card';const h=document.createElement('h4');h.textContent=r.name;const p=document.createElement('p');p.textContent=r.desc;const tag=document.createElement('p');tag.className='chef-pick-tag';tag.textContent=r.kind;card.append(h,p,tag);root.appendChild(card);});
+  });
+  // Chat is a local helper until a secure server-side AI endpoint is configured.
+  if($('chef-ai-form')) $('chef-ai-form').addEventListener('submit',event=>{
+    event.preventDefault();const text=$('chef-ai-input').value.trim();if(!text)return;
+    const log=$('chef-ai-log');const user=document.createElement('div');user.className='chef-ai-message user';user.textContent=text;log.appendChild(user);
+    const reply=document.createElement('div');reply.className='chef-ai-message chef';
+    const lower=text.toLowerCase();let r;
+    if(lower.includes('peanut')) r='Chef pick: Banana Peanut Butter Smoothie — blend 1 banana, 1 cup (240 mL) milk, and 1 tablespoon (16 g) peanut butter. Skip peanuts entirely if anyone has a peanut allergy.';
+    else if(lower.includes('chocolate')) r='Chef pick: Chocolate PB Shake — blend ¾ cup (180 mL) milk, ½ cup vanilla ice cream, and 1 teaspoon cocoa. Peanut butter is optional; check allergy labels.';
+    else if(lower.includes('strawber')) r='Chef pick: Strawberry Banana — blend ¾ cup (180 mL) milk, ½ cup strawberries, ½ banana, and ¼ cup yogurt.';
+    else r='I can help with a simple recipe! Try 1 banana, 1 cup (240 mL) milk, and a few ice cubes; blend until smooth. This chat is using built-in suggestions for now; live AI needs a secure server-side connection.';
+    reply.textContent=r;log.appendChild(reply);log.scrollTop=log.scrollHeight;$('chef-ai-input').value='';$('chef-ai-status').textContent='Reply ready — built-in suggestions are active; live AI is not connected yet.';
+  });
+
+  // Holiday links always point to the current active seasonal section when clicked.
+  document.querySelectorAll('[data-season-link="any"]').forEach(link=>link.addEventListener('click',()=>{if(!link.getAttribute('href'))link.href='#holiday-specials';}));
+})();
+</script>
+</body>
+</html>
