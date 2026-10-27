@@ -407,9 +407,9 @@ header nav a{flex-shrink:0}
     <div class="section-head"><div><h2>Pick your blend</h2><p>Beginner-friendly recipes with everyday ingredients. Every recipe includes measured ingredients and step-by-step instructions.</p></div></div>
     <div class="controls">
       <input id="search" class="search" type="search" placeholder="Search banana, chocolate, peanut butter…" aria-label="Search recipes">
-      <button class="filter active" data-filter="all">🥤 All 60 recipes</button>
-      <button class="filter" data-filter="smoothie">🍓 Smoothies · 30</button>
-      <button class="filter" data-filter="milkshake">🥛 Milkshakes · 30</button>
+      <button class="filter active" type="button" data-filter="all" onclick="window.setRecipeFilter('all')">🥤 All 60 recipes</button>
+      <button class="filter" type="button" data-filter="smoothie" onclick="window.setRecipeFilter('smoothie')">🍓 Smoothies · 30</button>
+      <button class="filter" type="button" data-filter="milkshake" onclick="window.setRecipeFilter('milkshake')">🥛 Milkshakes · 30</button>
     </div>
     <p id="recipe-menu-status" class="saved-intro" aria-live="polite">Showing all 60 core recipes — use the Smoothies or Milkshakes button to browse each menu separately.</p>
     <div class="grid" id="recipeGrid">
@@ -1106,10 +1106,14 @@ updateDailyFlavor();
     const empty = $('empty');
     if (empty) empty.style.display = matching.length ? 'none' : 'block';
   };
-  filterButtons.forEach(button => button.addEventListener('click', () => {
-    window.active = button.dataset.filter || 'all';
+  // Expose a direct handler as well as listeners so the category controls remain responsive.
+  window.setRecipeFilter = function(kind){
+    window.active = ['all','smoothie','milkshake'].includes(kind) ? kind : 'all';
     expanded = false;
     window.updateRecipes();
+  };
+  filterButtons.forEach(button => button.addEventListener('click', () => {
+    window.setRecipeFilter(button.dataset.filter || 'all');
   }));
   if (searchInput) searchInput.addEventListener('input', () => { expanded = false; window.updateRecipes(); });
   moreButton.addEventListener('click', () => { expanded = !expanded; window.updateRecipes(); });
