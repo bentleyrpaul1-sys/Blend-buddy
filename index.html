@@ -1395,16 +1395,24 @@ updateDailyFlavor();
   ];
   function chefPick(){
     const type=$('chef-type')?.value||'surprise',mood=$('chef-mood')?.value||'fruity';
-    const words=($('chef-ingredients')?.value||'').toLowerCase();
-    const matches=chefRecipes.filter(r=>(type==='surprise'||r.kind===type)&&r.moods.includes(mood));
-    const ranked=(matches.length?matches:chefRecipes).map(r=>({...r,score:r.keys.filter(k=>words.includes(k)).length})).sort((a,b)=>b.score-a.score);
+    const words=($('chef-ingredients')?.value||'').toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+    const ingredientText=words.join(' ');
+    const ranked=chefRecipes.map(r=>{
+      const hits=r.keys.filter(k=>ingredientText.includes(k)).length;
+      const typeScore=type==='surprise'?0:(r.kind===type?2:-3);
+      const moodScore=r.moods.includes(mood)?1:0;
+      return {...r,score:hits*5+typeScore+moodScore,hits};
+    }).sort((a,b)=>b.score-a.score);
     return ranked[0];
   }
   if($('chef-recommend')) $('chef-recommend').addEventListener('click',()=>{
     const r=chefPick();$('chef-answer').replaceChildren();
     const h=document.createElement('h3');h.textContent='👨‍🍳 Chef recommends: '+r.name;
-    const p=document.createElement('p');p.textContent=r.desc+' Pick this if it sounds good to you; swap ingredients to match your preferences and check allergy labels.';
-    $('chef-answer').append(h,p);
+    const p=document.createElement('p');
+    const matchNote=r.hits>0?' I matched '+r.hits+' ingredient'+(r.hits===1?'':'s')+' you entered.':' I used your drink type and flavor mood to choose this blend.';
+    p.textContent=r.desc+matchNote+' Pick this if it sounds good to you, and check ingredient labels for allergies.';
+    const link=document.createElement('a');link.className='btn';link.href='?page=recipes';link.textContent='Browse recipes';link.style.display='inline-flex';link.style.alignItems='center';link.style.justifyContent='center';link.style.marginTop='10px';
+    $('chef-answer').append(h,p,link);
   });
   if($('chef-pick-flavors')) $('chef-pick-flavors').addEventListener('click',()=>{
     const root=$('chef-pick-results');root.replaceChildren();
