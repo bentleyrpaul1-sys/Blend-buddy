@@ -955,6 +955,7 @@ function updateDailyFlavor(){
   if (metaEl) metaEl.textContent = `${kind} · Changes daily`;
   if (button) button.onclick = () => {
     search.value = '';
+    if (window.expandAllRecipes) window.expandAllRecipes();
     active = 'all';
     filters.forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
     updateRecipes();
