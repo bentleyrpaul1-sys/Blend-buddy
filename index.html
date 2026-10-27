@@ -1366,7 +1366,7 @@ updateDailyFlavor();
       const copy=document.createElement('div');const nm=document.createElement('span');nm.className='stamp-name';nm.textContent=name;copy.appendChild(nm);
       const st=document.createElement('span');st.className='stamp-status';st.textContent=earned.includes(name)?'Stamp collected':'Stamp waiting';copy.appendChild(st);item.appendChild(copy);
       const btn=document.createElement('button');btn.type='button';btn.textContent=earned.includes(name)?'Collected':'Collect';btn.setAttribute('aria-label',(earned.includes(name)?'Remove stamp for ':'Collect stamp for ')+name);
-      btn.addEventListener('click',()=>{let current=safeStore.get(passportKey,[]);current=Array.isArray(current)?current:[];current=current.includes(name)?current.filter(x=>x!==name):[...current,name];safeStore.set(passportKey,current);renderPassport();});
+      btn.addEventListener('click',()=>{let current=safeStore.get(passportKey,[]);current=Array.isArray(current)?current:[];const wasCollected=current.includes(name);current=wasCollected?current.filter(x=>x!==name):[...current,name];safeStore.set(passportKey,current);renderPassport();if(!wasCollected)document.dispatchEvent(new CustomEvent('blendbuddy:passport-collected',{detail:{title:name}}));});
       item.appendChild(btn);root.appendChild(item);
     });
     const count=$('passport-count');if(count)count.textContent=earned.length+' / '+stampData.length;
@@ -1676,14 +1676,14 @@ updateDailyFlavor();
     state.tried.push(title);const kind=(card.dataset.kind||'').toLowerCase();if(kind==='smoothie'||kind==='milkshake'){if(!state.kinds[kind].includes(title))state.kinds[kind].push(title);}
     const before=Math.floor(state.xp/100)+1;state.xp+=20;const after=Math.floor(state.xp/100)+1;
     checkBadges();save();render();toast('+'+20+' XP — '+title+' tried!'+(after>before?' Level up! 🎉':''));
-    try{const passportKey='blendBuddyPassportV1';const passport=JSON.parse(localStorage.getItem(passportKey)||'[]');if(Array.isArray(passport)&&!passport.includes(title)){passport.push(title);localStorage.setItem(passportKey,JSON.stringify(passport));const reset=document.getElementById('passport-reset');if(reset)reset.click();}}catch(e){}
+
   }
   document.addEventListener('click',event=>{
     const recipeButton=event.target.closest('.recipe button[onclick*="showRecipe"]');
     if(recipeButton){const card=recipeButton.closest('.recipe');awardRecipe(card);}
-    const collectButton=event.target.closest('#passport-grid button');
-    if(collectButton){const stamp=collectButton.closest('.passport-stamp');if(stamp&&collectButton.textContent.trim()==='Collect'){const title=stamp.querySelector('.stamp-name')?.textContent?.trim();const card=[...document.querySelectorAll('#recipeGrid .recipe')].find(c=>c.querySelector('h3')?.textContent?.trim()===title);if(card)awardRecipe(card);}}
+    /* Passport stamps notify Rewards through blendbuddy:passport-collected below. */
   });
+  document.addEventListener('blendbuddy:passport-collected',event=>{const title=event.detail?.title;if(!title)return;const card=[...document.querySelectorAll('.recipe')].find(c=>c.querySelector('h3')?.textContent?.trim()===title);if(card)awardRecipe(card);else{state.tried.includes(title)||state.tried.push(title);state.xp+=20;checkBadges();save();render();toast('+20 XP — '+title+' collected!');}});
   const reset=document.getElementById('rewards-reset');if(reset)reset.addEventListener('click',()=>{if(!confirm('Reset XP, levels, and badges on this device? Your Flavor Passport and saved recipes will stay unchanged.'))return;state={xp:0,tried:[],kinds:{smoothie:[],milkshake:[]},badges:[]};save();render();toast('Rewards progress reset. Your other Blend Buddy data is untouched.');});
   const toastEl=document.createElement('div');toastEl.id='rewards-toast';toastEl.className='rewards-toast';toastEl.setAttribute('role','status');toastEl.setAttribute('aria-live','polite');document.body.appendChild(toastEl);
   checkBadges();save();render();
