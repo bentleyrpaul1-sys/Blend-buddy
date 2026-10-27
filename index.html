@@ -110,6 +110,10 @@ nav a[aria-current="page"]{
 }
 
 [hidden]{display:none !important}
+.chef-nav-status{display:inline-flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid var(--line);border-radius:999px;background:#fffdf8;white-space:nowrap;font-size:.78rem}
+.chef-nav-status[hidden]{display:none !important}
+.chef-nav-status .chef-ai-connection{padding:4px 8px;font-size:.75rem}
+@media(max-width:650px){.chef-nav-status{justify-content:center;align-self:flex-start;margin:2px 0 2px 8px}}
 
 .builder{margin:20px 0 44px;padding:28px;border-radius:30px;background:#e7efda;border:1px solid #d4e2c7}.builder-head{display:flex;gap:16px;align-items:center;margin-bottom:22px}.builder-head .builder-icon{font-size:48px}.builder h2{margin:0;font-size:clamp(1.8rem,3vw,2.5rem);letter-spacing:-.06em}.builder-head p{margin:7px 0 0;color:var(--muted);line-height:1.5}.builder-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.builder-group{background:#fffdf8;border:1px solid #dce5d2;border-radius:18px;padding:18px;min-width:0}.builder-group label.group-label{display:block;font-weight:900;margin-bottom:10px}.builder select{width:100%;font:inherit;padding:12px;border:1px solid var(--line);border-radius:12px;background:white}.choice-list{display:flex;gap:9px;flex-wrap:wrap}.choice{display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--line);border-radius:99px;background:white;font-size:.9rem}.choice input{accent-color:var(--green)}.builder-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}.builder-result{display:none;margin-top:22px;background:#fffdf8;border:1px solid #dce5d2;border-radius:22px;padding:22px}.builder-result h3{margin:0 0 6px;font-size:1.5rem}.builder-result p{color:var(--muted);line-height:1.5}.builder-result h4{margin:18px 0 8px}.builder-result ul,.builder-result ol{line-height:1.8;color:#505c51;padding-left:22px}.builder-note{font-size:.86rem;color:var(--muted)}.saved-recipes{margin:0 0 42px;padding:24px;border:1px solid var(--line);border-radius:26px;background:#fffdf8}.saved-recipes h2{margin:0 0 6px;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.05em}.saved-intro{margin:0 0 18px;color:var(--muted);line-height:1.5}.saved-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.saved-item{padding:18px;border:1px solid var(--line);border-radius:18px;background:#fbf8ef;min-width:0}.saved-item h3{margin:0 0 7px}.saved-item p{color:var(--muted);line-height:1.5;margin:0 0 10px}.saved-item h4{margin:12px 0 6px}.saved-item ul,.saved-item ol{padding-left:21px;line-height:1.6;color:#505c51}.saved-item .btn{margin-top:8px}.saved-empty{color:var(--muted);padding:18px;border:1px dashed var(--line);border-radius:16px}@media(max-width:650px){.builder{padding:18px}.builder-form{grid-template-columns:1fr}.builder-head{align-items:flex-start}.saved-list{grid-template-columns:1fr}}
 
@@ -343,7 +347,7 @@ header nav a{flex-shrink:0}
 <header>
   <div class="brand"><span class="logo">🥤</span> Blend Buddy</div>
   <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open navigation menu"><span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span><span class="mobile-menu-label">Menu</span></button>
-  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=rewards" data-page-link="rewards">🏆 Rewards</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a></nav>
+  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><span class="chef-nav-status" id="chef-nav-status" hidden><span class="chef-ai-connection-label">AI Status</span> <span id="chef-ai-connection" class="chef-ai-connection checking" role="status" aria-live="polite"><span class="chef-ai-status-dot" aria-hidden="true"></span><span id="chef-ai-connection-text">Checking…</span></span></span><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=rewards" data-page-link="rewards">🏆 Rewards</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a></nav>
 </header>
 <section class="hero">
   <div>
@@ -533,10 +537,6 @@ header nav a{flex-shrink:0}
       <div id="chef-pick-results" aria-live="polite"></div>
     </div>
 </section>
-
-  <div class="chef-ai-status-area" style="margin:18px 0 30px;padding:14px 18px;border:1px solid var(--line);border-radius:16px;background:#fffdf8;">
-    <div class="chef-ai-connection-row"><span class="chef-ai-connection-label">AI Status</span><span id="chef-ai-connection" class="chef-ai-connection checking" role="status" aria-live="polite"><span class="chef-ai-status-dot" aria-hidden="true"></span><span id="chef-ai-connection-text">Checking…</span></span></div></div>
-  </div>
 
   <section id="recipes">
     <div class="section-head"><div><h2>Pick your blend</h2><p>Beginner-friendly recipes with everyday ingredients. Every recipe includes measured ingredients and step-by-step instructions.</p></div></div>
@@ -1572,6 +1572,7 @@ updateDailyFlavor();
       window.setChefAIConnection('connected');
     }).catch(()=>window.setChefAIConnection('disconnected'));
   }
+  const chefNavStatus=document.getElementById('chef-nav-status');if(chefNavStatus)chefNavStatus.hidden=page!=='chef';
   document.body.dataset.page=page;
   const allSections=Array.from(document.querySelectorAll('main > section'));
   allSections.forEach(section=>{section.hidden=true;});
