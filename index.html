@@ -43,22 +43,19 @@ dialog{border:0;border-radius:24px;max-width:480px;width:calc(100% - 32px);paddi
 .boss-detail{margin-top:18px;padding:22px;background:#fffdf8;border:1px solid #e7dfeb;border-radius:22px}.boss-detail h3{margin:0 0 6px}.boss-detail p{color:var(--muted);line-height:1.5}.boss-checklist{display:grid;gap:10px;margin:16px 0}.boss-checklist label{display:flex;align-items:flex-start;gap:10px;padding:12px;background:#f7f5ef;border-radius:12px;line-height:1.4}.boss-checklist input{margin-top:3px;accent-color:#60428b;flex-shrink:0}.boss-message{min-height:1.4em;font-weight:800;color:#315c43}.boss-detail .btn:disabled{opacity:.45;cursor:not-allowed}
 @media(max-width:800px){.boss-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.boss-grid{grid-template-columns:1fr}.boss-head{align-items:flex-start}}
 
-/* Mobile-only hamburger navigation */
-.mobile-menu-toggle{display:none;align-items:center;justify-content:center;gap:9px;border:1px solid var(--line);border-radius:14px;background:#fffdf8;color:var(--ink);padding:10px 13px;min-height:44px;font:inherit;font-weight:800;cursor:pointer}
+/* Clean hamburger navigation on desktop and mobile */
+header{position:sticky;top:0;z-index:50;align-items:center;flex-wrap:nowrap}
+.mobile-menu-toggle{display:inline-flex;align-items:center;justify-content:center;gap:9px;margin-left:auto;border:1px solid var(--line);border-radius:14px;background:#fffdf8;color:var(--ink);padding:10px 13px;min-height:44px;font:inherit;font-weight:800;cursor:pointer;flex-shrink:0}
 .hamburger-lines{display:grid;gap:4px;width:21px}
 .hamburger-lines span{display:block;height:2px;width:21px;border-radius:2px;background:currentColor}
 .mobile-menu-label{font-size:.9rem}
+#main-navigation{display:none;position:absolute;top:calc(100% - 2px);right:clamp(18px,5vw,72px);z-index:60;width:min(320px,calc(100vw - 36px));max-height:calc(100vh - 110px);overflow-y:auto;flex-direction:column;align-items:stretch;gap:6px;padding:12px;background:#fffdf8;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+#main-navigation.is-open{display:flex}
+#main-navigation a{display:block;padding:12px 14px;border-radius:12px;background:#fffdf8;border:1px solid var(--line);font-size:1rem}
+#main-navigation a[aria-current="page"]{background:#e9efdc;border-color:#cbdcbb;text-decoration:none}
 @media(max-width:650px){
-  header{position:sticky;align-items:center;flex-wrap:wrap}
-  .mobile-menu-toggle{display:inline-flex;margin-left:auto}
-  #main-navigation{display:none;order:3;flex-basis:100%;width:100%;align-items:stretch;gap:6px;padding:10px 0 2px;border-top:1px solid var(--line)}
-  #main-navigation.is-open{display:flex;flex-direction:column}
-  #main-navigation a{display:block;padding:12px 14px;border-radius:12px;background:#fffdf8;border:1px solid var(--line);font-size:1rem}
-  #main-navigation a[aria-current="page"]{background:#e9efdc;border-color:#cbdcbb;text-decoration:none}
-}
-@media(min-width:651px){
-  .mobile-menu-toggle{display:none!important}
-  #main-navigation{display:flex!important}
+  header{flex-wrap:wrap}
+  #main-navigation{right:18px}
 }
 
 /* Phase 2: keyboard, touch, and responsive polish */
