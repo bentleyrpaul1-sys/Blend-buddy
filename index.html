@@ -962,12 +962,13 @@ document.getElementById('resetBlend').addEventListener('click',()=>{
 function updateDailyFlavor(){
   const grid = document.getElementById('recipeGrid');
   if (!grid) return;
-  const regularCards = [...grid.querySelectorAll('.recipe')];
+  const regularCards = [...grid.querySelectorAll('.recipe[data-kind]')];
   if (!regularCards.length) return;
   const now = new Date();
   const start = new Date(now.getFullYear(), 0, 0);
   const dayOfYear = Math.floor((new Date(now.getFullYear(), now.getMonth(), now.getDate()) - start) / 86400000);
   const card = regularCards[(dayOfYear - 1) % regularCards.length];
+  window.getBlendBuddyDailyRecipe = () => card;
   const title = card.querySelector('h3')?.textContent || 'Blend Buddy Favorite';
   const description = card.querySelector('.recipe-top p')?.textContent || 'A delicious pick from the Blend Buddy menu.';
   const kind = card.dataset.kind === 'milkshake' ? 'Milkshake' : 'Smoothie';
@@ -1018,6 +1019,7 @@ function updateSeasonalSpecials(){
     fall: month >= 9 && month <= 11,
     thanksgiving: month === 11 && day >= 20 && day <= 30
   };
+  window.activeBlendBuddySeasons = activeSeasons;
   document.querySelectorAll('[data-season]').forEach(section => {
     section.hidden = !activeSeasons[section.dataset.season];
   });
@@ -1373,7 +1375,15 @@ updateDailyFlavor();
   allSections.forEach(section=>{section.hidden=true;});
   const hero=document.querySelector('.hero'); if(hero)hero.hidden=page!=='home';
   const holidayMini=document.querySelector('.holiday-mini-wrap'); if(holidayMini)holidayMini.hidden=page!=='home';
-  (pageGroups[page]||[]).forEach(selector=>{document.querySelectorAll(selector).forEach(section=>{if(section.dataset.season!==undefined){/* Seasonal visibility is controlled by the calendar script. */}else if(section.id==='holiday-specials'||section.id==='christmas-specials'||section.id==='thanksgiving-specials'||section.id==='valentines-specials'||section.id==='easter-specials'||section.id==='fourth-july-specials'||section.id==='st-patricks-specials'||section.id==='fall-specials'){/* Keep their original seasonal hidden state. */}else{section.hidden=false;}});});
+  (pageGroups[page]||[]).forEach(selector=>{document.querySelectorAll(selector).forEach(section=>{if(section.dataset.season!==undefined){section.hidden=page==='holidays'?!Boolean(window.activeBlendBuddySeasons&&window.activeBlendBuddySeasons[section.dataset.season]):true;}else{section.hidden=false;}});});
+  if(page==='holidays'){
+    const holidaySections=[...document.querySelectorAll('main > section[data-season]')];
+    const activeHolidaySections=holidaySections.filter(section=>window.activeBlendBuddySeasons&&window.activeBlendBuddySeasons[section.dataset.season]);
+    if(!activeHolidaySections.length){
+      const holidayIntro=document.querySelector('.page-intro');
+      if(holidayIntro){const note=document.createElement('p');note.className='holiday-calendar-note';note.textContent='Seasonal drink collections appear here during their holiday dates. You can still explore the Holiday Boss Battles below.';holidayIntro.appendChild(note);}
+    }
+  }
   document.querySelectorAll('nav [data-page-link]').forEach(link=>{if(link.dataset.pageLink===page)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
   document.title=(pageNames[page]==='Home'?'Blend Buddy':pageNames[page]+' | Blend Buddy')+' — Easy Protein Smoothies & Milkshakes';
   const holidayCard=document.querySelector('.holiday-mini');if(holidayCard)holidayCard.setAttribute('href','?page=holidays');
@@ -1391,9 +1401,8 @@ updateDailyFlavor();
       if(!grid)return;
       const cards=[...grid.querySelectorAll('.recipe[data-kind]')];
       if(!cards.length)return;
-      const now=new Date(),start=new Date(now.getFullYear(),0,0);
-      const dayOfYear=Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate())-start)/86400000);
-      const card=cards[(dayOfYear-1)%cards.length];
+      const card=window.getBlendBuddyDailyRecipe?window.getBlendBuddyDailyRecipe():null;
+      if(!card||!grid.contains(card))return;
       if(searchInput)searchInput.value='';
       if(window.expandAllRecipes)window.expandAllRecipes();
       window.active='all';
