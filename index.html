@@ -1594,15 +1594,15 @@ updateDailyFlavor();
   // Only test the AI when the visitor opens Chef. A tiny reply verifies the live
   // API key and model response, rather than merely checking that the server exists.
   if(page==='chef'){
-    setChefAIConnection('checking');
+    window.setChefAIConnection('checking');
     fetch('https://blend-buddy-api.bentleyrpaul1.workers.dev/chef',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({message:'Reply with only the word OK to confirm the assistant is available.'})
     }).then(async response=>{
       const data=await response.json();
       if(!response.ok||typeof data.reply!=='string'||!data.reply.trim())throw new Error('AI unavailable');
-      setChefAIConnection('connected');
-    }).catch(()=>setChefAIConnection('disconnected'));
+      window.setChefAIConnection('connected');
+    }).catch(()=>window.setChefAIConnection('disconnected'));
   }
   document.body.dataset.page=page;
   const allSections=Array.from(document.querySelectorAll('main > section'));
