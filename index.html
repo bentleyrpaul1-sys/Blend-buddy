@@ -1549,15 +1549,15 @@ updateDailyFlavor();
   if($('chef-ai-form')) $('chef-ai-form').addEventListener('submit',async event=>{
     event.preventDefault();const input=$('chef-ai-input'), text=input.value.trim();if(!text)return;
     const log=$('chef-ai-log'),button=$('chef-ai-send'),status=$('chef-ai-status');
-    setChefAIConnection('checking');
+    window.setChefAIConnection('checking');
     const user=document.createElement('div');user.className='chef-ai-message user';user.textContent=text;log.appendChild(user);
     const reply=document.createElement('div');reply.className='chef-ai-message chef';reply.textContent='Chef is thinking…';log.appendChild(reply);
     log.scrollTop=log.scrollHeight;button.disabled=true;status.textContent='Asking Chef AI…';
     try{
       const response=await fetch('https://blend-buddy-api.bentleyrpaul1.workers.dev/chef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text})});
       const data=await response.json();if(!response.ok)throw new Error(data.error||'Chef is temporarily unavailable.');
-      reply.textContent=data.reply;status.textContent='Recipe ready!';setChefAIConnection('connected');
-    }catch(error){reply.textContent=error.message||'Could not connect to Chef. Please try again.';status.textContent='Chef could not complete that request.';setChefAIConnection('disconnected');}
+      reply.textContent=data.reply;status.textContent='Recipe ready!';window.setChefAIConnection('connected');
+    }catch(error){reply.textContent=error.message||'Could not connect to Chef. Please try again.';status.textContent='Chef could not complete that request.';window.setChefAIConnection('disconnected');}
     finally{button.disabled=false;input.value='';input.focus();log.scrollTop=log.scrollHeight;}
   });
 
@@ -1583,14 +1583,14 @@ updateDailyFlavor();
   };
   const requested=new URLSearchParams(location.search).get('page')||'home';
   const page=Object.prototype.hasOwnProperty.call(pageGroups,requested)?requested:'home';
-  function setChefAIConnection(state){
+  window.setChefAIConnection = function(state){
     const badge=document.getElementById('chef-ai-connection');
     const label=document.getElementById('chef-ai-connection-text');
     if(!badge||!label)return;
     badge.classList.remove('checking','connected','disconnected');
     badge.classList.add(state);
     label.textContent=state==='connected'?'Connected':state==='disconnected'?'Disconnected':'Checking…';
-  }
+  };
   // Only test the AI when the visitor opens Chef. A tiny reply verifies the live
   // API key and model response, rather than merely checking that the server exists.
   if(page==='chef'){
