@@ -43,6 +43,24 @@ dialog{border:0;border-radius:24px;max-width:480px;width:calc(100% - 32px);paddi
 .boss-detail{margin-top:18px;padding:22px;background:#fffdf8;border:1px solid #e7dfeb;border-radius:22px}.boss-detail h3{margin:0 0 6px}.boss-detail p{color:var(--muted);line-height:1.5}.boss-checklist{display:grid;gap:10px;margin:16px 0}.boss-checklist label{display:flex;align-items:flex-start;gap:10px;padding:12px;background:#f7f5ef;border-radius:12px;line-height:1.4}.boss-checklist input{margin-top:3px;accent-color:#60428b;flex-shrink:0}.boss-message{min-height:1.4em;font-weight:800;color:#315c43}.boss-detail .btn:disabled{opacity:.45;cursor:not-allowed}
 @media(max-width:800px){.boss-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.boss-grid{grid-template-columns:1fr}.boss-head{align-items:flex-start}}
 
+/* Mobile-only hamburger navigation */
+.mobile-menu-toggle{display:none;align-items:center;justify-content:center;gap:9px;border:1px solid var(--line);border-radius:14px;background:#fffdf8;color:var(--ink);padding:10px 13px;min-height:44px;font:inherit;font-weight:800;cursor:pointer}
+.hamburger-lines{display:grid;gap:4px;width:21px}
+.hamburger-lines span{display:block;height:2px;width:21px;border-radius:2px;background:currentColor}
+.mobile-menu-label{font-size:.9rem}
+@media(max-width:650px){
+  header{position:sticky;align-items:center;flex-wrap:wrap}
+  .mobile-menu-toggle{display:inline-flex;margin-left:auto}
+  #main-navigation{display:none;order:3;flex-basis:100%;width:100%;align-items:stretch;gap:6px;padding:10px 0 2px;border-top:1px solid var(--line)}
+  #main-navigation.is-open{display:flex;flex-direction:column}
+  #main-navigation a{display:block;padding:12px 14px;border-radius:12px;background:#fffdf8;border:1px solid var(--line);font-size:1rem}
+  #main-navigation a[aria-current="page"]{background:#e9efdc;border-color:#cbdcbb;text-decoration:none}
+}
+@media(min-width:651px){
+  .mobile-menu-toggle{display:none!important}
+  #main-navigation{display:flex!important}
+}
+
 /* Phase 2: keyboard, touch, and responsive polish */
 :where(a,button,input,select,textarea,[tabindex]):focus-visible{
   outline:3px solid #9a6bdb;
@@ -270,7 +288,8 @@ header nav a{flex-shrink:0}
 <body>
 <header>
   <div class="brand"><span class="logo">🥤</span> Blend Buddy</div>
-  <nav aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a></nav>
+  <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open navigation menu"><span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span><span class="mobile-menu-label">Menu</span></button>
+  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a></nav>
 </header>
 <section class="hero">
   <div>
@@ -1436,6 +1455,21 @@ updateDailyFlavor();
     }
   }
   document.querySelectorAll('nav [data-page-link]').forEach(link=>{if(link.dataset.pageLink===page)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
+  const menuToggle=document.getElementById('mobile-menu-toggle');
+  const mainNav=document.getElementById('main-navigation');
+  if(menuToggle&&mainNav){
+    menuToggle.addEventListener('click',()=>{
+      const isOpen=menuToggle.getAttribute('aria-expanded')==='true';
+      menuToggle.setAttribute('aria-expanded',String(!isOpen));
+      menuToggle.setAttribute('aria-label',isOpen?'Open navigation menu':'Close navigation menu');
+      mainNav.classList.toggle('is-open',!isOpen);
+    });
+    mainNav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+      menuToggle.setAttribute('aria-expanded','false');
+      menuToggle.setAttribute('aria-label','Open navigation menu');
+      mainNav.classList.remove('is-open');
+    }));
+  }
   document.title=(pageNames[page]==='Home'?'Blend Buddy':pageNames[page]+' | Blend Buddy')+' — Easy Protein Smoothies & Milkshakes';
   const holidayCard=document.querySelector('.holiday-mini');if(holidayCard)holidayCard.setAttribute('href','?page=holidays');
   const dailyButton=document.getElementById('daily-button');if(dailyButton){dailyButton.textContent='See all recipes →';dailyButton.onclick=null;dailyButton.addEventListener('click',event=>{event.stopPropagation();location.href='?page=recipes';});}
