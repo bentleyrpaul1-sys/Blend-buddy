@@ -324,7 +324,7 @@ footer{gap:12px;flex-wrap:wrap}
 
 /* Installable Android PWA */
 .install-app-button{display:none;align-items:center;gap:8px;border:0;border-radius:999px;padding:10px 15px;background:var(--lime);color:var(--ink);font:inherit;font-weight:900;cursor:pointer;white-space:nowrap}
-.install-app-button.is-visible{display:inline-flex}
+.install-app-button.is-visible{display:flex}#main-navigation .install-app-button{width:100%;justify-content:flex-start;text-align:left;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#e9efdc;color:var(--green);font-size:1rem;min-height:44px}#main-navigation .install-app-button.is-visible{display:flex}#main-navigation .install-app-button:not(.is-visible){display:none}
 @media(max-width:650px){.install-app-button{font-size:.85rem;padding:10px 12px}}
 </style>
 
@@ -358,9 +358,7 @@ header nav a{flex-shrink:0}
 <header>
   <div class="brand"><span class="logo">🥤</span> Blend Buddy <span class="chef-nav-status" id="chef-nav-status"><span class="chef-ai-connection-label">AI Status</span> <span id="chef-ai-connection" class="chef-ai-connection checking" role="status" aria-live="polite"><span class="chef-ai-status-dot" aria-hidden="true"></span><span id="chef-ai-connection-text">Checking…</span></span></span></div>
   <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open navigation menu"><span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span><span class="mobile-menu-label">Menu</span></button>
-  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=rewards" data-page-link="rewards">🏆 Rewards</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a></nav>
-
-<button class="install-app-button" id="install-app-button" type="button" aria-label="Install Blend Buddy app">＋ Install app</button>
+  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=rewards" data-page-link="rewards">🏆 Rewards</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a><button class="install-app-button" id="install-app-button" type="button" aria-label="Install Blend Buddy app">📲 Install Blend Buddy</button></nav>
 </header>
 <section class="hero">
   <div>
