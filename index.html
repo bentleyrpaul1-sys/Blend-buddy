@@ -238,12 +238,12 @@ header nav a{flex-shrink:0}
       <p id="holiday-mini-description">Tap to jump down to seasonal drinks, recipes, and holiday challenges.</p>
       
     </span>
-    <span class="holiday-mini-action" id="holiday-mini-action">Explore holiday drinks ↓</span>
+    <span class="holiday-mini-action" id="holiday-mini-action">See Holiday drinks ↓</span>
   </a>
 </section>
 
 <main>
-  <section class="daily-feature" id="daily-flavor" aria-labelledby="daily-title">
+  <section class="daily-feature" id="daily-flavor" aria-labelledby="daily-title" role="link" tabindex="0" aria-label="Open today’s featured recipe">
     <div class="daily-icon" aria-hidden="true">🌟</div>
     <div class="daily-copy"><span class="daily-kicker">TODAY'S PICK</span><h2 id="daily-title">Today's Daily Flavor</h2><p id="daily-description">A fresh Blend Buddy favorite, picked for today.</p><div class="daily-meta" id="daily-meta">A new flavor every day</div></div>
     <button class="btn" id="daily-button" type="button">See today's recipe ↓</button>
@@ -1372,7 +1372,30 @@ updateDailyFlavor();
   document.querySelectorAll('nav [data-page-link]').forEach(link=>{if(link.dataset.pageLink===page)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
   document.title=(pageNames[page]==='Home'?'Blend Buddy':pageNames[page]+' | Blend Buddy')+' — Easy Protein Smoothies & Milkshakes';
   const holidayCard=document.querySelector('.holiday-mini');if(holidayCard)holidayCard.setAttribute('href','?page=holidays');
-  const dailyButton=document.getElementById('daily-button');if(dailyButton){dailyButton.textContent='Explore all recipes →';dailyButton.addEventListener('click',()=>{location.href='?page=recipes';});}
+  const dailyButton=document.getElementById('daily-button');if(dailyButton){dailyButton.textContent='See all recipes →';dailyButton.onclick=null;dailyButton.addEventListener('click',event=>{event.stopPropagation();location.href='?page=recipes';});}
+  const dailyBanner=document.getElementById('daily-flavor');
+  if(dailyBanner){
+    const openDailyRecipe=()=>{location.href='?page=recipes&daily=1';};
+    dailyBanner.addEventListener('click',event=>{if(event.target.closest('button'))return;openDailyRecipe();});
+    dailyBanner.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openDailyRecipe();}});
+  }
+  if(page==='recipes'&&new URLSearchParams(location.search).get('daily')==='1'){
+    const revealDaily=()=>{
+      const grid=document.getElementById('recipeGrid');
+      if(!grid)return;
+      const cards=[...grid.querySelectorAll('.recipe')];
+      if(!cards.length)return;
+      const now=new Date(),start=new Date(now.getFullYear(),0,0);
+      const dayOfYear=Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate())-start)/86400000);
+      const card=cards[(dayOfYear-1)%cards.length];
+      if(window.expandAllRecipes)window.expandAllRecipes();
+      const allFilter=document.querySelector('[data-filter="all"]');if(allFilter)allFilter.click();
+      card.scrollIntoView({behavior:'smooth',block:'center'});
+      card.style.outline='3px solid #315c43';card.style.outlineOffset='4px';
+      setTimeout(()=>{card.style.outline='';card.style.outlineOffset='';},2200);
+    };
+    setTimeout(revealDaily,250);
+  }
   // A compact heading makes each destination feel like a dedicated page.
   if(page!=='home'){
     const main=document.querySelector('main');
