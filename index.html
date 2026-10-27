@@ -1561,7 +1561,7 @@ updateDailyFlavor();
     const reply=document.createElement('div');reply.className='chef-ai-message chef';reply.textContent='Chef is thinking…';log.appendChild(reply);
     log.scrollTop=log.scrollHeight;button.disabled=true;button.textContent='Sending to Chef…';status.textContent='Sending your message to Chef AI…';
     try{
-      const response=await fetch('https://blend-buddy-api.bentleyrpa1.workers.dev/chef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message})});
+      const response=await fetch('https://blend-buddy-api.bentleyrpaul1.workers.dev/chef',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message})});
       const data=await response.json();
       if(!response.ok)throw new Error(data.error||'Chef is temporarily unavailable. Please try again.');
       if(typeof data.reply!=='string'||!data.reply.trim())throw new Error('Chef returned an empty reply. Please try again.');
