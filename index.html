@@ -170,6 +170,26 @@ dialog{border:0;border-radius:24px;max-width:480px;width:calc(100% - 32px);paddi
 @media(max-width:650px){.holiday-mini-wrap{padding:0 16px;margin-top:14px}.holiday-mini{grid-template-columns:auto minmax(0,1fr);gap:12px;padding:14px}.holiday-mini-icon{width:50px;height:50px;font-size:29px}.holiday-mini-action{grid-column:1/-1;text-align:center}.holiday-mini p{font-size:.84rem}}
 
 </style>
+
+<style id="blend-buddy-compact-upgrades">
+/* Compact navigation and browse controls */
+header{gap:12px}
+header nav{min-width:0;max-width:min(76vw,980px);overflow-x:auto;white-space:nowrap;padding:4px 0;scrollbar-width:thin}
+header nav a{flex-shrink:0}
+.holiday-mini-wrap{padding:0 clamp(18px,5vw,72px);max-width:1300px;margin:0 auto}
+.holiday-mini{display:flex;align-items:center;gap:18px;padding:18px 22px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(110deg,#e7efda,#fff0dc);color:var(--ink);text-decoration:none;box-shadow:var(--shadow)}
+.holiday-mini-icon{font-size:38px;flex-shrink:0}
+.holiday-mini-copy{flex:1;min-width:0}
+.holiday-mini-kicker{font-size:.72rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+.holiday-mini h2{font-size:clamp(1.1rem,2.3vw,1.55rem);margin:4px 0;letter-spacing:-.04em}
+.holiday-mini p{margin:0;color:var(--muted);line-height:1.45}
+.holiday-mini-action{font-weight:900;color:var(--green);white-space:nowrap}
+.holiday-mini-links{display:inline-block;margin-top:8px;font-size:.86rem;font-weight:800}
+#recipeGrid .recipe[hidden]{display:none!important}
+.recipe-browse-actions{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin:22px 0 12px}
+.recipe-browse-note{color:var(--muted);font-size:.88rem;text-align:center;margin:8px 0 0}
+@media(max-width:650px){header{align-items:flex-start;flex-direction:column}header nav{max-width:100%;width:100%}.holiday-mini{align-items:flex-start;flex-wrap:wrap;padding:17px}.holiday-mini-action{white-space:normal}.holiday-mini-icon{font-size:32px}}
+</style>
 </head>
 <body>
 <header>
