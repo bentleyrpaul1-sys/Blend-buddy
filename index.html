@@ -8,7 +8,7 @@
 :root{--ink:#202820;--muted:#667267;--cream:#fbf8ef;--green:#315c43;--lime:#d9ed9b;--peach:#ffd8bd;--card:#fffdf8;--line:#e7e8dc;--shadow:0 12px 35px rgba(35,55,37,.08)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif}
 header{padding:20px clamp(18px,5vw,72px);display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);background:rgba(251,248,239,.92);position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
-.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.2rem;letter-spacing:-.04em}.logo{display:grid;place-items:center;width:40px;height:40px;background:var(--lime);border-radius:14px;font-size:23px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.2rem;letter-spacing:-.04em;flex-wrap:wrap}.logo{display:grid;place-items:center;width:40px;height:40px;background:var(--lime);border-radius:14px;font-size:23px}
 nav{display:flex;gap:20px;align-items:center}nav a{color:var(--ink);text-decoration:none;font-weight:700;font-size:.9rem}nav a:hover{color:var(--green)}
 .hero{padding:60px clamp(18px,5vw,72px) 48px;display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center;max-width:1300px;margin:auto}
 .eyebrow{display:inline-block;background:#e9efdc;color:var(--green);padding:8px 12px;border-radius:99px;font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
@@ -110,7 +110,7 @@ nav a[aria-current="page"]{
 }
 
 [hidden]{display:none !important}
-.chef-nav-status{display:inline-flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid var(--line);border-radius:999px;background:#fffdf8;white-space:nowrap;font-size:.78rem}
+.chef-nav-status{display:inline-flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid var(--line);border-radius:999px;background:#fffdf8;white-space:nowrap;font-size:.78rem;font-weight:700}
 .chef-nav-status[hidden]{display:none !important}
 .chef-nav-status .chef-ai-connection{padding:4px 8px;font-size:.75rem}
 @media(max-width:650px){.chef-nav-status{justify-content:center;align-self:flex-start;margin:2px 0 2px 8px}}
@@ -345,9 +345,9 @@ header nav a{flex-shrink:0}
 </head>
 <body>
 <header>
-  <div class="brand"><span class="logo">🥤</span> Blend Buddy</div>
+  <div class="brand"><span class="logo">🥤</span> Blend Buddy <span class="chef-nav-status" id="chef-nav-status"><span class="chef-ai-connection-label">AI Status</span> <span id="chef-ai-connection" class="chef-ai-connection checking" role="status" aria-live="polite"><span class="chef-ai-status-dot" aria-hidden="true"></span><span id="chef-ai-connection-text">Checking…</span></span></span></div>
   <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open navigation menu"><span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span><span class="mobile-menu-label">Menu</span></button>
-  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><span class="chef-nav-status" id="chef-nav-status"><span class="chef-ai-connection-label">AI Status</span> <span id="chef-ai-connection" class="chef-ai-connection checking" role="status" aria-live="polite"><span class="chef-ai-status-dot" aria-hidden="true"></span><span id="chef-ai-connection-text">Checking…</span></span></span><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=rewards" data-page-link="rewards">🏆 Rewards</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a></nav>
+  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=rewards" data-page-link="rewards">🏆 Rewards</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a></nav>
 </header>
 <section class="hero">
   <div>
