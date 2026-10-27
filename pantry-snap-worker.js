@@ -42,12 +42,44 @@ export default {
         "Vary": "Origin"
       }});
     }
-    if (new URL(request.url).pathname !== "/identify") return json({ error: "Not found." }, 404);
+    const pathname = new URL(request.url).pathname;
+    if (!["/identify", "/chef"].includes(pathname)) return json({ error: "Not found." }, 404);
     if (request.method !== "POST") return json({ error: "Use POST." }, 405);
-    if (!env.OPENAI_API_KEY) return json({ error: "Pantry Snap AI is not configured yet. Add the OPENAI_API_KEY secret to this Worker." }, 503);
+    if (!env.OPENAI_API_KEY) return json({ error: "The AI service is not configured. Add the OPENAI_API_KEY secret to this Worker." }, 503);
 
     let body;
-    try { body = await request.json(); } catch { return json({ error: "Please upload a valid image." }, 400); }
+    try { body = await request.json(); } catch { return json({ error: "Please send a valid request." }, 400); }
+
+    if (pathname === "/chef") {
+      const message = typeof body.message === "string" ? body.message.trim().slice(0, 2500) : "";
+      if (!message) return json({ error: "Tell Chef what ingredients or flavors you want." }, 400);
+      let upstream;
+      try {
+        upstream = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: "gpt-4o-mini", temperature: 0.6, max_tokens: 850,
+            messages: [
+              { role: "system", content: "You are Chef, the friendly recipe assistant for Blend Buddy, a website for easy smoothies and milkshakes. Recommend recipes based on ingredients, drink type, taste preferences, and constraints supplied by the user. Always give one clear best recommendation, a recipe name, ingredients with practical measurements (cups, tablespoons, teaspoons, and mL/g where useful), numbered blending instructions, easy substitutions, and a brief allergy-label reminder when relevant. Use only plausible edible ingredients and never claim a recipe is high-protein unless protein ingredients are included. Protein powder is optional and should follow its package serving directions. Ask a brief clarifying question only if the request truly cannot be answered. Keep replies friendly and organized with plain text headings. Do not give medical advice." },
+              { role: "user", content: message }
+            ]
+          })
+        });
+      } catch {
+        return json({ error: "Chef couldn't reach the AI service. Please try again." }, 502);
+      }
+      if (!upstream.ok) {
+        const status = upstream.status === 429 ? 429 : 502;
+        return json({ error: upstream.status === 401 ? "The AI service key needs checking in Cloudflare." : upstream.status === 429 ? "The AI service is busy or its usage limit was reached. Check API credits or try again shortly." : "Chef couldn't finish that recipe. Please try again." }, status);
+      }
+      let payload;
+      try { payload = await upstream.json(); } catch { return json({ error: "Chef received an unreadable response." }, 502); }
+      const reply = payload.choices?.[0]?.message?.content;
+      if (typeof reply !== "string" || !reply.trim()) return json({ error: "Chef didn't return a recipe. Please try again." }, 502);
+      return json({ reply: reply.trim() }, 200, origin);
+    }
+
     const dataUrl = body && body.image;
     if (typeof dataUrl !== "string" || !/^data:image\/(jpeg|png|webp|gif);base64,[A-Za-z0-9+/=]+$/.test(dataUrl)) {
       return json({ error: "Choose a JPEG, PNG, WEBP, or GIF image." }, 400);
