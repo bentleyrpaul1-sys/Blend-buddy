@@ -1360,7 +1360,7 @@ updateDailyFlavor();
   window.resetHolidayBossProgress=function(){safeStore.set('blendBuddyBossProgressV1',{});renderBossProgress();if($('boss-detail'))$('boss-detail').hidden=true;};
   renderBossProgress();
 
-  // Pantry Snap: photo preview is local; visitors identify ingredients manually.
+  // Pantry Snap: local photo preview; people identify ingredients manually.
   if($('pantry-photo')) $('pantry-photo').addEventListener('change',event=>{
     const file=event.target.files&&event.target.files[0];if(!file)return;
     const preview=$('pantry-preview');const reader=new FileReader();
@@ -1376,12 +1376,32 @@ updateDailyFlavor();
       {name:'Strawberry Banana',kind:'Smoothie',needs:['strawberry','banana','milk'],desc:'A fruity blend with a smooth finish.'},
       {name:'Chocolate PB Shake',kind:'Milkshake',needs:['milk','chocolate','peanut butter','vanilla ice cream'],desc:'A rich chocolate-and-peanut-butter shake.'},
       {name:'Blueberry Banana',kind:'Smoothie',needs:['blueberry','banana','milk','yogurt'],desc:'A berry blend with creamy yogurt.'},
-      {name:'Tropical Sunshine',kind:'Smoothie',needs:['mango','orange juice'],desc:'A sunny tropical fruit blend.'}
+      {name:'Tropical Sunshine',kind:'Smoothie',needs:['mango','orange juice'],desc:'A sunny tropical fruit blend.'},
+      {name:'Peachy Oat Smoothie',kind:'Smoothie',needs:['peach','milk','oats','honey'],desc:'A mellow fruit blend with oats for body.'},
+      {name:'Watermelon Cooler',kind:'Smoothie',needs:['watermelon','orange juice'],desc:'A light, refreshing fruit blend.'},
+      {name:'Green Glow',kind:'Smoothie',needs:['spinach','banana','milk','yogurt'],desc:'A mild green smoothie with creamy fruit.'},
+      {name:'Mango Yogurt Blend',kind:'Smoothie',needs:['mango','yogurt','milk'],desc:'A creamy mango smoothie.'},
+      {name:'Chocolate Banana Shake',kind:'Milkshake',needs:['banana','milk','chocolate','vanilla ice cream'],desc:'A classic chocolate-and-banana treat.'}
     ];
-    const matched=suggestions.map(x=>({...x,score:x.needs.filter(n=>chosen.includes(n)).length})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,4);
-    if(!matched.length){results.textContent='No close matches yet. Try selecting fruit plus a liquid base, or add yogurt or ice cream.';return;}
+    const matched=suggestions.map(x=>{
+      const have=x.needs.filter(n=>chosen.includes(n));
+      const missing=x.needs.filter(n=>!chosen.includes(n));
+      return {...x,have,missing,score:have.length,ratio:have.length/x.needs.length};
+    }).filter(x=>x.score>0).sort((a,b)=>b.ratio-a.ratio||b.score-a.score).slice(0,4);
+    if(!matched.length){results.textContent='No close matches yet. Try selecting a fruit plus a liquid base, or add yogurt or ice cream.';return;}
+    const intro=document.createElement('p');intro.className='pantry-note';intro.textContent='Best matches for your checked ingredients. Missing items are optional ideas to help complete each blend.';results.appendChild(intro);
     const root=document.createElement('div');root.className='pantry-results';
-    matched.forEach(x=>{const card=document.createElement('article');card.className='pantry-result';const h=document.createElement('h3');h.textContent=x.name;const p=document.createElement('p');p.textContent=x.kind+' · '+x.desc;const match=document.createElement('p');match.textContent='Matches '+x.score+' of '+x.needs.length+' suggested ingredients.';card.append(h,p,match);root.appendChild(card);});
+    matched.forEach(x=>{
+      const card=document.createElement('article');card.className='pantry-result';
+      const h=document.createElement('h3');h.textContent=x.name;
+      const p=document.createElement('p');p.textContent=x.kind+' · '+x.desc;
+      const match=document.createElement('p');match.textContent='You have '+x.score+' of '+x.needs.length+' suggested ingredients ('+Math.round(x.ratio*100)+'%).';
+      const have=document.createElement('p');have.textContent='In your list: '+x.have.join(', ')+'.';
+      card.append(h,p,match,have);
+      if(x.missing.length){const missing=document.createElement('p');missing.textContent='You could add: '+x.missing.join(', ')+'.';card.appendChild(missing);}
+      const link=document.createElement('a');link.className='btn';link.href='?page=recipes';link.textContent='Browse recipes';link.style.display='inline-flex';link.style.alignItems='center';link.style.justifyContent='center';link.style.marginTop='8px';card.appendChild(link);
+      root.appendChild(card);
+    });
     results.appendChild(root);
   });
 
