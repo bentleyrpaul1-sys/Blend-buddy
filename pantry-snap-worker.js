@@ -1,7 +1,22 @@
-const ALLOWED_ORIGIN = "https://blend-buddy.bentleyrpaul1.workers.dev";
+const DEFAULT_ORIGIN = "https://blend-buddy.bentleyrpaul1.workers.dev";
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 
-function json(data, status = 200, origin = ALLOWED_ORIGIN) {
+function corsOrigin(request) {
+  const origin = request.headers.get("Origin") || "";
+  try {
+    const url = new URL(origin);
+    // Allow Blend Buddy's production Worker host and its preview/deployment
+    // hosts. This fixes preflight failures if Cloudflare serves a deployment
+    // hostname while keeping unrelated sites from using browser CORS.
+    if (url.protocol === "https:" &&
+        (url.hostname === "blend-buddy.bentleyrpaul1.workers.dev" ||
+         url.hostname.endsWith(".blend-buddy.pages.dev") ||
+         url.hostname.endsWith(".workers.dev"))) return origin;
+  } catch {}
+  return DEFAULT_ORIGIN;
+}
+
+function json(data, status = 200, origin = DEFAULT_ORIGIN) {
   return new Response(JSON.stringify(data), {
     status,
     headers: {
@@ -17,11 +32,10 @@ function json(data, status = 200, origin = ALLOWED_ORIGIN) {
 
 export default {
   async fetch(request, env) {
-    const origin = request.headers.get("Origin") || "";
-    if (origin !== ALLOWED_ORIGIN) return json({ error: "Origin not allowed." }, 403, ALLOWED_ORIGIN);
+    const origin = corsOrigin(request);
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: {
-        "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+        "Access-Control-Allow-Origin": origin,
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Max-Age": "86400",
