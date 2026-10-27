@@ -266,6 +266,28 @@ body[data-page]:not([data-page="home"]) .hero,body[data-page]:not([data-page="ho
 .holiday-mini .holiday-mini-action{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:11px 16px;background:#315c43;color:#fff!important;border-radius:999px;font-weight:900;white-space:nowrap;position:relative;z-index:1}
 .holiday-mini{cursor:pointer}
 @media(max-width:650px){.holiday-mini .holiday-mini-action{width:100%;box-sizing:border-box;white-space:normal}}
+
+/* Blend Buddy Rewards */
+.rewards-panel{margin:24px 0;padding:clamp(20px,4vw,34px);border:1px solid #dce6c8;border-radius:30px;background:linear-gradient(135deg,#edf4df,#fff5e9);box-shadow:var(--shadow)}
+.rewards-hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}
+.rewards-level-card,.rewards-stat{padding:20px;border:1px solid #e1e8d5;border-radius:22px;background:#fffdf8}
+.rewards-kicker{font-size:.72rem;font-weight:950;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.rewards-level-card h3{font-size:clamp(1.6rem,3vw,2.3rem);margin:7px 0}
+.rewards-xp-line{display:flex;justify-content:space-between;gap:10px;font-weight:800;font-size:.88rem;margin:16px 0 8px}
+.rewards-track{height:12px;border-radius:99px;background:#e9ecdf;overflow:hidden}.rewards-track span{display:block;height:100%;width:0;background:var(--green);border-radius:99px;transition:width .25s}
+.rewards-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.rewards-stat strong{display:block;font-size:1.8rem;letter-spacing:-.05em;color:var(--green)}.rewards-stat span{font-size:.82rem;color:var(--muted);font-weight:700}
+.rewards-subhead{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:26px 0 14px}.rewards-subhead h3{margin:0;font-size:1.35rem}.rewards-subhead p{margin:4px 0 0;color:var(--muted);font-size:.9rem}
+.rewards-badges{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.reward-badge{padding:16px;border-radius:18px;background:#fffdf8;border:1px solid var(--line);min-width:0}
+.reward-badge .badge-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:16px;background:#f0eee6;font-size:1.65rem;filter:grayscale(1);opacity:.6}
+.reward-badge.earned{border-color:#a6c18d;background:#f8fff0}.reward-badge.earned .badge-icon{background:#d9ed9b;filter:none;opacity:1}
+.reward-badge strong{display:block;margin:10px 0 4px}.reward-badge p{margin:0;color:var(--muted);font-size:.84rem;line-height:1.45}
+.rewards-note{font-size:.82rem;color:var(--muted);line-height:1.5;margin:16px 0 0}
+.rewards-toast{position:fixed;right:18px;bottom:18px;z-index:100;background:#315c43;color:white;padding:14px 18px;border-radius:16px;box-shadow:var(--shadow);max-width:min(360px,calc(100vw - 36px));font-weight:800;display:none}
+@media(max-width:700px){.rewards-hero{grid-template-columns:1fr}.rewards-badges{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:430px){.rewards-badges{grid-template-columns:1fr}.rewards-stats{gap:8px}.rewards-stat{padding:14px}}
+
 </style>
 
 <style id="blend-buddy-compact-upgrades">
@@ -292,7 +314,7 @@ header nav a{flex-shrink:0}
 <header>
   <div class="brand"><span class="logo">🥤</span> Blend Buddy</div>
   <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open navigation menu"><span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span><span class="mobile-menu-label">Menu</span></button>
-  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a></nav>
+  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=rewards" data-page-link="rewards">🏆 Rewards</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a></nav>
 </header>
 <section class="hero">
   <div>
@@ -949,6 +971,32 @@ header nav a{flex-shrink:0}
     <section id="tips" class="tip"><div class="bulb">💡</div><div><h3>Blend Buddy tips</h3><p><strong>Measurements:</strong> 1 US cup = about 240 mL. Grams are approximate and can vary by ingredient. <strong>Make it thicker:</strong> use frozen banana or berries. <strong>Make it thinner:</strong> add milk a splash at a time. <strong>Make it creamier:</strong> add yogurt. Protein powder is optional—use it according to its package directions, and ask a trusted adult or healthcare professional if you’re unsure whether it’s right for you. Check labels for milk, peanut, and other allergies; never use an ingredient you’re allergic to.</p></div></section>
   </section>
   
+
+  <section id="blend-buddy-rewards" class="rewards-panel" aria-labelledby="rewards-title">
+    <div class="section-head">
+      <div><span class="eyebrow">🏆 Your Blend Adventure</span><h2 id="rewards-title">Rewards & Achievements</h2><p>Try recipes, earn XP, level up, and collect badges. Your progress saves in this browser.</p></div>
+    </div>
+    <div class="rewards-hero">
+      <div class="rewards-level-card">
+        <span class="rewards-kicker">YOUR CURRENT RANK</span>
+        <h3 id="rewards-level-name">🥤 Rookie Blender · Level 1</h3>
+        <p id="rewards-next-level" style="margin:0;color:var(--muted)">Every new recipe you try brings you closer to your next level.</p>
+        <div class="rewards-xp-line"><span id="rewards-xp-label">0 XP</span><span id="rewards-xp-next">100 XP to next level</span></div>
+        <div class="rewards-track" role="progressbar" aria-label="Progress to next level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="rewards-xp-track"><span id="rewards-xp-fill"></span></div>
+      </div>
+      <div class="rewards-stats">
+        <div class="rewards-stat"><strong id="rewards-recipes-count">0</strong><span>Recipes tried</span></div>
+        <div class="rewards-stat"><strong id="rewards-badges-count">0</strong><span>Badges earned</span></div>
+        <div class="rewards-stat"><strong id="rewards-smoothies-count">0</strong><span>Smoothies tried</span></div>
+        <div class="rewards-stat"><strong id="rewards-shakes-count">0</strong><span>Milkshakes tried</span></div>
+      </div>
+    </div>
+    <div class="rewards-subhead"><div><h3>🎖️ Badge collection</h3><p>Keep exploring to unlock them all.</p></div></div>
+    <div id="rewards-badges" class="rewards-badges" aria-live="polite"></div>
+    <p class="rewards-note">Progress is saved on this device using browser storage. It may be lost if you clear site data or switch browsers. XP is awarded once per recipe, so you can keep experimenting without farming points.</p>
+    <button class="btn secondary" id="rewards-reset" type="button" style="margin-top:16px">Reset rewards progress</button>
+  </section>
+
 </main>
 <footer><span>🥤 Blend Buddy — easy blends, happy sips.</span><span>Recipes are flexible; adjust ingredients to your taste.</span></footer>
 <dialog id="quickDialog"><h3 id="dialogTitle">Quick instructions</h3><p id="dialogText"></p><div class="close-row"><button class="btn" onclick="document.getElementById('quickDialog').close()">Got it</button></div></dialog>
@@ -1491,7 +1539,7 @@ updateDailyFlavor();
 <script>
 // Blend Buddy page navigation: each feature has its own shareable URL.
 (function(){
-  const pageNames={home:'Home',recipes:'Recipes',mystery:'Mystery Flavor Machine',create:'Create a Blend',pantry:'Pantry Snap',chef:'Chef',passport:'Flavor Passport',holidays:'Holiday Specials'};
+  const pageNames={home:'Home',recipes:'Recipes',mystery:'Mystery Flavor Machine',create:'Create a Blend',pantry:'Pantry Snap',chef:'Chef',passport:'Flavor Passport',rewards:'Rewards & Achievements',holidays:'Holiday Specials'};
   const pageGroups={
     home:['#daily-flavor'],
     recipes:['#recipes','#tips'],
@@ -1500,6 +1548,7 @@ updateDailyFlavor();
     pantry:['#pantry-snap'],
     chef:['#chef','#chef-ai-chat'],
     passport:['#flavor-passport'],
+    rewards:['#blend-buddy-rewards'],
     holidays:['#holiday-boss-battles','#holiday-specials','#christmas-specials','#thanksgiving-specials','#valentines-specials','#easter-specials','#fourth-july-specials','#st-patricks-specials','#fall-specials'],
   };
   const requested=new URLSearchParams(location.search).get('page')||'home';
@@ -1579,9 +1628,67 @@ updateDailyFlavor();
   // A compact heading makes each destination feel like a dedicated page.
   if(page!=='home'){
     const main=document.querySelector('main');
-    if(main){const intro=document.createElement('section');intro.className='page-intro';intro.innerHTML='<h1>'+pageNames[page]+'</h1><p>'+({recipes:'Find your next favorite smoothie or milkshake, with measured ingredients and easy steps.',mystery:'Spin up a surprise recipe in the Blend Buddy lab.',create:'Mix, experiment, and save your own custom blends.',pantry:'Choose the ingredients you have and discover blends to try.',chef:'Get a flavor recommendation or ask Chef for a recipe idea.',passport:'Track the recipes you have tried and collect your stamps.',holidays:'Explore seasonal drinks and complete holiday flavor challenges.',}[page]||'Welcome to Blend Buddy.')+'</p>';main.insertBefore(intro,main.firstChild);}
+    if(main){const intro=document.createElement('section');intro.className='page-intro';intro.innerHTML='<h1>'+pageNames[page]+'</h1><p>'+({recipes:'Find your next favorite smoothie or milkshake, with measured ingredients and easy steps.',mystery:'Spin up a surprise recipe in the Blend Buddy lab.',create:'Mix, experiment, and save your own custom blends.',pantry:'Choose the ingredients you have and discover blends to try.',chef:'Get a flavor recommendation or ask Chef for a recipe idea.',passport:'Track the recipes you have tried and collect your stamps.',rewards:'Earn XP for every new recipe you try, level up, and unlock achievement badges.',holidays:'Explore seasonal drinks and complete holiday flavor challenges.',}[page]||'Welcome to Blend Buddy.')+'</p>';main.insertBefore(intro,main.firstChild);}
   }
 })();
 </script>
+
+<script>
+/* Rewards are additive and do not replace the existing Passport, recipe, or boss-battle systems. */
+(function(){
+  const KEY='blendBuddyRewardsV1';
+  const levels=[{name:'Rookie Blender',icon:'🥤'},{name:'Flavor Scout',icon:'🧭'},{name:'Blend Explorer',icon:'🗺️'},{name:'Smoothie Scientist',icon:'🧪'},{name:'Shake Champion',icon:'🏆'},{name:'Blend Buddy Legend',icon:'🌟'}];
+  const badgeDefs=[
+    {id:'first',icon:'🌱',name:'First Sip',desc:'Try your first recipe.',test:s=>s.tried.length>=1},
+    {id:'five',icon:'🖐️',name:'Five Alive',desc:'Try 5 different recipes.',test:s=>s.tried.length>=5},
+    {id:'ten',icon:'🔟',name:'Flavor Collector',desc:'Try 10 different recipes.',test:s=>s.tried.length>=10},
+    {id:'twentyfive',icon:'💎',name:'Recipe Treasure',desc:'Try 25 different recipes.',test:s=>s.tried.length>=25},
+    {id:'smoothie',icon:'🍓',name:'Smoothie Fan',desc:'Try a smoothie recipe.',test:s=>s.kinds.smoothie.length>=1},
+    {id:'shake',icon:'🥛',name:'Shake It Up',desc:'Try a milkshake recipe.',test:s=>s.kinds.milkshake.length>=1},
+    {id:'both',icon:'🥤',name:'Two-Sided Blender',desc:'Try both smoothies and milkshakes.',test:s=>s.kinds.smoothie.length>=1&&s.kinds.milkshake.length>=1},
+    {id:'five-smoothies',icon:'🍌',name:'Smoothie Streak',desc:'Try 5 different smoothies.',test:s=>s.kinds.smoothie.length>=5},
+    {id:'five-shakes',icon:'🍫',name:'Shake Specialist',desc:'Try 5 different milkshakes.',test:s=>s.kinds.milkshake.length>=5},
+    {id:'level3',icon:'🚀',name:'Level Up!',desc:'Reach level 3.',test:s=>Math.floor(s.xp/100)+1>=3}
+  ];
+  function safeRead(){try{const v=JSON.parse(localStorage.getItem(KEY)||'{}');return {xp:Number.isFinite(v.xp)?Math.max(0,v.xp):0,tried:Array.isArray(v.tried)?v.tried:[],kinds:{smoothie:Array.isArray(v.kinds?.smoothie)?v.kinds.smoothie:[],milkshake:Array.isArray(v.kinds?.milkshake)?v.kinds.milkshake:[]},badges:Array.isArray(v.badges)?v.badges:[]};}catch(e){return {xp:0,tried:[],kinds:{smoothie:[],milkshake:[]},badges:[]};}}
+  let state=safeRead(),toastTimer=null;
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function toast(message){const el=document.getElementById('rewards-toast');if(!el)return;el.textContent=message;el.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.style.display='none',3000);}
+  function render(){
+    const levelIndex=Math.min(levels.length-1,Math.floor(state.xp/100)),level=levels[levelIndex],within=state.xp%100;
+    const el=id=>document.getElementById(id);
+    if(el('rewards-level-name'))el('rewards-level-name').textContent=level.icon+' '+level.name+' · Level '+(levelIndex+1);
+    if(el('rewards-next-level'))el('rewards-next-level').textContent=levelIndex===levels.length-1?'Top rank unlocked! Keep collecting recipes and badges.':'Earn '+(100-within)+' more XP to reach '+levels[levelIndex+1].name+'.';
+    if(el('rewards-xp-label'))el('rewards-xp-label').textContent=state.xp+' XP total';
+    if(el('rewards-xp-next'))el('rewards-xp-next').textContent=levelIndex===levels.length-1?'MAX LEVEL':' '+(100-within)+' XP to next level';
+    if(el('rewards-xp-fill'))el('rewards-xp-fill').style.width=(levelIndex===levels.length-1?100:within)+'%';
+    if(el('rewards-xp-track'))el('rewards-xp-track').setAttribute('aria-valuenow',String(levelIndex===levels.length-1?100:within));
+    if(el('rewards-recipes-count'))el('rewards-recipes-count').textContent=state.tried.length;
+    if(el('rewards-smoothies-count'))el('rewards-smoothies-count').textContent=state.kinds.smoothie.length;
+    if(el('rewards-shakes-count'))el('rewards-shakes-count').textContent=state.kinds.milkshake.length;
+    const badges=badgeDefs.filter(b=>state.badges.includes(b.id));
+    if(el('rewards-badges-count'))el('rewards-badges-count').textContent=badges.length+' / '+badgeDefs.length;
+    const root=el('rewards-badges');if(root){root.replaceChildren();badgeDefs.forEach(b=>{const earned=state.badges.includes(b.id),card=document.createElement('article');card.className='reward-badge'+(earned?' earned':'');const icon=document.createElement('span');icon.className='badge-icon';icon.textContent=b.icon;card.appendChild(icon);const title=document.createElement('strong');title.textContent=b.name;card.appendChild(title);const desc=document.createElement('p');desc.textContent=earned?'Unlocked! '+b.desc:b.desc;card.appendChild(desc);root.appendChild(card);});}
+  }
+  function checkBadges(){const fresh=badgeDefs.filter(b=>b.test(state)&&!state.badges.includes(b.id));if(fresh.length){state.badges.push(...fresh.map(b=>b.id));save();if(fresh.length===1)toast('Badge unlocked: '+fresh[0].icon+' '+fresh[0].name+'!');else toast('You unlocked '+fresh.length+' new badges!');}}
+  function awardRecipe(card){
+    const title=card?.querySelector('h3')?.textContent?.trim();if(!title||state.tried.includes(title))return;
+    state.tried.push(title);const kind=(card.dataset.kind||'').toLowerCase();if(kind==='smoothie'||kind==='milkshake'){if(!state.kinds[kind].includes(title))state.kinds[kind].push(title);}
+    const before=Math.floor(state.xp/100)+1;state.xp+=20;const after=Math.floor(state.xp/100)+1;
+    checkBadges();save();render();toast('+'+20+' XP — '+title+' tried!'+(after>before?' Level up! 🎉':''));
+    try{const passportKey='blendBuddyPassportV1';const passport=JSON.parse(localStorage.getItem(passportKey)||'[]');if(Array.isArray(passport)&&!passport.includes(title)){passport.push(title);localStorage.setItem(passportKey,JSON.stringify(passport));const reset=document.getElementById('passport-reset');if(reset)reset.click();}}catch(e){}
+  }
+  document.addEventListener('click',event=>{
+    const recipeButton=event.target.closest('.recipe button[onclick*="showRecipe"]');
+    if(recipeButton){const card=recipeButton.closest('.recipe');awardRecipe(card);}
+    const collectButton=event.target.closest('#passport-grid button');
+    if(collectButton){const stamp=collectButton.closest('.passport-stamp');if(stamp&&collectButton.textContent.trim()==='Collect'){const title=stamp.querySelector('.stamp-name')?.textContent?.trim();const card=[...document.querySelectorAll('#recipeGrid .recipe')].find(c=>c.querySelector('h3')?.textContent?.trim()===title);if(card)awardRecipe(card);}}
+  });
+  const reset=document.getElementById('rewards-reset');if(reset)reset.addEventListener('click',()=>{if(!confirm('Reset XP, levels, and badges on this device? Your Flavor Passport and saved recipes will stay unchanged.'))return;state={xp:0,tried:[],kinds:{smoothie:[],milkshake:[]},badges:[]};save();render();toast('Rewards progress reset. Your other Blend Buddy data is untouched.');});
+  const toastEl=document.createElement('div');toastEl.id='rewards-toast';toastEl.className='rewards-toast';toastEl.setAttribute('role','status');toastEl.setAttribute('aria-live','polite');document.body.appendChild(toastEl);
+  checkBadges();save();render();
+})();
+</script>
+
 </body>
 </html>
