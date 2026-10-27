@@ -403,9 +403,11 @@ header nav a{flex-shrink:0}
     <div class="pantry-layout">
       <div class="pantry-upload">
         <h3>1. Snap or choose a photo</h3>
-        <p class="pantry-note">Take a picture of your counter, fridge, or ingredients. Your photo stays in this page; it isn't uploaded anywhere by this feature.</p>
+        <p class="pantry-note">Take a clear picture of your ingredients. Pantry Snap sends the selected photo to its secure AI service to identify visible foods; the photo is processed for this request and is not saved by Blend Buddy.</p>
         <label for="pantry-photo"><strong>Choose photo or open camera</strong></label><br>
-        <input id="pantry-photo" type="file" accept="image/*" capture="environment">
+        <input id="pantry-photo" type="file" accept="image/jpeg,image/png,image/webp,image/gif" capture="environment">
+        <button class="btn" id="pantry-identify" type="button">✨ Identify ingredients in photo</button>
+        <p id="pantry-ai-status" class="pantry-note" aria-live="polite">After choosing a photo, tap Identify ingredients in photo. Review the detected ingredients before searching.</p>
         <img id="pantry-preview" class="pantry-preview" alt="Preview of your ingredient photo">
         <p class="pantry-note">2. Check the ingredients you can see in your photo.</p>
       </div>
@@ -1360,12 +1362,34 @@ updateDailyFlavor();
   window.resetHolidayBossProgress=function(){safeStore.set('blendBuddyBossProgressV1',{});renderBossProgress();if($('boss-detail'))$('boss-detail').hidden=true;};
   renderBossProgress();
 
-  // Pantry Snap: local photo preview; people identify ingredients manually.
+  // Pantry Snap: preview photos locally and use secure server-side vision for ingredient detection.
+  let pantryImageDataUrl = "";
   if($('pantry-photo')) $('pantry-photo').addEventListener('change',event=>{
     const file=event.target.files&&event.target.files[0];if(!file)return;
+    const status=$('pantry-ai-status');if(status)status.textContent='';
+    if(!/^image\/(jpeg|png|webp|gif)$/.test(file.type)){if(status)status.textContent='Please choose a JPEG, PNG, WEBP, or GIF photo.';event.target.value='';return;}
+    if(file.size>5*1024*1024){if(status)status.textContent='That photo is too large. Please choose one under 5 MB.';event.target.value='';return;}
     const preview=$('pantry-preview');const reader=new FileReader();
-    reader.onload=()=>{preview.src=reader.result;preview.style.display='block';};
+    reader.onload=()=>{pantryImageDataUrl=String(reader.result||'');preview.src=pantryImageDataUrl;preview.style.display='block';};
     reader.readAsDataURL(file);
+  });
+  if($('pantry-identify')) $('pantry-identify').addEventListener('click',async()=>{
+    const status=$('pantry-ai-status'),button=$('pantry-identify');
+    if(!pantryImageDataUrl){if(status)status.textContent='Choose a photo first, then tap Identify ingredients in photo.';return;}
+    button.disabled=true;if(status)status.textContent='Looking for ingredients in your photo…';
+    try{
+      const response=await fetch('https://blend-buddy-api.bentleyrpaul1.workers.dev/identify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:pantryImageDataUrl})});
+      const data=await response.json();
+      if(!response.ok)throw new Error(data.error||'Ingredient recognition is temporarily unavailable.');
+      const aliases={'strawberries':'strawberry','blueberries':'blueberry','peaches':'peach','bananas':'banana','mangos':'mango','ice cream':'vanilla ice cream','cocoa':'chocolate'};
+      const normalized=(data.ingredients||[]).map(x=>aliases[String(x).toLowerCase()]||String(x).toLowerCase());
+      const boxes=Array.from(document.querySelectorAll('#pantry-ingredients input[type="checkbox"]'));
+      boxes.forEach(box=>{if(normalized.includes(box.value.toLowerCase()))box.checked=true;});
+      const found=boxes.filter(box=>box.checked&&normalized.includes(box.value.toLowerCase())).map(box=>box.value);
+      if(status)status.textContent=found.length?'Found likely ingredients: '+found.join(', ')+'. Check or uncheck the boxes to correct the AI, then tap Find my blends.':'The photo did not match ingredients in the current checklist. Try a brighter, closer photo or select ingredients manually.';
+      if(data.ingredients?.length){const unknown=data.ingredients.map(x=>String(x).toLowerCase()).filter(x=>!boxes.some(box=>box.value.toLowerCase()===x));if(unknown.length&&status)status.textContent+=' Other possible foods detected: '+unknown.join(', ')+'. These are not in the current recipe filter yet.';}
+    }catch(error){if(status)status.textContent=error.message||'Could not identify this photo. Please try again.';}
+    finally{button.disabled=false;}
   });
   if($('pantry-find')) $('pantry-find').addEventListener('click',()=>{
     const chosen=Array.from(document.querySelectorAll('#pantry-ingredients input:checked')).map(x=>x.value.toLowerCase());
