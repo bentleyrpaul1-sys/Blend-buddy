@@ -326,6 +326,19 @@ footer{gap:12px;flex-wrap:wrap}
 .install-app-button{display:none;align-items:center;gap:8px;border:0;border-radius:999px;padding:10px 15px;background:var(--lime);color:var(--ink);font:inherit;font-weight:900;cursor:pointer;white-space:nowrap}
 .install-app-button.is-visible{display:flex}#main-navigation .install-app-button{width:100%;justify-content:flex-start;text-align:left;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#e9efdc;color:var(--green);font-size:1rem;min-height:44px}#main-navigation .install-app-button.is-visible{display:flex}#main-navigation .install-app-button:not(.is-visible){display:none}
 @media(max-width:650px){.install-app-button{font-size:.85rem;padding:10px 12px}}
+
+/* Next holiday release countdown */
+.holiday-countdown{max-width:1180px;margin:18px auto 0;padding:0 24px}
+.countdown-panel{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;padding:22px 24px;border-radius:24px;background:linear-gradient(120deg,#e7efda,#fff0dc 58%,#f0e9fb);border:1px solid #dce6c8;box-shadow:var(--shadow)}
+.countdown-kicker{font-size:.72rem;font-weight:950;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.countdown-panel h2{font-size:clamp(1.45rem,3vw,2rem);letter-spacing:-.05em;margin:5px 0}
+.countdown-panel p{margin:0;color:var(--muted);line-height:1.5}
+.countdown-clock{display:grid;grid-template-columns:repeat(4,minmax(58px,1fr));gap:8px}
+.countdown-unit{min-width:58px;text-align:center;padding:10px 8px;border-radius:14px;background:#fffdf8;border:1px solid #e7e8dc}
+.countdown-number{display:block;font-size:clamp(1.35rem,3vw,1.9rem);font-weight:950;line-height:1.1;color:var(--green);font-variant-numeric:tabular-nums}
+.countdown-label{display:block;margin-top:4px;font-size:.65rem;font-weight:900;letter-spacing:.08em;color:var(--muted)}
+.countdown-link{display:inline-block;margin-top:10px;color:var(--green);font-weight:900;text-decoration:none}
+@media(max-width:720px){.countdown-panel{grid-template-columns:1fr;padding:19px}.countdown-clock{grid-template-columns:repeat(4,minmax(0,1fr))}.countdown-unit{min-width:0;padding:9px 4px}.holiday-countdown{padding:0 18px}}
 </style>
 
 <style id="blend-buddy-compact-upgrades">
@@ -385,6 +398,23 @@ header nav a{flex-shrink:0}
     <span class="holiday-mini-action" id="holiday-mini-action">See Holiday drinks ↓</span>
   </a>
 </section>
+<section class="holiday-countdown" aria-label="Countdown to the next holiday flavor release">
+  <div class="countdown-panel">
+    <div>
+      <span class="countdown-kicker" id="next-holiday-kicker">🎉 Next Holiday Drop</span>
+      <h2 id="next-holiday-title">Next holiday flavors are coming soon!</h2>
+      <p id="next-holiday-description">A new seasonal collection is on the way.</p>
+      <a class="countdown-link" id="next-holiday-link" href="?page=holidays">Preview holiday specials ↓</a>
+    </div>
+    <div class="countdown-clock" role="timer" aria-live="off" aria-label="Time until the next holiday release">
+      <div class="countdown-unit"><span class="countdown-number" id="holiday-days">--</span><span class="countdown-label">DAYS</span></div>
+      <div class="countdown-unit"><span class="countdown-number" id="holiday-hours">--</span><span class="countdown-label">HOURS</span></div>
+      <div class="countdown-unit"><span class="countdown-number" id="holiday-minutes">--</span><span class="countdown-label">MINS</span></div>
+      <div class="countdown-unit"><span class="countdown-number" id="holiday-seconds">--</span><span class="countdown-label">SECS</span></div>
+    </div>
+  </div>
+</section>
+
 
 <main>
   <section class="daily-feature" id="daily-flavor" aria-labelledby="daily-title" role="link" tabindex="0" aria-label="Open today’s featured recipe">
@@ -1021,6 +1051,16 @@ header nav a{flex-shrink:0}
     <button class="btn secondary" id="rewards-reset" type="button" style="margin-top:16px">Reset rewards progress</button>
   </section>
 
+
+  <section id="fathers-day-specials" class="season" data-season="fathersday" aria-labelledby="fathersday-title" hidden>
+    <div class="season-intro"><div class="season-icon">👔</div><div><span class="season-label">Father's Day special · June 1–21</span><h2 id="fathersday-title">Father's Day Specials</h2><p>A goofy, brownie-style chocolate shake made for Father's Day.</p></div></div>
+    <div class="grid">
+      <article class="recipe" data-kind="milkshake" data-search="toilet power shake fathers day brownie chocolate milkshake ice cream chocolate syrup whipped cream">
+        <div class="recipe-top tone-purple"><span class="emoji">🚽💪</span><h3>The Toilet Power Shake</h3><p>A ridiculously chocolatey brownie-style milkshake with a silly Father's Day name.</p></div>
+        <div class="recipe-body"><div class="tags"><span class="tag">Father's Day</span><span class="tag">Milkshake</span><span class="tag">5 min</span></div><h4>Ingredients &amp; amounts</h4><ul class="ingredients"><li>2 scoops chocolate ice cream (about 1 cup)</li><li>½ cup (120 mL) milk</li><li>1 chocolate brownie</li><li>1 tablespoon (15 mL) chocolate syrup</li><li>2 tablespoons whipped cream, for topping</li><li>Optional: chocolate cookie crumbs or extra brownie pieces</li></ul><h4>How to make it</h4><ol class="steps"><li>Add the chocolate ice cream, milk, brownie, and chocolate syrup to a blender.</li><li>Blend until thick and creamy. Add a small splash of milk if needed to help it blend.</li><li>Pour into a tall glass and top with whipped cream, cookie crumbs, or brownie pieces.</li><li>Serve right away and enjoy the silly Father's Day special!</li></ol><button class="btn" onclick="showRecipe(this)">View quick instructions</button></div>
+      </article>
+    </div>
+  </section>
 </main>
 <footer><span>🥤 Blend Buddy — easy blends, happy sips.</span><span>Recipes are flexible; adjust ingredients to your taste.</span></footer>
 <dialog id="quickDialog"><h3 id="dialogTitle">Quick instructions</h3><p id="dialogText"></p><div class="close-row"><button class="btn" onclick="document.getElementById('quickDialog').close()">Got it</button></div></dialog>
@@ -1165,7 +1205,8 @@ function updateSeasonalSpecials(){
     fourthjuly: month === 7 && day >= 1 && day <= 7,
     stpatricks: month === 3 && day >= 10 && day <= 17,
     fall: month >= 9 && month <= 11,
-    thanksgiving: month === 11 && day >= 20 && day <= 30
+    thanksgiving: month === 11 && day >= 20 && day <= 30,
+    fathersday: month === 6 && day >= 1 && day <= 21
   };
   window.activeBlendBuddySeasons = activeSeasons;
   document.querySelectorAll('[data-season]').forEach(section => {
@@ -1183,6 +1224,7 @@ function updateSeasonalSpecials(){
       {key:'easter', active:activeSeasons.easter, icon:'🐣', title:'Spring Specials are here!', kicker:'Seasonal spring blends', desc:'Bright fruity recipes and a springtime challenge.', target:'#easter-specials', action:'Explore spring ↓'},
       {key:'stpatricks', active:activeSeasons.stpatricks, icon:'🍀', title:'Lucky Green Specials are here!', kicker:'Limited-time green blends', desc:'Festive green drinks and the Lucky Green Machine challenge.', target:'#st-patricks-specials', action:'Explore green blends ↓'},
       {key:'fourthjuly', active:activeSeasons.fourthjuly, icon:'🇺🇸', title:'Summer Celebration Specials!', kicker:'Red, white & blue flavors', desc:'Summer celebration drinks and a refreshing seasonal challenge.', target:'#fourth-july-specials', action:'Explore summer ↓'},
+      {key:'fathersday', active:activeSeasons.fathersday, icon:'👔', title:'Father’s Day Specials are here!', kicker:'The Toilet Power Shake has arrived', desc:'A brownie-style chocolate milkshake with a goofy name.', target:'#fathers-day-specials', action:'Explore Father’s Day ↓'},
       {key:'fall', active:activeSeasons.fall, icon:'🍂', title:'Fall Flavor Specials are here!', kicker:'Cozy autumn blends', desc:'Apple, cinnamon, maple, and pumpkin-inspired recipes.', target:'#fall-specials', action:'Explore fall flavors ↓'}
     ];
     const activeMini = seasonalCards.find(item => item.active);
@@ -1558,7 +1600,7 @@ updateDailyFlavor();
     chef:['#chef'],
     passport:['#flavor-passport'],
     rewards:['#blend-buddy-rewards'],
-    holidays:['#holiday-boss-battles','#holiday-specials','#christmas-specials','#thanksgiving-specials','#valentines-specials','#easter-specials','#fourth-july-specials','#st-patricks-specials','#fall-specials'],
+    holidays:['#holiday-boss-battles','#holiday-specials','#christmas-specials','#thanksgiving-specials','#valentines-specials','#easter-specials','#fourth-july-specials','#st-patricks-specials','#fall-specials','#fathers-day-specials'],
   };
   const requested=new URLSearchParams(location.search).get('page')||'home';
   const page=Object.prototype.hasOwnProperty.call(pageGroups,requested)?requested:'home';
@@ -1739,6 +1781,50 @@ updateDailyFlavor();
   if('serviceWorker' in navigator && location.protocol==='https:'){
     window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(error){console.warn('Blend Buddy offline setup could not start:',error);});});
   }
+})();
+</script>
+
+<script id="blend-buddy-holiday-countdown">
+(function(){
+  const $=id=>document.getElementById(id);
+  const easterDate=year=>{
+    const a=year%19,b=Math.floor(year/100),c=year%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3);
+    const h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451);
+    const month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1;
+    return new Date(year,month-1,day);
+  };
+  function nextDrop(now){
+    const year=now.getFullYear(),easter=easterDate(year);
+    const build=(y,easterDay)=>[
+      {month:2,day:1,name:"Valentine’s Day",icon:"💝",desc:"Sweet, berry-inspired smoothies and milkshakes are next.",target:"#valentines-specials"},
+      {month:3,day:1,name:"St. Patrick’s Day",icon:"🍀",desc:"Lucky green blends are next.",target:"#st-patricks-specials"},
+      {month:easterDay.getMonth()+1,day:1,name:"Easter",icon:"🐣",desc:"Springtime smoothies and milkshakes are next.",target:"#easter-specials"},
+      {month:5,day:1,name:"Mother’s Day",icon:"🌷",desc:"A special springtime holiday flavor collection is coming up.",target:"?page=holidays"},
+      {month:6,day:1,name:"Father’s Day",icon:"👔",desc:"The Toilet Power Shake brownie-style milkshake is coming up.",target:"#fathers-day-specials"},
+      {month:7,day:1,name:"Fourth of July",icon:"🇺🇸",desc:"Red, white, and blue summer drinks are next.",target:"#fourth-july-specials"},
+      {month:9,day:1,name:"Fall Flavor Season",icon:"🍂",desc:"Cozy apple, cinnamon, maple, and pumpkin-inspired drinks are next.",target:"#fall-specials"},
+      {month:10,day:1,name:"Halloween",icon:"🎃",desc:"Spooky smoothies and milkshakes are next.",target:"#holiday-specials"},
+      {month:11,day:1,name:"Thanksgiving",icon:"🦃",desc:"Cozy harvest drinks are next.",target:"#thanksgiving-specials"},
+      {month:12,day:1,name:"Christmas",icon:"🎄",desc:"Festive winter smoothies and milkshakes are next.",target:"#christmas-specials"}
+    ].map(item=>({...item,date:new Date(y,item.month-1,item.day,0,0,0,0)}));
+    const future=build(year,easter).filter(item=>item.date>now).sort((a,b)=>a.date-b.date);
+    if(future.length)return future[0];
+    return build(year+1,easterDate(year+1)).filter(item=>item.date>now).sort((a,b)=>a.date-b.date)[0];
+  }
+  function update(){
+    const title=$('next-holiday-title');if(!title)return;
+    const now=new Date(),drop=nextDrop(now);
+    $('next-holiday-kicker').textContent=drop.icon+' NEXT HOLIDAY DROP';
+    title.textContent=drop.name+' Specials';
+    $('next-holiday-description').textContent=drop.desc+' Releases on '+drop.date.toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'})+'.';
+    $('next-holiday-link').href=drop.target;
+    const seconds=Math.max(0,Math.floor((drop.date.getTime()-now.getTime())/1000));
+    $('holiday-days').textContent=String(Math.floor(seconds/86400)).padStart(2,'0');
+    $('holiday-hours').textContent=String(Math.floor(seconds%86400/3600)).padStart(2,'0');
+    $('holiday-minutes').textContent=String(Math.floor(seconds%3600/60)).padStart(2,'0');
+    $('holiday-seconds').textContent=String(seconds%60).padStart(2,'0');
+  }
+  update();setInterval(update,1000);
 })();
 </script>
 </body>
