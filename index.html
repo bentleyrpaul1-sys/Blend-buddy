@@ -1900,16 +1900,16 @@ updateDailyFlavor();
   function nextDrop(now){
     const year=now.getFullYear(),easter=easterDate(year);
     const build=(y,easterDay)=>[
-      {month:2,day:1,name:"Valentine’s Day",icon:"💝",desc:"Sweet, berry-inspired smoothies and milkshakes are next.",target:"#valentines-specials"},
-      {month:3,day:1,name:"St. Patrick’s Day",icon:"🍀",desc:"Lucky green blends are next.",target:"#st-patricks-specials"},
-      {month:easterDay.getMonth()+1,day:1,name:"Easter",icon:"🐣",desc:"Springtime smoothies and milkshakes are next.",target:"#easter-specials"},
+      {month:2,day:1,name:"Valentine’s Day",icon:"💝",desc:"Sweet, berry-inspired smoothies and milkshakes are next.",target:"?page=holidays"},
+      {month:3,day:1,name:"St. Patrick’s Day",icon:"🍀",desc:"Lucky green blends are next.",target:"?page=holidays"},
+      {month:easterDay.getMonth()+1,day:1,name:"Easter",icon:"🐣",desc:"Springtime smoothies and milkshakes are next.",target:"?page=holidays"},
       {month:5,day:1,name:"Mother’s Day",icon:"🌷",desc:"A special springtime holiday flavor collection is coming up.",target:"?page=holidays"},
-      {month:6,day:1,name:"Father’s Day",icon:"👔",desc:"The Toilet Power Shake brownie-style milkshake is coming up.",target:"#fathers-day-specials"},
-      {month:7,day:1,name:"Fourth of July",icon:"🇺🇸",desc:"Red, white, and blue summer drinks are next.",target:"#fourth-july-specials"},
-      {month:9,day:1,name:"Fall Flavor Season",icon:"🍂",desc:"Cozy apple, cinnamon, maple, and pumpkin-inspired drinks are next.",target:"#fall-specials"},
-      {month:10,day:1,name:"Halloween",icon:"🎃",desc:"Spooky smoothies and milkshakes are next.",target:"#holiday-specials"},
-      {month:11,day:1,name:"Thanksgiving",icon:"🦃",desc:"Cozy harvest drinks are next.",target:"#thanksgiving-specials"},
-      {month:12,day:1,name:"Christmas",icon:"🎄",desc:"Festive winter smoothies and milkshakes are next.",target:"#christmas-specials"}
+      {month:6,day:1,name:"Father’s Day",icon:"👔",desc:"The Toilet Power Shake brownie-style milkshake is coming up.",target:"?page=holidays"},
+      {month:7,day:1,name:"Fourth of July",icon:"🇺🇸",desc:"Red, white, and blue summer drinks are next.",target:"?page=holidays"},
+      {month:9,day:1,name:"Fall Flavor Season",icon:"🍂",desc:"Cozy apple, cinnamon, maple, and pumpkin-inspired drinks are next.",target:"?page=holidays"},
+      {month:10,day:1,name:"Halloween",icon:"🎃",desc:"Spooky smoothies and milkshakes are next.",target:"?page=holidays"},
+      {month:11,day:1,name:"Thanksgiving",icon:"🦃",desc:"Cozy harvest drinks are next.",target:"?page=holidays"},
+      {month:12,day:1,name:"Christmas",icon:"🎄",desc:"Festive winter smoothies and milkshakes are next.",target:"?page=holidays"}
     ].map(item=>({...item,date:new Date(y,item.month-1,item.day,0,0,0,0)}));
     const future=build(year,easter).filter(item=>item.date>now).sort((a,b)=>a.date-b.date);
     if(future.length)return future[0];
