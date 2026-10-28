@@ -1901,7 +1901,12 @@ updateDailyFlavor();
         secretResult.innerHTML='<h3>👑 Owner Shake</h3><p><strong>Chocolate Peanut Butter Protein Milkshake</strong></p><p><strong>Ingredients</strong></p><ul><li>1 cup (240 ml) milk</li><li>1 medium banana</li><li>2 tbsp peanut butter</li><li>1 scoop chocolate protein powder</li><li>1/2 cup (70 g) ice</li><li>Optional: 1/4 cup (60 g) vanilla yogurt for extra creaminess</li></ul><p><strong>Instructions</strong></p><ol><li>Add the milk, banana, peanut butter, protein powder, and ice to a blender.</li><li>Blend for 30–45 seconds until smooth.</li><li>Add the optional yogurt and blend again if you want it creamier. Pour and enjoy!</li></ol>';
         secretResult.hidden=false;
       };
-      if(['OWNER','OWNERSHAKE','OWNERSHAKE2026'].includes(code)){
+      if(code==='NEVADA'){
+        secretMessage.textContent='🏜️ Nevada Desert Shake unlocked!';
+        secretResult.innerHTML='<h3>🏜️ Nevada Desert Shake</h3><p><strong>Desert Dune Caramel Crunch Milkshake</strong> — inspired by Nevada’s sandy desert landscapes and dry heat.</p><p><strong>Ingredients</strong></p><ul><li>1 cup (240 ml) milk</li><li>1 scoop vanilla protein powder</li><li>2 tbsp caramel sauce</li><li>2 tbsp graham cracker crumbs, plus a little extra for topping</li><li>1/4 tsp cinnamon</li><li>1/2 cup (70 g) ice</li><li>Optional: 1/4 cup (60 g) vanilla yogurt for extra creaminess</li></ul><p><strong>Instructions</strong></p><ol><li>Add milk, vanilla protein powder, caramel, graham cracker crumbs, cinnamon, and ice to a blender.</li><li>Blend for 30–45 seconds until creamy.</li><li>Add optional yogurt and blend again. Pour into a glass and sprinkle a few graham cracker crumbs on top for a sandy-dune finish.</li></ol>';
+        secretResult.hidden=false;
+        try{localStorage.setItem('blendBuddyNevadaShakeUnlocked','true');}catch(error){}
+      }else if(['OWNER','OWNERSHAKE','OWNERSHAKE2026'].includes(code)){
         secretMessage.textContent='🎉 Owner Shake unlocked!';
         showOwnerShake();
         try{localStorage.setItem('blendBuddySecretOwnerShakeUnlocked','true');}catch(error){}
