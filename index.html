@@ -1924,6 +1924,21 @@ updateDailyFlavor();
           secretResult.innerHTML='<h3>🎁 Surprise Berry Vanilla Shake</h3><p><strong>Ingredients</strong></p><ul><li>½ cup (75 g) mixed berries</li><li>¾ cup (180 ml) milk</li><li>½ cup (120 g) vanilla ice cream</li><li>¼ tsp vanilla extract</li></ul><p><strong>Instructions</strong></p><ol><li>Add all ingredients to a blender.</li><li>Blend until smooth.</li><li>Pour and enjoy your mystery drop!</li></ol>';
         }
         secretResult.hidden=false;
+      }else if(code==='BROWNIEBEAST'){
+        secretMessage.textContent='🍫 Brownie Beast Shake unlocked!';
+        secretResult.innerHTML='<h3>🍫 Brownie Beast Shake</h3><p><strong>Chocolate Brownie Peanut Butter Protein Milkshake</strong></p><p><strong>Ingredients</strong></p><ul><li>1 cup (240 ml) milk</li><li>1 scoop chocolate protein powder</li><li>1 tbsp peanut butter</li><li>1 small brownie, broken into pieces</li><li>1/2 banana</li><li>1/2 cup (70 g) ice</li><li>Optional: 1 tbsp chocolate sauce</li></ul><p><strong>Instructions</strong></p><ol><li>Add milk, protein powder, peanut butter, banana, brownie pieces, and ice to a blender.</li><li>Blend for 30–45 seconds until smooth.</li><li>Drizzle chocolate sauce into the glass if desired, pour, and enjoy.</li></ol>';
+        secretResult.hidden=false;
+        try{localStorage.setItem('blendBuddyBrownieBeastUnlocked','true');}catch(error){}
+      }else if(code==='CHEESECAKEKING'){
+        secretMessage.textContent='🍓 Cheesecake King unlocked!';
+        secretResult.innerHTML='<h3>🍓 Cheesecake King</h3><p><strong>Strawberry Cheesecake Protein Milkshake</strong></p><p><strong>Ingredients</strong></p><ul><li>3/4 cup (180 ml) milk</li><li>1 scoop vanilla protein powder</li><li>1/2 cup (75 g) strawberries, fresh or frozen</li><li>2 tbsp cream cheese</li><li>2 tbsp graham cracker crumbs, plus extra for topping</li><li>1/2 cup (70 g) ice</li><li>Optional: 1/4 tsp vanilla extract</li></ul><p><strong>Instructions</strong></p><ol><li>Add milk, vanilla protein powder, strawberries, cream cheese, graham cracker crumbs, ice, and optional vanilla to a blender.</li><li>Blend until creamy and smooth, about 30–45 seconds.</li><li>Pour into a glass and sprinkle extra graham cracker crumbs on top.</li></ol>';
+        secretResult.hidden=false;
+        try{localStorage.setItem('blendBuddyCheesecakeKingUnlocked','true');}catch(error){}
+      }else if(code==='OREOMASTER'){
+        secretMessage.textContent='🍪 Oreo Master unlocked!';
+        secretResult.innerHTML='<h3>🍪 Oreo Master</h3><p><strong>Cookies and Cream Protein Milkshake</strong></p><p><strong>Ingredients</strong></p><ul><li>1 cup (240 ml) milk</li><li>1 scoop vanilla protein powder</li><li>3 chocolate sandwich cookies</li><li>1/2 cup (70 g) ice</li><li>Optional: 1/4 tsp vanilla extract</li><li>Optional topping: 1 crushed cookie</li></ul><p><strong>Instructions</strong></p><ol><li>Add milk, vanilla protein powder, cookies, ice, and optional vanilla to a blender.</li><li>Blend for 30–45 seconds until smooth, leaving tiny cookie pieces if you like.</li><li>Pour into a glass and sprinkle crushed cookie on top.</li></ol>';
+        secretResult.hidden=false;
+        try{localStorage.setItem('blendBuddyOreoMasterUnlocked','true');}catch(error){}
       }else{
         secretMessage.textContent='That code didn’t work yet. Check the spelling and try again.';
       }
