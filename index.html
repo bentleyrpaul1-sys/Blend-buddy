@@ -1922,45 +1922,30 @@ updateDailyFlavor();
     title.textContent=drop.name+' Specials';
     $('next-holiday-description').textContent=drop.desc+' Releases on '+drop.date.toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'})+'.';
     const previewLink=$('next-holiday-link');
-    previewLink.href=drop.target;
-    previewLink.setAttribute('aria-expanded','false');
-    previewLink.textContent='Preview holiday specials ↓';
+    previewLink.href='#holiday-specials';
     if(!previewLink.dataset.toggleBound){
       previewLink.dataset.toggleBound='true';
+      previewLink.setAttribute('aria-expanded','false');
+      previewLink.textContent='Preview holiday specials ↓';
       previewLink.addEventListener('click',event=>{
         event.preventDefault();
-        const holidayPage=document.body.dataset.page==='holidays';
         const sections=[...document.querySelectorAll('main > section[data-season], #holiday-boss-battles')];
-        const isShowing=previewLink.getAttribute('aria-expanded')==='true';
-        if(holidayPage){
-          // On the Holiday Specials page, toggle the seasonal collections in place.
-          const shouldShow=!isShowing;
-          sections.forEach(section=>{
-            if(section.matches('[data-season]')){
-              const active=window.activeBlendBuddySeasons&&window.activeBlendBuddySeasons[section.dataset.season];
-              section.hidden=shouldShow ? !active : true;
-            }else{
-              section.hidden=!shouldShow;
-            }
-          });
-          previewLink.setAttribute('aria-expanded',String(shouldShow));
-          previewLink.textContent=shouldShow?'Hide holiday specials ↑':'Preview holiday specials ↓';
-        }else{
-          // The countdown is its own page, so open the Holiday Specials page first.
-          location.href='?page=holidays&preview=1';
+        const shouldShow=previewLink.getAttribute('aria-expanded')!=='true';
+        sections.forEach(section=>{
+          if(section.matches('[data-season]')){
+            const active=window.activeBlendBuddySeasons&&window.activeBlendBuddySeasons[section.dataset.season];
+            section.hidden=shouldShow ? !active : true;
+          }else{
+            section.hidden=!shouldShow;
+          }
+        });
+        previewLink.setAttribute('aria-expanded',String(shouldShow));
+        previewLink.textContent=shouldShow?'Hide holiday specials ↑':'Preview holiday specials ↓';
+        if(shouldShow){
+          const firstVisible=sections.find(section=>!section.hidden);
+          if(firstVisible)firstVisible.scrollIntoView({behavior:'smooth',block:'start'});
         }
       });
-    }
-    if(new URLSearchParams(location.search).get('preview')==='1' && document.body.dataset.page==='holidays'){
-      const sections=[...document.querySelectorAll('main > section[data-season], #holiday-boss-battles')];
-      sections.forEach(section=>{
-        if(section.matches('[data-season]')){
-          const active=window.activeBlendBuddySeasons&&window.activeBlendBuddySeasons[section.dataset.season];
-          section.hidden=!active;
-        }else{section.hidden=false;}
-      });
-      previewLink.setAttribute('aria-expanded','true');
-      previewLink.textContent='Hide holiday specials ↑';
     }
     const seconds=Math.max(0,Math.floor((drop.date.getTime()-now.getTime())/1000));
     $('holiday-days').textContent=String(Math.floor(seconds/86400)).padStart(2,'0');
