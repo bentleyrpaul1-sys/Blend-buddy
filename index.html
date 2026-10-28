@@ -1647,7 +1647,7 @@ updateDailyFlavor();
     ['Pumpkin Moonlight Shake','Milkshake','1 cup vanilla ice cream, ½ cup milk, ¼ cup pumpkin purée, pinch cinnamon','Blend until creamy.'],
     ['Shadow Monster Shake','Milkshake','1 cup chocolate ice cream, ½ cup milk, 1 brownie, 1 tbsp chocolate syrup','Blend until thick. Top with whipped cream and cookie crumbs for the Halloween finale.']
   ];
-  const key='blendBuddyHalloweenDrops2026';
+  const key='blendBuddyHalloweenDrops'+new Date().getFullYear();
   let collected={};
   try{collected=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch(e){collected={};}
   const currentBox=document.getElementById('daily-drops-current');
@@ -1657,7 +1657,7 @@ updateDailyFlavor();
     const now=new Date(), month=now.getMonth()+1, day=now.getDate(), year=now.getFullYear();
     const status=document.getElementById('daily-drops-status'), timer=document.getElementById('daily-drops-countdown');
     const isOctober=month===10, idx=day-1, todayRecipe=isOctober&&idx>=0&&idx<31?recipes[idx]:null;
-    if(todayRecipe){collected[String(day)]={name:todayRecipe[0],year:year};try{localStorage.setItem(key,JSON.stringify(collected));}catch(e){}}
+    if(todayRecipe&&new URLSearchParams(location.search).get('page')==='dailydrops'){collected[String(day)]={name:todayRecipe[0],year:year};try{localStorage.setItem(key,JSON.stringify(collected));}catch(e){}}
     if(status)status.textContent=isOctober?'Drop '+day+' of 31 · Today only! Open today’s recipe and add it to your discoveries.':'The Halloween event opens October 1. Come back during October to discover that day’s drink.';
     if(timer){
       let target;
