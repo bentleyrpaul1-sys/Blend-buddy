@@ -1886,7 +1886,7 @@ updateDailyFlavor();
     });
     secretForm.addEventListener('submit',event=>{
       event.preventDefault();
-      const code=secretInput.value.trim().toUpperCase().replace(/[\\s_-]+/g,'');
+      const code=secretInput.value.trim().toUpperCase().replace(/[\s_-]+/g,'');
       secretResult.hidden=true;
       secretMessage.textContent='';
       const ownerCodes=['OWNER','OWNERSHAKE','OWNERSHAKE2026'];
