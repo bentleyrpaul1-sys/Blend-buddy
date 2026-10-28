@@ -339,6 +339,12 @@ footer{gap:12px;flex-wrap:wrap}
 .countdown-label{display:block;margin-top:4px;font-size:.65rem;font-weight:900;letter-spacing:.08em;color:var(--muted)}
 .countdown-link{display:inline-block;margin-top:10px;color:var(--green);font-weight:900;text-decoration:none}
 @media(max-width:720px){.countdown-panel{grid-template-columns:1fr;padding:19px}.countdown-clock{grid-template-columns:repeat(4,minmax(0,1fr))}.countdown-unit{min-width:0;padding:9px 4px}.holiday-countdown{padding:0 18px}}
+
+/* Holiday Daily Drops */
+.daily-drops-section{max-width:1180px;margin:24px auto;padding:24px;background:linear-gradient(135deg,#24132f,#48213c 55%,#7a321e);border:1px solid #a95c49;border-radius:24px;color:#fff;box-shadow:0 14px 36px rgba(40,12,42,.16)}
+.daily-drops-section h2,.daily-drops-section h3{color:#fff}.drops-eyebrow{font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#ffc777;font-size:.78rem}.drops-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:center}.drops-hero-art{font-size:clamp(3rem,8vw,6rem);text-align:center;filter:drop-shadow(0 8px 18px #100915)}.drops-timer{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.drops-timer span{background:#fff1;border:1px solid #ffffff2c;padding:8px 12px;border-radius:12px;font-weight:900}.drops-current-card{background:#fff;color:#2b2030;border-radius:18px;padding:20px;margin-top:20px}.drops-current-card h3{color:#43204c;margin:.35rem 0}.drops-current-card ul{padding-left:20px}.drops-status{font-weight:900;color:#8a3e21}.drops-archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:18px}.drops-archive-item{padding:12px;border-radius:13px;background:#ffffff12;border:1px solid #ffffff24}.drops-archive-item strong{display:block}.drops-archive-item small{display:block;margin-top:4px;color:#f4dfe9}.drops-archive-item.unlocked{background:#fff;color:#30213a;border-color:#ffc777}.drops-archive-item.unlocked small{color:#5f5262}.drops-note{font-size:.9rem;opacity:.9}.drops-button{border:0;border-radius:12px;padding:11px 15px;font-weight:900;cursor:pointer;background:#ffc777;color:#2c1730;margin-top:10px}.drops-button:disabled{opacity:.6;cursor:default}
+@media(max-width:700px){.drops-hero{grid-template-columns:1fr}.drops-hero-art{order:-1}.daily-drops-section{margin:16px 12px;padding:18px}}
+
 </style>
 
 <style id="blend-buddy-compact-upgrades">
@@ -371,7 +377,7 @@ header nav a{flex-shrink:0}
 <header>
   <div class="brand"><span class="logo">🥤</span> Blend Buddy <span class="chef-nav-status" id="chef-nav-status"><span class="chef-ai-connection-label">AI Status</span> <span id="chef-ai-connection" class="chef-ai-connection checking" role="status" aria-live="polite"><span class="chef-ai-status-dot" aria-hidden="true"></span><span id="chef-ai-connection-text">Checking…</span></span></span></div>
   <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Open navigation menu"><span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span><span class="mobile-menu-label">Menu</span></button>
-  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=rewards" data-page-link="rewards">🏆 Rewards</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a><a href="?page=holidaycountdown" data-page-link="holidaycountdown">⏳ Holiday Countdown</a><button class="install-app-button" id="install-app-button" type="button" aria-label="Install Blend Buddy app">📲 Install Blend Buddy</button></nav>
+  <nav id="main-navigation" aria-label="Main navigation"><a href="?page=home" data-page-link="home">Home</a><a href="?page=recipes" data-page-link="recipes">🥤 Recipes</a><a href="?page=mystery" data-page-link="mystery">🎰 Mystery</a><a href="?page=create" data-page-link="create">🧪 Create</a><a href="?page=pantry" data-page-link="pantry">📸 Pantry Snap</a><a href="?page=chef" data-page-link="chef">👨‍🍳 Chef</a><a href="?page=passport" data-page-link="passport">🌈 Passport</a><a href="?page=rewards" data-page-link="rewards">🏆 Rewards</a><a href="?page=holidays" data-page-link="holidays">🎉 Holidays</a><a href="?page=holidaycountdown" data-page-link="holidaycountdown">⏳ Holiday Countdown</a><a href="?page=dailydrops" data-page-link="dailydrops">🎃 Holiday Daily Drops</a><button class="install-app-button" id="install-app-button" type="button" aria-label="Install Blend Buddy app">📲 Install Blend Buddy</button></nav>
 </header>
 <section class="hero">
   <div>
@@ -417,6 +423,23 @@ header nav a{flex-shrink:0}
 
 
 <main>
+
+  <section id="holiday-daily-drops" class="daily-drops-section" aria-labelledby="daily-drops-title">
+    <div class="drops-hero">
+      <div>
+        <span class="drops-eyebrow">Limited-time event · Halloween first</span>
+        <h2 id="daily-drops-title">🎃 Holiday Daily Drops</h2>
+        <p>Every day in October reveals one brand-new Halloween drink. Today's featured recipe is available for today's drop only; missed drops stay locked away, while recipes you discover are saved in your collection on this device.</p>
+        <div id="daily-drops-countdown" class="drops-timer" aria-live="off"><span>Next drop: checking…</span></div>
+        <p id="daily-drops-status" class="drops-note">Checking today's release…</p>
+      </div>
+      <div class="drops-hero-art" aria-hidden="true">🎃🧪👻</div>
+    </div>
+    <div id="daily-drops-current" class="drops-current-card"><p>Loading today's Halloween drop…</p></div>
+    <h3>🗂️ Your Halloween discoveries</h3>
+    <p class="drops-note">Only the current day's recipe can be newly discovered. Any recipes you've already collected remain saved here on this device.</p>
+    <div id="daily-drops-archive" class="drops-archive"></div>
+  </section>
   <section class="daily-feature" id="daily-flavor" aria-labelledby="daily-title" role="link" tabindex="0" aria-label="Open today’s featured recipe">
     <div class="daily-icon" aria-hidden="true">🌟</div>
     <div class="daily-copy"><span class="daily-kicker">TODAY'S PICK</span><h2 id="daily-title">Today's Daily Flavor</h2><p id="daily-description">A fresh Blend Buddy favorite, picked for today.</p><div class="daily-meta" id="daily-meta">A new flavor every day</div></div>
@@ -1587,10 +1610,89 @@ updateDailyFlavor();
 })();
 </script>
 
+
+<script>
+// Holiday Daily Drops: one Halloween recipe is discoverable on its assigned local calendar day.
+(function(){
+  const recipes = [
+    ['Pumpkin Patch Smoothie','Smoothie','½ cup pumpkin purée, 1 banana, ¾ cup milk, ¼ tsp cinnamon','Blend until smooth. Add a splash of milk if needed.'],
+    ['Candy Corn Cream Shake','Milkshake','1 cup vanilla ice cream, ½ cup milk, 2 tbsp candy corn','Blend until creamy. Top with a few candy-corn pieces.'],
+    ['Monster Mash Green Shake','Milkshake','1 cup vanilla ice cream, ½ cup milk, ½ banana, ¼ tsp vanilla','Blend until creamy; add a tiny drop of green food coloring if desired.'],
+    ['Haunted Chocolate Banana','Smoothie','1 banana, ¾ cup milk, 1 tbsp cocoa powder, 1 tbsp peanut butter','Blend until smooth and chocolatey.'],
+    ['Ghostly Vanilla Cloud','Milkshake','1 cup vanilla ice cream, ½ cup milk, ¼ tsp vanilla, whipped cream','Blend the ice cream, milk, and vanilla. Finish with whipped cream.'],
+    ['Witch’s Berry Brew','Smoothie','1 cup frozen mixed berries, ¾ cup milk, ½ banana','Blend until smooth and berry-purple.'],
+    ['Creepy Cookie Crumble','Milkshake','1 cup vanilla ice cream, ½ cup milk, 2 chocolate sandwich cookies','Blend briefly so little cookie pieces remain.'],
+    ['Black Cat Cocoa Shake','Milkshake','1 cup chocolate ice cream, ½ cup milk, 1 tsp cocoa powder','Blend until thick and smooth.'],
+    ['Pumpkin Spice Swirl','Smoothie','½ cup pumpkin purée, ¾ cup milk, ½ banana, ¼ tsp pumpkin spice','Blend until creamy.'],
+    ['Zombie Brain Strawberry','Smoothie','1 cup frozen strawberries, ¾ cup milk, ½ banana','Blend until bright pink and smooth.'],
+    ['Mummy Marshmallow Shake','Milkshake','1 cup vanilla ice cream, ½ cup milk, 3 mini marshmallows','Blend; decorate the top with marshmallows.'],
+    ['Midnight Mocha Monster','Milkshake','1 cup chocolate ice cream, ½ cup milk, 1 tsp cocoa powder','Blend until creamy.'],
+    ['Apple Bobbing Smoothie','Smoothie','1 small apple, ½ banana, ¾ cup milk, pinch of cinnamon','Blend thoroughly until smooth.'],
+    ['Vampire Berry Fizz-Free','Smoothie','1 cup frozen raspberries, ¾ cup milk, ½ banana','Blend until smooth; no fizzy ingredients needed.'],
+    ['Spiderweb Peanut Butter','Milkshake','1 cup vanilla ice cream, ½ cup milk, 1 tbsp peanut butter, 1 tsp chocolate syrup','Blend and drizzle chocolate syrup over the top.'],
+    ['Frankenstein Mint Chip','Milkshake','1 cup vanilla ice cream, ½ cup milk, ¼ tsp mint extract, 1 tbsp chocolate chips','Blend carefully; use only a small amount of mint extract.'],
+    ['Wicked Caramel Apple','Milkshake','1 cup vanilla ice cream, ½ cup milk, ¼ apple, 1 tbsp caramel sauce','Blend until smooth and top with a little caramel.'],
+    ['Graveyard Brownie Blast','Milkshake','1 cup chocolate ice cream, ½ cup milk, 1 small brownie','Blend until thick; add a splash of milk if needed.'],
+    ['Purple Potion Berry','Smoothie','1 cup frozen blueberries, ¾ cup milk, ½ banana','Blend until smooth and purple.'],
+    ['Howling Coconut Moon','Smoothie','½ banana, ¾ cup milk, ¼ cup coconut milk, 1 tbsp oats','Blend until creamy.'],
+    ['Trick-or-Treat Cookie Dough','Milkshake','1 cup vanilla ice cream, ½ cup milk, 1 tbsp mini chocolate chips, 1 cookie','Blend briefly; check cookie dough ingredients are safe to eat uncooked if using dough.'],
+    ['Pumpkin Cheesecake Dream','Milkshake','¾ cup vanilla ice cream, ½ cup milk, 2 tbsp pumpkin purée, 1 tbsp cream cheese','Blend until creamy.'],
+    ['Orange Monster Cream','Smoothie','1 small orange peeled, ½ banana, ¾ cup vanilla yogurt','Blend until smooth.'],
+    ['Witch Hat Chocolate','Milkshake','1 cup chocolate ice cream, ½ cup milk, 1 tbsp chocolate syrup','Blend and finish with whipped cream if desired.'],
+    ['Boo-Berry Breakfast Blend','Smoothie','1 cup blueberries, ¾ cup milk, 2 tbsp oats, ½ banana','Blend until smooth.'],
+    ['Skeleton Cookie Shake','Milkshake','1 cup vanilla ice cream, ½ cup milk, 2 chocolate cookies','Blend until creamy and sprinkle with cookie crumbs.'],
+    ['Phantom White Chocolate','Milkshake','1 cup vanilla ice cream, ½ cup milk, 1 tbsp white chocolate chips','Blend until smooth; chips may leave small bits.'],
+    ['Haunted Hazelnut Cocoa','Milkshake','1 cup chocolate ice cream, ½ cup milk, 1 tbsp hazelnut spread','Blend until thick and creamy.'],
+    ['Cursed Candy Crunch','Milkshake','1 cup vanilla ice cream, ½ cup milk, 1 tbsp crushed chocolate candy','Blend briefly; sprinkle extra crumbs on top.'],
+    ['Pumpkin Moonlight Shake','Milkshake','1 cup vanilla ice cream, ½ cup milk, ¼ cup pumpkin purée, pinch cinnamon','Blend until creamy.'],
+    ['Shadow Monster Shake','Milkshake','1 cup chocolate ice cream, ½ cup milk, 1 brownie, 1 tbsp chocolate syrup','Blend until thick. Top with whipped cream and cookie crumbs for the Halloween finale.']
+  ];
+  const key='blendBuddyHalloweenDrops2026';
+  let collected={};
+  try{collected=JSON.parse(localStorage.getItem(key)||'{}')||{};}catch(e){collected={};}
+  const currentBox=document.getElementById('daily-drops-current');
+  const archive=document.getElementById('daily-drops-archive');
+  if(!currentBox||!archive)return;
+  function render(){
+    const now=new Date(), month=now.getMonth()+1, day=now.getDate(), year=now.getFullYear();
+    const status=document.getElementById('daily-drops-status'), timer=document.getElementById('daily-drops-countdown');
+    const isOctober=month===10, idx=day-1, todayRecipe=isOctober&&idx>=0&&idx<31?recipes[idx]:null;
+    if(todayRecipe){collected[String(day)]={name:todayRecipe[0],year:year};try{localStorage.setItem(key,JSON.stringify(collected));}catch(e){}}
+    if(status)status.textContent=isOctober?'Drop '+day+' of 31 · Today only! Open today’s recipe and add it to your discoveries.':'The Halloween event opens October 1. Come back during October to discover that day’s drink.';
+    if(timer){
+      let target;
+      if(isOctober&&day<31)target=new Date(year,9,day+1,0,0,0);
+      else if(isOctober&&day===31)target=new Date(year,10,1,0,0,0);
+      else target=new Date(month>10?year+1:year,9,1,0,0,0);
+      const diff=Math.max(0,target-now), days=Math.floor(diff/86400000), hours=Math.floor(diff%86400000/3600000), mins=Math.floor(diff%3600000/60000), secs=Math.floor(diff%60000/1000);
+      timer.innerHTML='<span>'+ (isOctober&&day===31?'Finale ends in:':'Next drop in:') +' '+days+'d '+hours+'h '+mins+'m '+secs+'s</span>';
+    }
+    if(todayRecipe){
+      currentBox.innerHTML='<span class="drops-status">🎃 TODAY ONLY · OCTOBER '+day+'</span><h3>'+todayRecipe[0]+'</h3><p><strong>Type:</strong> '+todayRecipe[1]+'</p><p><strong>Ingredients</strong></p><p>'+todayRecipe[2]+'</p><p><strong>Instructions</strong></p><p>'+todayRecipe[3]+'</p><p class="drops-note">Recipe discovered! It will remain in your discoveries on this device after today’s release ends.</p>';
+    }else{
+      currentBox.innerHTML='<span class="drops-status">🔒 HALLOWEEN DROP LOCKED</span><h3>No daily Halloween recipe is releasing today.</h3><p>Each of the 31 Halloween drinks appears only on its assigned day in October. Your previously discovered recipes stay in your collection on this device.</p>';
+    }
+    archive.innerHTML='';
+    for(let d=1;d<=31;d++){
+      const item=document.createElement('div');item.className='drops-archive-item';
+      const found=collected[String(d)];
+      if(found){item.classList.add('unlocked');item.innerHTML='<strong>🎃 Day '+d+': '+recipes[d-1][0]+'</strong><small>Discovered '+(found.year||year)+' · '+recipes[d-1][1]+'</small><small>'+recipes[d-1][2]+'</small>';}
+      else if(isOctober&&d===day){item.classList.add('unlocked');item.innerHTML='<strong>🎃 Day '+d+': '+recipes[d-1][0]+'</strong><small>Available today · '+recipes[d-1][1]+'</small>';}
+      else if(isOctober&&d>day){item.innerHTML='<strong>🔒 Day '+d+'</strong><small>Coming soon · recipe hidden</small>';}
+      else if(isOctober&&d<day){item.innerHTML='<strong>👻 Day '+d+'</strong><small>Drop retired · missed this year</small>';}
+      else{item.innerHTML='<strong>🎃 Day '+d+'</strong><small>Opens in October · recipe hidden</small>';}
+      archive.appendChild(item);
+    }
+  }
+  render();
+  window.setInterval(render,1000);
+})();
+</script>
+
 <script>
 // Blend Buddy page navigation: each feature has its own shareable URL.
 (function(){
-  const pageNames={home:'Home',recipes:'Recipes',mystery:'Mystery Flavor Machine',create:'Create a Blend',pantry:'Pantry Snap',chef:'Chef',passport:'Flavor Passport',rewards:'Rewards & Achievements',holidays:'Holiday Specials',holidaycountdown:'Holiday Countdown'};
+  const pageNames={home:'Home',recipes:'Recipes',mystery:'Mystery Flavor Machine',create:'Create a Blend',pantry:'Pantry Snap',chef:'Chef',passport:'Flavor Passport',rewards:'Rewards & Achievements',holidays:'Holiday Specials',holidaycountdown:'Holiday Countdown',dailydrops:'Holiday Daily Drops'};
   const pageGroups={
     home:['#daily-flavor'],
     recipes:['#recipes','#tips'],
@@ -1602,6 +1704,7 @@ updateDailyFlavor();
     rewards:['#blend-buddy-rewards'],
     holidays:['#holiday-boss-battles','#holiday-specials','#christmas-specials','#thanksgiving-specials','#valentines-specials','#easter-specials','#fourth-july-specials','#st-patricks-specials','#fall-specials','#fathers-day-specials'],
     holidaycountdown:['.holiday-countdown'],
+    dailydrops:['#holiday-daily-drops'],
   };
   const requested=new URLSearchParams(location.search).get('page')||'home';
   const page=Object.prototype.hasOwnProperty.call(pageGroups,requested)?requested:'home';
