@@ -2041,7 +2041,7 @@ updateDailyFlavor();
     /* Passport stamps notify Rewards through blendbuddy:passport-collected below. */
   });
   document.addEventListener('blendbuddy:passport-collected',event=>{const title=event.detail?.title;if(!title)return;const card=[...document.querySelectorAll('.recipe')].find(c=>c.querySelector('h3')?.textContent?.trim()===title);if(card)awardRecipe(card);else{state.tried.includes(title)||state.tried.push(title);state.xp+=20;checkBadges();save();render();toast('+20 XP — '+title+' collected!');}});
-  document.addEventListener('blendbuddy:secret-code-reward',event=>{
+  window.addEventListener('blendbuddy:secret-code-reward',event=>{
     const amount=Number(event.detail?.xp)||0;
     if(amount<=0)return;
     state.xp+=amount;checkBadges();save();render();
