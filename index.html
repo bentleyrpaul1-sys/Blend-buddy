@@ -1939,6 +1939,11 @@ updateDailyFlavor();
         secretResult.innerHTML='<h3>🍪 Oreo Master</h3><p><strong>Cookies and Cream Protein Milkshake</strong></p><p><strong>Ingredients</strong></p><ul><li>1 cup (240 ml) milk</li><li>1 scoop vanilla protein powder</li><li>3 chocolate sandwich cookies</li><li>1/2 cup (70 g) ice</li><li>Optional: 1/4 tsp vanilla extract</li><li>Optional topping: 1 crushed cookie</li></ul><p><strong>Instructions</strong></p><ol><li>Add milk, vanilla protein powder, cookies, ice, and optional vanilla to a blender.</li><li>Blend for 30–45 seconds until smooth, leaving tiny cookie pieces if you like.</li><li>Pour into a glass and sprinkle crushed cookie on top.</li></ol>';
         secretResult.hidden=false;
         try{localStorage.setItem('blendBuddyOreoMasterUnlocked','true');}catch(error){}
+      }else if(code==='EVERGREENBREW'){
+        secretMessage.textContent='🌲☕ Evergreen Brew Shake unlocked!';
+        secretResult.innerHTML='<h3>🌲☕ Evergreen Brew Shake</h3><p><strong>Washington Rainy-Day Coffee Protein Milkshake</strong> — inspired by Washington’s rainy weather, evergreen forests, and famous coffee culture.</p><p><strong>Ingredients</strong></p><ul><li>3/4 cup (180 ml) chilled brewed coffee</li><li>1/4 cup (60 ml) milk</li><li>1 scoop vanilla or mocha protein powder</li><li>1/2 frozen banana</li><li>1 tbsp chocolate syrup</li><li>1/2 cup (70 g) ice</li><li>Optional: 1/4 tsp cinnamon</li></ul><p><strong>Instructions</strong></p><ol><li>Let the brewed coffee cool completely before blending.</li><li>Add coffee, milk, protein powder, frozen banana, chocolate syrup, ice, and optional cinnamon to a blender.</li><li>Blend for 30–45 seconds until creamy and smooth. Add a splash of milk if needed, pour, and enjoy your rainy-day coffee shake.</li></ol><p><em>Contains coffee and caffeine.</em></p>';
+        secretResult.hidden=false;
+        try{localStorage.setItem('blendBuddyEvergreenBrewUnlocked','true');}catch(error){}
       }else{
         secretMessage.textContent='That code didn’t work yet. Check the spelling and try again.';
       }
