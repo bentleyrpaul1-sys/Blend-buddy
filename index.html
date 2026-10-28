@@ -1889,12 +1889,6 @@ updateDailyFlavor();
       const code=secretInput.value.trim().toUpperCase().replace(/[\s_-]+/g,'');
       secretResult.hidden=true;
       secretMessage.textContent='';
-      const codeRewards={
-        ILOVETHISAPP:{xp:1000,title:'💚 Thanks for loving Blend Buddy!',description:'You earned 1,000 bonus XP. Thanks for being part of the Blend Buddy crew!'},
-        BLENDPOWER:{xp:500,title:'⚡ Blend Power!',description:'You earned 500 bonus XP.'},
-        HOLIDAYHERO:{xp:750,title:'🎉 Holiday Hero!',description:'You earned 750 seasonal bonus XP.'},
-        BLENDLEGEND:{xp:2000,title:'🏆 Blend Legend!',description:'You earned 2,000 bonus XP. That is a legendary reward!'}
-      };
       const redeemedKey='blendBuddySecretCodesRedeemedV1';
       let redeemed={};try{redeemed=JSON.parse(localStorage.getItem(redeemedKey)||'{}')||{};}catch(error){redeemed={};}
       const showOwnerShake=()=>{
@@ -1910,20 +1904,6 @@ updateDailyFlavor();
         secretMessage.textContent='🎉 Owner Shake unlocked!';
         showOwnerShake();
         try{localStorage.setItem('blendBuddySecretOwnerShakeUnlocked','true');}catch(error){}
-      }else if(codeRewards[code]){
-        const reward=codeRewards[code];
-        if(redeemed[code]){
-          secretMessage.textContent='You already redeemed this code on this device.';
-          secretResult.innerHTML='<h3>✅ Already redeemed</h3><p>'+reward.title+' was already claimed. Each bonus code can only be used once on this device.</p>';
-          secretResult.hidden=false;
-        }else{
-          redeemed[code]={xp:reward.xp,at:new Date().toISOString()};
-          try{localStorage.setItem(redeemedKey,JSON.stringify(redeemed));}catch(error){}
-          window.dispatchEvent(new CustomEvent('blendbuddy:secret-code-reward',{detail:{code:code,xp:reward.xp}}));
-          secretMessage.textContent='🎉 Code accepted! +'+reward.xp+' XP';
-          secretResult.innerHTML='<h3>'+reward.title+'</h3><p>'+reward.description+'</p><p>Open Rewards to see your updated XP.</p>';
-          secretResult.hidden=false;
-        }
       }else if(code==='MADSCIENTIST'){
         if(redeemed[code]){
           secretMessage.textContent='You already unlocked this flavor on this device.';
@@ -1940,8 +1920,7 @@ updateDailyFlavor();
           secretResult.innerHTML='<h3>🎁 Mystery Drop</h3><p><strong>Surprise Berry Vanilla Shake</strong></p><p>½ cup berries, ¾ cup milk, ½ cup vanilla ice cream, and ¼ tsp vanilla. Blend until smooth.</p>';
         }else{
           redeemed[code]={unlocked:true,at:new Date().toISOString()};try{localStorage.setItem(redeemedKey,JSON.stringify(redeemed));}catch(error){}
-          window.dispatchEvent(new CustomEvent('blendbuddy:secret-code-reward',{detail:{code:code,xp:250}}));
-          secretMessage.textContent='🎁 Mystery drink unlocked! +250 XP';
+          secretMessage.textContent='🎁 Mystery drink unlocked!';
           secretResult.innerHTML='<h3>🎁 Surprise Berry Vanilla Shake</h3><p><strong>Ingredients</strong></p><ul><li>½ cup (75 g) mixed berries</li><li>¾ cup (180 ml) milk</li><li>½ cup (120 g) vanilla ice cream</li><li>¼ tsp vanilla extract</li></ul><p><strong>Instructions</strong></p><ol><li>Add all ingredients to a blender.</li><li>Blend until smooth.</li><li>Pour and enjoy your mystery drop!</li></ol>';
         }
         secretResult.hidden=false;
